@@ -42,10 +42,8 @@ namespace Architect {
 			Vector3[] verts = new Vector3[boundingRects.Count * 4];
 			int[] indices = new int[boundingRects.Count * 6];
 			for (int i = 0; i < boundingRects.Count; i++) {
-				Debug.Log("recti min=" + boundingRects[i].min + "    max=" + boundingRects[i].max);
 				Vector3 min = boundingRects[i].min.Unflat(0).Float() * snap;
 				Vector3 max = boundingRects[i].max.Unflat(0).Float() * snap;
-				Debug.Log("rect min=" + min + "    max=" + max);
 				verts[i * 4] = new Vector3(min.x, min.y, min.z);
 				verts[i * 4 + 1] = new Vector3(min.x, min.y, max.z);
 				verts[i * 4 + 2] = new Vector3(max.x, min.y, max.z);
@@ -68,16 +66,11 @@ namespace Architect {
 		}
 
 		public Vector3 SnapPosition(Vector3 pos) {
-			//pos = wtl.MultiplyPoint3x4(pos);
-			//pos.y = 0;
-			//Vector2Int gridPos = (pos / snap).Flat().RoundToInt();
 			Vector2Int gridPos = WorldToGrid(pos);
 			if (!IsInGrid(gridPos)) {
 				gridPos = ProjectInGrid(gridPos);
 			}
 			pos = GridToWorld(gridPos);
-			//pos = (gridPos.Float() * snap).Unflat(0);
-			//pos = ltw.MultiplyPoint3x4(pos);
 			return pos;
 		}
 
@@ -87,6 +80,21 @@ namespace Architect {
 			euler.y = Mathf.Round(euler.y / 90f) * 90f;
 			euler.y += transform.rotation.eulerAngles.y;
 			return Quaternion.Euler(euler);
+		}
+
+		public void Snap(Transform transf, Vector2Int size) {
+			transf.rotation = SnapRotation(transf.rotation);
+			Vector3 euler = transf.rotation.eulerAngles;
+			if (euler.y % 180f > 1f || euler.y % 180f < 179f) {
+				int tmp = size.x;
+				size.x = size.y;
+				size.y = tmp;
+			}
+			Recti gridRect = WorldToGrid(transf.position, size);
+			gridRect = ProjectInGrid(gridRect);
+			Vector3 pos;
+			GridToWorld(gridRect, out pos, out size);
+			transf.position = pos;
 		}
 
 		public bool IsInGrid(Vector2Int gridPos) {
@@ -112,12 +120,54 @@ namespace Architect {
 			return closest;
 		}
 
+		public Recti ProjectInGrid(Recti rect) {
+			if (boundingRects.Count == 0) return rect;
+			Recti closest = rect.Constrain(boundingRects[0]);
+
+			for (int i = 1; i < boundingRects.Count; i++) {
+				Recti currentClosest = rect.Constrain(boundingRects[i]);
+				if (rect.Distance(currentClosest) < rect.Distance(closest)) {
+					closest = currentClosest;
+				}
+			}
+
+			return closest;
+		}
+
 		public Vector2Int WorldToGrid(Vector3 worldPos) {
 			return (wtl.MultiplyPoint3x4(worldPos) / snap).Flat().RoundToInt();
 		}
 
 		public Vector3 GridToWorld(Vector2Int gridPos) {
 			return ltw.MultiplyPoint3x4((gridPos.Float() * snap).Unflat(0));
+		}
+
+		public Vector3 GridToWorld(Vector2 gridPos) {
+			return ltw.MultiplyPoint3x4((gridPos * snap).Unflat(0));
+		}
+
+		public Recti WorldToGrid(Vector3 center, Vector2Int size) {
+			Vector2Int gridCenter = WorldToGrid(center);
+			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / snap).Flat().FloorToInt();
+			Recti gridRect = new Recti();
+			if (size.x % 2 != 0) { // Odd
+				gridRect.min.x = gridCenterFloored.x - size.x / 2;
+			} else { // Even
+				gridRect.min.x = gridCenter.x - size.x / 2;
+			}
+			if (size.y % 2 != 0) { // Odd
+				gridRect.min.y = gridCenterFloored.y - size.y / 2;
+			} else { // Even
+				gridRect.min.y = gridCenter.y - size.y / 2;
+			}
+			return gridRect;
+		}
+
+		public void GridToWorld(Recti gridRect, out Vector3 center, out Vector2Int size) {
+			int width = gridRect.max.x - gridRect.min.x;
+			int height = gridRect.max.y - gridRect.min.y;
+			center = GridToWorld(gridRect.min.Float() + new Vector2(width / 2f, height / 2f));
+			size = new Vector2Int(width, height);
 		}
 
 	}

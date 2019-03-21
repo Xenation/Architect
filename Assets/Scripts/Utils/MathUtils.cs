@@ -91,6 +91,95 @@ namespace Architect {
 		public bool Contains(Vector2Int pos) {
 			return !(pos.x < min.x || pos.y < min.y || pos.x > max.x || pos.y > max.y);
 		}
+
+		public bool Contains(Recti rect) {
+			return !(rect.min.x < min.x || rect.min.y < min.y || rect.max.x > max.x || rect.max.y > max.y);
+		}
+
+		public bool Intersects(Recti rect) {
+			return !(rect.min.x > max.x || rect.max.x < min.x || rect.min.y > max.y || rect.max.y < min.y);
+		}
+
+		public float Distance(Recti rect) {
+			if (Intersects(rect)) {
+				return 0f;
+			}
+			// Corners
+			Vector2Int localCorner;
+			Vector2Int otherCorner;
+			if (rect.min.x > max.x && rect.min.y > max.y) { // Top right
+				localCorner = max;
+				otherCorner = rect.min;
+				return (otherCorner - localCorner).magnitude;
+			}
+			if (rect.max.x < min.x && rect.min.y > max.y) { // Top left
+				localCorner = new Vector2Int(min.x, max.y);
+				otherCorner = new Vector2Int(rect.max.x, rect.min.y);
+				return (otherCorner - localCorner).magnitude;
+			}
+			if (rect.max.x < min.x && rect.max.y < min.y) { // Bottom left
+				localCorner = min;
+				otherCorner = rect.max;
+				return (otherCorner - localCorner).magnitude;
+			}
+			if (rect.min.x > max.x && rect.max.y < min.y) { // Bottom right
+				localCorner = new Vector2Int(max.x, min.y);
+				otherCorner = new Vector2Int(rect.min.x, rect.max.y);
+				return (otherCorner - localCorner).magnitude;
+			}
+			// Sides
+			if (rect.min.x > max.x) { // Right
+				return max.x - rect.min.x;
+			}
+			if (rect.max.x < min.x) { // Left
+				return min.x - rect.max.x;
+			}
+			if (rect.min.y > max.y) { // Top
+				return max.y - rect.min.y;
+			}
+			if (rect.max.y < min.y) { // Bottom
+				return min.y - rect.max.y;
+			}
+
+			return 0f; // Should not be possible
+		}
+
+		public bool Constrain(Recti bounds, out Recti constrained) {
+			int width = max.x - min.x;
+			int height = max.y - min.y;
+			if (bounds.max.x - bounds.min.x < width || bounds.max.y - bounds.min.y < height) {
+				constrained = this;
+				return false;
+			}
+			constrained = Constrain(bounds);
+
+			return true;
+		}
+
+		public Recti Constrain(Recti bounds) { // Unchecked constrain
+			Recti constrained = this;
+			int offset = 0;
+			if (constrained.min.x < bounds.min.x) { // Too left
+				offset = bounds.min.x - constrained.min.x;
+			}
+			if (constrained.max.x > bounds.max.x) { // Too right
+				offset = constrained.max.x - bounds.max.x;
+			}
+			constrained.min.x += offset;
+			constrained.max.x += offset;
+
+			offset = 0;
+			if (constrained.min.y < bounds.min.y) { // Too low
+				offset = bounds.min.y - constrained.min.y;
+			}
+			if (constrained.max.y > bounds.max.y) { // Too high
+				offset = constrained.max.y - bounds.max.y;
+			}
+			constrained.min.y += offset;
+			constrained.max.y += offset;
+
+			return constrained;
+		}
 	}
 
 	public struct Boxi {
@@ -104,6 +193,10 @@ namespace Architect {
 
 		public bool Contains(Vector3Int pos) {
 			return !(pos.x < min.x || pos.y < min.y || pos.z < min.z || pos.x > max.x || pos.y > max.y || pos.z > max.z);
+		}
+
+		public bool Contains(Boxi box) {
+			return !(box.min.x < min.x || box.min.y < min.y || box.min.z < min.z || box.max.x > max.x || box.max.y > max.y || box.max.z > max.z);
 		}
 	}
 }

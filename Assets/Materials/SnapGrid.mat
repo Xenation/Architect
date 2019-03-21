@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SnapGrid
-  m_Shader: {fileID: 4800000, guid: 428e999f42fc62d499a43f730de0274c, type: 3}
+  m_Shader: {fileID: 4800000, guid: e94d1b04e252af24f8071eaadfbbb865, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -45,9 +45,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_1A338133: 0.1
-    - Vector1_1B1AD18: 0.01
-    - Vector1_2C9727A8: 5
-    - Vector1_AF042D58: 4
+    - Vector1_1B1AD18: 0.02
+    - Vector1_2C9727A8: 2
+    - Vector1_AF042D58: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
