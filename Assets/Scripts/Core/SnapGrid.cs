@@ -85,16 +85,21 @@ namespace Architect {
 		public void Snap(Transform transf, Vector2Int size) {
 			transf.rotation = SnapRotation(transf.rotation);
 			Vector3 euler = transf.rotation.eulerAngles;
-			if (euler.y % 180f > 1f || euler.y % 180f < 179f) {
+			euler.y -= transform.rotation.eulerAngles.y;
+			if (Mathf.RoundToInt(euler.y) == 90 || Mathf.RoundToInt(euler.y) == 270) { // TODO kinda ugly check
 				int tmp = size.x;
 				size.x = size.y;
 				size.y = tmp;
 			}
+			euler.y += transform.rotation.eulerAngles.y;
+
 			Recti gridRect = WorldToGrid(transf.position, size);
-			gridRect = ProjectInGrid(gridRect);
-			Vector3 pos;
-			GridToWorld(gridRect, out pos, out size);
-			transf.position = pos;
+			if (!IsInGrid(gridRect)) {
+				gridRect = ProjectInGrid(gridRect); // TODO not perfect when rect is part in one rect part in another
+			}
+			//Debug.DrawRay(GridToWorld(gridRect.min), Vector3.up, Color.white);
+			//Debug.DrawRay(GridToWorld(gridRect.max), Vector3.up, Color.white);
+			transf.position = GridToWorld(gridRect);
 		}
 
 		public bool IsInGrid(Vector2Int gridPos) {
@@ -104,6 +109,10 @@ namespace Architect {
 				}
 			}
 			return false;
+		}
+
+		public bool IsInGrid(Recti gridRect) {
+			return IsInGrid(gridRect.min) && IsInGrid(new Vector2Int(gridRect.min.x, gridRect.max.y)) && IsInGrid(gridRect.max) && IsInGrid(new Vector2Int(gridRect.max.x, gridRect.min.y));
 		}
 
 		public Vector2Int ProjectInGrid(Vector2Int gridPos) {
@@ -123,10 +132,12 @@ namespace Architect {
 		public Recti ProjectInGrid(Recti rect) {
 			if (boundingRects.Count == 0) return rect;
 			Recti closest = rect.Constrain(boundingRects[0]);
+			float distClosest = Vector2.Distance(rect.center, closest.center);
 
 			for (int i = 1; i < boundingRects.Count; i++) {
 				Recti currentClosest = rect.Constrain(boundingRects[i]);
-				if (rect.Distance(currentClosest) < rect.Distance(closest)) {
+				float distCurrent = Vector2.Distance(rect.center, currentClosest.center);
+				if (distCurrent < distClosest) {
 					closest = currentClosest;
 				}
 			}
@@ -148,26 +159,33 @@ namespace Architect {
 
 		public Recti WorldToGrid(Vector3 center, Vector2Int size) {
 			Vector2Int gridCenter = WorldToGrid(center);
+			//Debug.DrawRay(GridToWorld(gridCenter), Vector3.up, Color.yellow);
 			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / snap).Flat().FloorToInt();
+			//Debug.DrawRay(GridToWorld(gridCenterFloored), Vector3.up, Color.red);
 			Recti gridRect = new Recti();
 			if (size.x % 2 != 0) { // Odd
 				gridRect.min.x = gridCenterFloored.x - size.x / 2;
+				gridRect.max.x = gridCenterFloored.x + size.x / 2 + 1;
 			} else { // Even
 				gridRect.min.x = gridCenter.x - size.x / 2;
+				gridRect.max.x = gridCenter.x + size.x / 2;
 			}
 			if (size.y % 2 != 0) { // Odd
 				gridRect.min.y = gridCenterFloored.y - size.y / 2;
+				gridRect.max.y = gridCenterFloored.y + size.y / 2 + 1;
 			} else { // Even
 				gridRect.min.y = gridCenter.y - size.y / 2;
+				gridRect.max.y = gridCenter.y + size.y / 2;
 			}
+			//Debug.DrawRay(GridToWorld(gridRect.min), Vector3.up, Color.green);
+			//Debug.DrawRay(GridToWorld(gridRect.max), Vector3.up, Color.cyan);
 			return gridRect;
 		}
 
-		public void GridToWorld(Recti gridRect, out Vector3 center, out Vector2Int size) {
+		public Vector3 GridToWorld(Recti gridRect) {
 			int width = gridRect.max.x - gridRect.min.x;
 			int height = gridRect.max.y - gridRect.min.y;
-			center = GridToWorld(gridRect.min.Float() + new Vector2(width / 2f, height / 2f));
-			size = new Vector2Int(width, height);
+			return GridToWorld(gridRect.min.Float() + new Vector2(width / 2f, height / 2f));
 		}
 
 	}

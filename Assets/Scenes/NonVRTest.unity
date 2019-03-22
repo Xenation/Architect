@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7453224975f626428920db0e8f8f13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 2, y: 2}
+  size: {x: 2, y: 3}
   grid: {fileID: 1525159218}
   reference: {fileID: 1304127937}
 --- !u!1 &1715051206

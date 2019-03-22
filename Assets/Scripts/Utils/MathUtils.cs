@@ -83,6 +83,12 @@ namespace Architect {
 		public Vector2Int min;
 		public Vector2Int max;
 
+		public Vector2 center {
+			get {
+				return min + max.Float() / 2f;
+			}
+		}
+
 		public Recti(Vector2Int min, Vector2Int max) {
 			this.min = min;
 			this.max = max;
@@ -129,13 +135,13 @@ namespace Architect {
 			}
 			// Sides
 			if (rect.min.x > max.x) { // Right
-				return max.x - rect.min.x;
+				return rect.min.x - max.x;
 			}
 			if (rect.max.x < min.x) { // Left
 				return min.x - rect.max.x;
 			}
 			if (rect.min.y > max.y) { // Top
-				return max.y - rect.min.y;
+				return rect.min.y - max.y;
 			}
 			if (rect.max.y < min.y) { // Bottom
 				return min.y - rect.max.y;
@@ -163,7 +169,7 @@ namespace Architect {
 				offset = bounds.min.x - constrained.min.x;
 			}
 			if (constrained.max.x > bounds.max.x) { // Too right
-				offset = constrained.max.x - bounds.max.x;
+				offset = bounds.max.x - constrained.max.x;
 			}
 			constrained.min.x += offset;
 			constrained.max.x += offset;
@@ -173,7 +179,7 @@ namespace Architect {
 				offset = bounds.min.y - constrained.min.y;
 			}
 			if (constrained.max.y > bounds.max.y) { // Too high
-				offset = constrained.max.y - bounds.max.y;
+				offset = bounds.max.y - constrained.max.y;
 			}
 			constrained.min.y += offset;
 			constrained.max.y += offset;
