@@ -54,6 +54,8 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
+    - _FocusFalloffRadius: 500
+    - _FocusRadius: 500
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

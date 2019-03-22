@@ -1,10 +1,20 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Architect {
-	public class Room {
+	[RequireComponent(typeof(SnapGrid))]
+	public class Room : MonoBehaviour {
 
-		private SnapGrid grid;
-		private List<RoomLink> links;
+		[System.NonSerialized] public SnapGrid grid;
+		private List<RoomLink> links = new List<RoomLink>();
+
+		private void Awake() {
+			grid = GetComponent<SnapGrid>();
+		}
+
+		public void RegisterLink(RoomLink link) {
+			links.Add(link);
+		}
 
 	}
 }

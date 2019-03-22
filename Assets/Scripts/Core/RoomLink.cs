@@ -1,5 +1,7 @@
-﻿namespace Architect {
-	public class RoomLink {
+﻿using UnityEngine;
+
+namespace Architect {
+	public class RoomLink : MonoBehaviour {
 
 		public Room room1;
 		public Room room2;

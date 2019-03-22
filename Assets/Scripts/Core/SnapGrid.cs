@@ -15,8 +15,6 @@ namespace Architect {
 		private MeshFilter filter;
 		private Mesh mesh;
 
-		private float gridHeight { get { return transform.position.y; } }
-
 		private void Awake() {
 			filter = GetComponent<MeshFilter>();
 			mesh = filter.mesh = new Mesh();
@@ -24,7 +22,8 @@ namespace Architect {
 			foreach (Recti rect in boundsTest) {
 				boundingRects.Add(rect);
 			}
-			RecreateMesh();
+			RecreateMesh(mesh, boundingRects);
+			GetComponent<MeshRenderer>().material = new Material(GetComponent<MeshRenderer>().material); // To avoid incorrect position relative to object in shader
 		}
 
 		private void Update() {
@@ -36,14 +35,14 @@ namespace Architect {
 			wtl = ltw.inverse;
 		}
 
-		private void RecreateMesh() {
+		private void RecreateMesh(Mesh mesh, List<Recti> rects) {
 			mesh.Clear();
 
-			Vector3[] verts = new Vector3[boundingRects.Count * 4];
-			int[] indices = new int[boundingRects.Count * 6];
-			for (int i = 0; i < boundingRects.Count; i++) {
-				Vector3 min = boundingRects[i].min.Unflat(0).Float() * snap;
-				Vector3 max = boundingRects[i].max.Unflat(0).Float() * snap;
+			Vector3[] verts = new Vector3[rects.Count * 4];
+			int[] indices = new int[rects.Count * 6];
+			for (int i = 0; i < rects.Count; i++) {
+				Vector3 min = rects[i].min.Unflat(0).Float() * snap;
+				Vector3 max = rects[i].max.Unflat(0).Float() * snap;
 				verts[i * 4] = new Vector3(min.x, min.y, min.z);
 				verts[i * 4 + 1] = new Vector3(min.x, min.y, max.z);
 				verts[i * 4 + 2] = new Vector3(max.x, min.y, max.z);
@@ -58,11 +57,36 @@ namespace Architect {
 
 			mesh.vertices = verts;
 			mesh.SetIndices(indices, MeshTopology.Triangles, 0);
+			mesh.RecalculateBounds();
 		}
+
+#if UNITY_EDITOR
+		public void RecreatePreview() {
+			GameObject preview = transform.Find("Preview")?.gameObject;
+			if (preview != null) {
+				DestroyImmediate(preview);
+			}
+			preview = new GameObject("Preview");
+			preview.transform.SetParent(transform, false);
+			preview.hideFlags = HideFlags.HideAndDontSave;
+			MeshFilter prevFilter = preview.AddComponent<MeshFilter>();
+			MeshRenderer rend = preview.AddComponent<MeshRenderer>();
+			rend.sharedMaterial = new Material(Shader.Find("Shader Graphs/SnapGrid2"));
+			rend.sharedMaterial.SetFloat("_FocusRadius", 500f);
+			rend.sharedMaterial.SetFloat("_FocusFalloffRadius", 500f);
+			prevFilter.sharedMesh = new Mesh();
+			RecreateMesh(prevFilter.sharedMesh, boundsTest);
+		}
+
+		public void DeletePreview() {
+			GameObject preview = transform.Find("Preview")?.gameObject;
+			DestroyImmediate(preview);
+		}
+#endif
 
 		public void AddBoundingRect(Recti rect) {
 			boundingRects.Add(rect);
-			RecreateMesh();
+			RecreateMesh(mesh, boundingRects);
 		}
 
 		public Vector3 SnapPosition(Vector3 pos) {
@@ -82,8 +106,8 @@ namespace Architect {
 			return Quaternion.Euler(euler);
 		}
 
-		public void Snap(Transform transf, Vector2Int size) {
-			transf.rotation = SnapRotation(transf.rotation);
+		public void Snap(Transform transf, Transform reference, Vector2Int size) {
+			transf.rotation = SnapRotation(reference.rotation);
 			Vector3 euler = transf.rotation.eulerAngles;
 			euler.y -= transform.rotation.eulerAngles.y;
 			if (Mathf.RoundToInt(euler.y) == 90 || Mathf.RoundToInt(euler.y) == 270) { // TODO kinda ugly check
@@ -93,7 +117,7 @@ namespace Architect {
 			}
 			euler.y += transform.rotation.eulerAngles.y;
 
-			Recti gridRect = WorldToGrid(transf.position, size);
+			Recti gridRect = WorldToGrid(reference.position, size);
 			if (!IsInGrid(gridRect)) {
 				gridRect = ProjectInGrid(gridRect); // TODO not perfect when rect is part in one rect part in another
 			}
@@ -113,6 +137,13 @@ namespace Architect {
 
 		public bool IsInGrid(Recti gridRect) {
 			return IsInGrid(gridRect.min) && IsInGrid(new Vector2Int(gridRect.min.x, gridRect.max.y)) && IsInGrid(gridRect.max) && IsInGrid(new Vector2Int(gridRect.max.x, gridRect.min.y));
+		}
+
+		public bool IsOverGrid(Vector3 pos, float maxHeight) {
+			Vector2Int gridPos = WorldToGrid(pos);
+			if (!IsInGrid(gridPos)) return false;
+			float dist = pos.y - transform.position.y;
+			return dist < maxHeight && dist > -0.5f;
 		}
 
 		public Vector2Int ProjectInGrid(Vector2Int gridPos) {
