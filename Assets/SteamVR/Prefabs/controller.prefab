@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: -1
   modelOverride: 
-  shader: {fileID: 0}
+  shader: {fileID: 4800000, guid: fb9e54f519b130048a0ed181b7e691e0, type: 3}
   verbose: 0
   createComponents: 1
   updateDynamically: 1
