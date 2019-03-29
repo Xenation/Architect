@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 510b6941c5be28744a7f29ed48d94a4a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: baie
+    100002: Camera
+    100004: fenetre
+    100006: floor
+    100008: mur_01
+    100010: mur_01_plein
+    100012: mur_02
+    100014: mur_03_plein
+    100016: porte
+    100018: post
+    100020: //RootNode
+    100022: sky
+    100024: stool_01
+    100026: stool_02
+    100028: store_01
+    100030: store_02
+    100032: Sun
+    100034: table_01
+    100036: table_02
+    100038: "verri\xE8re"
+    100040: mur_01.001
+    400000: baie
+    400002: Camera
+    400004: fenetre
+    400006: floor
+    400008: mur_01
+    400010: mur_01_plein
+    400012: mur_02
+    400014: mur_03_plein
+    400016: porte
+    400018: post
+    400020: //RootNode
+    400022: sky
+    400024: stool_01
+    400026: stool_02
+    400028: store_01
+    400030: store_02
+    400032: Sun
+    400034: table_01
+    400036: table_02
+    400038: "verri\xE8re"
+    400040: mur_01.001
+    2000000: Camera
+    2100000: sky
+    2100002: poignee.001
+    2100004: table
+    2100006: joint
+    2100008: No Name
+    2100010: poignee.002
+    2100012: joint.002
+    2100014: verre
+    2100016: joint.001
+    2100018: armature
+    2100020: mur
+    2100022: papier
+    2100024: cadre
+    2100026: parquet
+    2100028: cadre.002
+    2100030: porte_panneau.001
+    2300000: baie
+    2300002: fenetre
+    2300004: floor
+    2300006: mur_01
+    2300008: mur_01_plein
+    2300010: mur_02
+    2300012: mur_03_plein
+    2300014: porte
+    2300016: post
+    2300018: sky
+    2300020: stool_01
+    2300022: stool_02
+    2300024: store_01
+    2300026: store_02
+    2300028: table_01
+    2300030: table_02
+    2300032: "verri\xE8re"
+    2300034: mur_01.001
+    3300000: baie
+    3300002: fenetre
+    3300004: floor
+    3300006: mur_01
+    3300008: mur_01_plein
+    3300010: mur_02
+    3300012: mur_03_plein
+    3300014: porte
+    3300016: post
+    3300018: sky
+    3300020: stool_01
+    3300022: stool_02
+    3300024: store_01
+    3300026: store_02
+    3300028: table_01
+    3300030: table_02
+    3300032: "verri\xE8re"
+    3300034: mur_01.001
+    4300000: sky
+    4300002: store_01
+    4300004: store_02
+    4300006: post
+    4300008: mur_01
+    4300010: baie
+    4300012: stool_01
+    4300014: mur_03_plein
+    4300016: mur_01_plein
+    4300018: mur_02
+    4300020: table_01
+    4300022: fenetre
+    4300024: floor
+    4300026: porte
+    4300028: table_02
+    4300030: stool_02
+    4300032: "verri\xE8re"
+    4300034: mur_01.001
+    10800000: Sun
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
