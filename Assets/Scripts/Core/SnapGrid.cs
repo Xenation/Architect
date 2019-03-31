@@ -103,6 +103,8 @@ namespace Architect {
 			euler.y -= transform.rotation.eulerAngles.y;
 			euler.y = Mathf.Round(euler.y / 90f) * 90f;
 			euler.y += transform.rotation.eulerAngles.y;
+			euler.x = transform.rotation.eulerAngles.x;
+			euler.z = transform.rotation.eulerAngles.z;
 			return Quaternion.Euler(euler);
 		}
 
