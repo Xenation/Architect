@@ -28,7 +28,7 @@ namespace Architect {
 
 		public Room GetRoomHover(Vector3 pos) {
 			foreach (Room room in rooms) {
-				if (room.grid.IsOverGrid(pos, 1f)) {
+				if (room.grid.IsOverGrid(pos, 0.1f)) {
 					return room;
 				}
 			}

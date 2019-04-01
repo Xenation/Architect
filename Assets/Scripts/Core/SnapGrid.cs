@@ -145,7 +145,7 @@ namespace Architect {
 			Vector2Int gridPos = WorldToGrid(pos);
 			if (!IsInGrid(gridPos)) return false;
 			float dist = pos.y - transform.position.y;
-			return dist < maxHeight && dist > -0.5f;
+			return dist < maxHeight && dist > -0.05f;
 		}
 
 		public Vector2Int ProjectInGrid(Vector2Int gridPos) {

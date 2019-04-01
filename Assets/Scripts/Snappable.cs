@@ -53,7 +53,14 @@ namespace Architect {
 		}
 
 		private void Detached() {
-			Snap();
+			if (preview.activeInHierarchy) { // Has a valid snap point -> Snap
+				transform.position = preview.transform.position;
+				transform.rotation = preview.transform.rotation;
+				GetComponent<Rigidbody>().isKinematic = true;
+			} else { // Re-enable physics
+				GetComponent<Rigidbody>().isKinematic = false;
+			}
+			DisablePreview();
 		}
 
 		private void EnablePreview() {
@@ -64,18 +71,6 @@ namespace Architect {
 			showPreview = false;
 			if (preview.activeInHierarchy) {
 				preview.SetActive(false);
-			}
-		}
-
-		private void Snap() {
-			if (preview.activeInHierarchy) { // Has a valid snapped
-				transform.position = preview.transform.position;
-				transform.rotation = preview.transform.rotation;
-				GetComponent<Rigidbody>().isKinematic = true;
-
-				DisablePreview();
-			} else {
-				GetComponent<Rigidbody>().isKinematic = false;
 			}
 		}
 
