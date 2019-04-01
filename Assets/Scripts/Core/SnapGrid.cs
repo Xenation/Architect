@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace Architect {
 	public class SnapGrid : MonoBehaviour {
-
-		public float snap = 0.1f;
+		
 		public List<Recti> boundsTest = new List<Recti>();
 
 		private Matrix4x4 wtl;
@@ -15,13 +14,16 @@ namespace Architect {
 		private MeshFilter filter;
 		private Mesh mesh;
 
-		private void Awake() {
+		private GridSettings settings;
+
+		public void Initialize(GridSettings gridSettings) {
 			filter = GetComponent<MeshFilter>();
 			mesh = filter.mesh = new Mesh();
 			RecalculateMatrices();
 			foreach (Recti rect in boundsTest) {
 				boundingRects.Add(rect);
 			}
+			settings = gridSettings;
 			RecreateMesh(mesh, boundingRects);
 			GetComponent<MeshRenderer>().material = new Material(GetComponent<MeshRenderer>().material); // To avoid incorrect position relative to object in shader
 		}
@@ -41,8 +43,8 @@ namespace Architect {
 			Vector3[] verts = new Vector3[rects.Count * 4];
 			int[] indices = new int[rects.Count * 6];
 			for (int i = 0; i < rects.Count; i++) {
-				Vector3 min = rects[i].min.Unflat(0).Float() * snap;
-				Vector3 max = rects[i].max.Unflat(0).Float() * snap;
+				Vector3 min = rects[i].min.Unflat(0).Float() * settings.snapStep;
+				Vector3 max = rects[i].max.Unflat(0).Float() * settings.snapStep;
 				verts[i * 4] = new Vector3(min.x, min.y, min.z);
 				verts[i * 4 + 1] = new Vector3(min.x, min.y, max.z);
 				verts[i * 4 + 2] = new Vector3(max.x, min.y, max.z);
@@ -62,6 +64,7 @@ namespace Architect {
 
 #if UNITY_EDITOR
 		public void RecreatePreview() {
+			settings = GridSettings.i;
 			GameObject preview = transform.Find("Preview")?.gameObject;
 			if (preview != null) {
 				DestroyImmediate(preview);
@@ -74,6 +77,8 @@ namespace Architect {
 			rend.sharedMaterial = new Material(Shader.Find("Shader Graphs/SnapGrid2"));
 			rend.sharedMaterial.SetFloat("_FocusRadius", 500f);
 			rend.sharedMaterial.SetFloat("_FocusFalloffRadius", 500f);
+			rend.sharedMaterial.SetFloat("_Snap", settings.snapStep);
+			rend.sharedMaterial.SetFloat("_Width", settings.snapStep * 0.2f);
 			prevFilter.sharedMesh = new Mesh();
 			RecreateMesh(prevFilter.sharedMesh, boundsTest);
 		}
@@ -179,21 +184,21 @@ namespace Architect {
 		}
 
 		public Vector2Int WorldToGrid(Vector3 worldPos) {
-			return (wtl.MultiplyPoint3x4(worldPos) / snap).Flat().RoundToInt();
+			return (wtl.MultiplyPoint3x4(worldPos) / settings.snapStep).Flat().RoundToInt();
 		}
 
 		public Vector3 GridToWorld(Vector2Int gridPos) {
-			return ltw.MultiplyPoint3x4((gridPos.Float() * snap).Unflat(0));
+			return ltw.MultiplyPoint3x4((gridPos.Float() * settings.snapStep).Unflat(0));
 		}
 
 		public Vector3 GridToWorld(Vector2 gridPos) {
-			return ltw.MultiplyPoint3x4((gridPos * snap).Unflat(0));
+			return ltw.MultiplyPoint3x4((gridPos * settings.snapStep).Unflat(0));
 		}
 
 		public Recti WorldToGrid(Vector3 center, Vector2Int size) {
 			Vector2Int gridCenter = WorldToGrid(center);
 			//Debug.DrawRay(GridToWorld(gridCenter), Vector3.up, Color.yellow);
-			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / snap).Flat().FloorToInt();
+			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / settings.snapStep).Flat().FloorToInt();
 			//Debug.DrawRay(GridToWorld(gridCenterFloored), Vector3.up, Color.red);
 			Recti gridRect = new Recti();
 			if (size.x % 2 != 0) { // Odd

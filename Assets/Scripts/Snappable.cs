@@ -19,7 +19,7 @@ namespace Architect {
 			MeshRenderer previewRenderer;
 			preview = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
 			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * 0.1f, Vector3.forward, Vector3.right);
+			previewMesh.CreateQuad(size.Float() * roomnet.gridSettings.snapStep, Vector3.forward, Vector3.right);
 			preview.SetActive(false);
 
 			throwable = GetComponent<Throwable>();

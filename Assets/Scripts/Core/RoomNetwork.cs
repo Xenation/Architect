@@ -5,6 +5,7 @@ namespace Architect {
 	public class RoomNetwork : MonoBehaviour {
 
 		public Room startingRoom;
+		public GridSettings gridSettings;
 
 		private List<Room> rooms = new List<Room>();
 
@@ -22,6 +23,7 @@ namespace Architect {
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
 					rooms.Add(room);
+					room.Initialize(this);
 				}
 			}
 		}
