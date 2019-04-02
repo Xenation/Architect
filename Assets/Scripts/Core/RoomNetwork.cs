@@ -23,7 +23,6 @@ namespace Architect {
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
 					rooms.Add(room);
-					room.Initialize(this);
 				}
 			}
 		}

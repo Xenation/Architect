@@ -15,6 +15,8 @@ namespace Architect {
 		private Mesh previewMesh;
 		private Throwable throwable;
 
+		private int matFocusIndex = -1;
+
 		private void Awake() {
 			MeshRenderer previewRenderer;
 			preview = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
@@ -37,19 +39,22 @@ namespace Architect {
 				currentGrid = roomnet.GetRoomHover(transform.position)?.grid;
 				if (currentGrid != null) {
 					if (!preview.activeInHierarchy) {
-						preview.SetActive(true);
+						EnablePreview();
 					}
 					currentGrid.Snap(preview.transform, transform, size);
 				} else {
 					if (preview.activeInHierarchy) {
-						preview.SetActive(false);
+						DisablePreview();
 					}
+				}
+				if (matFocusIndex != -1) {
+					GridManager.I.SetFocusPosition(matFocusIndex, preview.transform.position);
 				}
 			}
 		}
 
 		private void PickedUp() {
-			EnablePreview();
+			showPreview = true;
 		}
 
 		private void Detached() {
@@ -60,17 +65,23 @@ namespace Architect {
 			} else { // Re-enable physics
 				GetComponent<Rigidbody>().isKinematic = false;
 			}
+			showPreview = false;
 			DisablePreview();
 		}
 
 		private void EnablePreview() {
-			showPreview = true;
+			preview.SetActive(true);
+			matFocusIndex = GridManager.I.GetInactiveFocusIndex();
+			GridManager.I.ActivateFocus(matFocusIndex);
+			float focusRadius = size.magnitude / 2f * GridSettings.I.snapStep;
+			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
 		}
 
 		private void DisablePreview() {
-			showPreview = false;
 			if (preview.activeInHierarchy) {
 				preview.SetActive(false);
+				GridManager.I.DeactivateFocus(matFocusIndex);
+				matFocusIndex = -1;
 			}
 		}
 

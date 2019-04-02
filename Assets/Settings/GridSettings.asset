@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GridSettings
   m_EditorClassIdentifier: 
   snapStep: 0.02
+  gridMaterial: {fileID: 2100000, guid: 8c0c1a6d88ba7434f8f924367b55580e, type: 2}
