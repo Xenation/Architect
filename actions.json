@@ -72,6 +72,16 @@
       "name": "/actions/mixedreality/in/ExternalCamera",
       "type": "pose",
       "requirement": "optional"
+    },
+    {
+      "name": "/actions/test/in/Grab",
+      "type": "boolean",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/test/in/Squeeze",
+      "type": "vector1",
+      "requirement": "optional"
     }
   ],
   "action_sets": [
@@ -89,6 +99,10 @@
     },
     {
       "name": "/actions/mixedreality",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/test",
       "usage": "single"
     }
   ],
@@ -142,7 +156,9 @@
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/out/Haptic": "Haptic",
-      "/actions/platformer/in/Jump": "Jump"
+      "/actions/platformer/in/Jump": "Jump",
+      "/actions/test/in/Grab": "Grab",
+      "/actions/test/in/Squeeze": "Squeeze"
     }
   ]
 }
