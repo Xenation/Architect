@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SteamVR_HoverHighlight
+  m_Name: HighlightOutlinePre
   m_Shader: {fileID: 4800000, guid: 9876688f8656a4b4eb06cac6b0577faf, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

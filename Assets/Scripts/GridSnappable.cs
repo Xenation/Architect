@@ -2,7 +2,7 @@
 using Valve.VR.InteractionSystem;
 
 namespace Architect {
-	public class Snappable : MonoBehaviour {
+	public class GridSnappable : MonoBehaviour {
 
 		public RoomNetwork roomnet;
 		public Vector2Int size;
