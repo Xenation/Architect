@@ -81,9 +81,9 @@ Shader "Architect/SilhouettePost"
 				float3 v1v2 = normalize(inTriangle[1].position.xyz - inTriangle[2].position.xyz);
 				float3 v2v0 = normalize(inTriangle[2].position.xyz - inTriangle[0].position.xyz);
 
-				inTriangle[0].normal = inTriangle[0].normal + normalize(v0v1 - v2v0) * _CornerAdjust;
-				inTriangle[1].normal = inTriangle[1].normal + normalize(v1v2 - v0v1) * _CornerAdjust;
-				inTriangle[2].normal = inTriangle[2].normal + normalize(v2v0 - v1v2) * _CornerAdjust;
+				inTriangle[0].normal = inTriangle[0].normal - normalize(v0v1 - v2v0) * _CornerAdjust;
+				inTriangle[1].normal = inTriangle[1].normal - normalize(v1v2 - v0v1) * _CornerAdjust;
+				inTriangle[2].normal = inTriangle[2].normal - normalize(v2v0 - v1v2) * _CornerAdjust;
 
 				VertexOut extruded0 = extrude(inTriangle[0]);
 				VertexOut extruded1 = extrude(inTriangle[1]);

@@ -47,7 +47,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _CornerAdjust: 0.5
+    - _CornerAdjust: 0.75
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
