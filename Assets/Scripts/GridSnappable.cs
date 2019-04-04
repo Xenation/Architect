@@ -2,36 +2,22 @@
 using Valve.VR.InteractionSystem;
 
 namespace Architect {
-	public class GridSnappable : MonoBehaviour {
-
-		public RoomNetwork roomnet;
+	public class GridSnappable : Snappable {
+		
 		public Vector2Int size;
 		public Material previewMaterial;
 
-		private bool showPreview = false;
-
 		private SnapGrid currentGrid;
-		private GameObject preview;
 		private Mesh previewMesh;
-		private Throwable throwable;
 
 		private int matFocusIndex = -1;
 
-		private void Awake() {
+		protected override GameObject CreatePreview() {
 			MeshRenderer previewRenderer;
-			preview = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
+			GameObject prev = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
 			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * roomnet.gridSettings.snapStep, Vector3.forward, Vector3.right);
-			preview.SetActive(false);
-
-			throwable = GetComponent<Throwable>();
-			throwable?.onPickUp.AddListener(PickedUp);
-			throwable?.onDetachFromHand.AddListener(Detached);
-		}
-
-		private void OnDestroy() {
-			throwable?.onPickUp.RemoveListener(PickedUp);
-			throwable?.onDetachFromHand.RemoveListener(Detached);
+			previewMesh.CreateQuad(size.Float() * RoomSettings.I.gridSnapStep, Vector3.forward, Vector3.right);
+			return prev;
 		}
 
 		private void Update() {
@@ -53,36 +39,18 @@ namespace Architect {
 			}
 		}
 
-		private void PickedUp() {
-			showPreview = true;
-		}
-
-		private void Detached() {
-			if (preview.activeInHierarchy) { // Has a valid snap point -> Snap
-				transform.position = preview.transform.position;
-				transform.rotation = preview.transform.rotation;
-				GetComponent<Rigidbody>().isKinematic = true;
-			} else { // Re-enable physics
-				GetComponent<Rigidbody>().isKinematic = false;
-			}
-			showPreview = false;
-			DisablePreview();
-		}
-
-		private void EnablePreview() {
-			preview.SetActive(true);
+		protected override void EnablePreview() {
+			base.EnablePreview();
 			matFocusIndex = GridManager.I.GetInactiveFocusIndex();
 			GridManager.I.ActivateFocus(matFocusIndex);
-			float focusRadius = size.magnitude / 2f * GridSettings.I.snapStep;
+			float focusRadius = size.magnitude / 2f * RoomSettings.I.gridSnapStep;
 			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
 		}
 
-		private void DisablePreview() {
-			if (preview.activeInHierarchy) {
-				preview.SetActive(false);
-				GridManager.I.DeactivateFocus(matFocusIndex);
-				matFocusIndex = -1;
-			}
+		protected override void DisablePreview() {
+			base.DisablePreview();
+			GridManager.I.DeactivateFocus(matFocusIndex);
+			matFocusIndex = -1;
 		}
 
 	}

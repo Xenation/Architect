@@ -5,9 +5,9 @@ namespace Architect {
 	public class RoomNetwork : MonoBehaviour {
 
 		public Room startingRoom;
-		public GridSettings gridSettings;
 
 		private List<Room> rooms = new List<Room>();
+		private List<RoomLink> links = new List<RoomLink>();
 
 		private void Awake() {
 			BuildNetwork();
@@ -19,6 +19,7 @@ namespace Architect {
 				if (link != null) {
 					link.room1.RegisterLink(link);
 					link.room2.RegisterLink(link);
+					links.Add(link);
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
@@ -29,8 +30,17 @@ namespace Architect {
 
 		public Room GetRoomHover(Vector3 pos) {
 			foreach (Room room in rooms) {
-				if (room.grid.IsOverGrid(pos, 0.1f)) {
+				if (room.grid.IsOverGrid(pos, RoomSettings.I.gridSnapOverHeight, RoomSettings.I.gridSnapUnderHeight)) {
 					return room;
+				}
+			}
+			return null;
+		}
+
+		public RoomLink GetLinkHover(Vector3 pos) {
+			foreach (RoomLink link in links) {
+				if (Vector3.Distance(pos, link.snapPoint.transform.position) < RoomSettings.I.linkSnapDistance) {
+					return link;
 				}
 			}
 			return null;
