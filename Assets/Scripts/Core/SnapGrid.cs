@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace Architect {
+	[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 	public class SnapGrid : MonoBehaviour {
 		
 		public List<Recti> boundsTest = new List<Recti>();
@@ -13,23 +14,31 @@ namespace Architect {
 
 		private MeshFilter filter;
 		private Mesh mesh;
+		private MeshRenderer meshRenderer;
+		[System.NonSerialized] public Material gridMat;
 
 		private GridSettings settings;
 
-		public void Initialize(GridSettings gridSettings) {
+		public void Awake() {
 			filter = GetComponent<MeshFilter>();
 			mesh = filter.mesh = new Mesh();
 			RecalculateMatrices();
 			foreach (Recti rect in boundsTest) {
 				boundingRects.Add(rect);
 			}
-			settings = gridSettings;
+			settings = GridSettings.I;
 			RecreateMesh(mesh, boundingRects);
-			GetComponent<MeshRenderer>().material = new Material(GetComponent<MeshRenderer>().material); // To avoid incorrect position relative to object in shader
+			meshRenderer = GetComponent<MeshRenderer>();
+			GridManager.I.RegisterSnapGrid(this);
+			meshRenderer.material = gridMat;
 		}
 
 		private void Update() {
 			RecalculateMatrices();
+		}
+
+		private void OnDestroy() {
+			GridManager.I.UnregisterSnapGrid(this);
 		}
 
 		private void RecalculateMatrices() {
@@ -64,7 +73,7 @@ namespace Architect {
 
 #if UNITY_EDITOR
 		public void RecreatePreview() {
-			settings = GridSettings.i;
+			settings = GridSettings.I;
 			GameObject preview = transform.Find("Preview")?.gameObject;
 			if (preview != null) {
 				DestroyImmediate(preview);

@@ -66,6 +66,7 @@ namespace Valve.VR.InteractionSystem
         protected SkinnedMeshRenderer[] highlightSkinnedRenderers;
         protected SkinnedMeshRenderer[] existingSkinnedRenderers;
         protected static Material highlightMat;
+		protected static Material highlightMatPost;
         [Tooltip("An array of child gameObjects to not render a highlight for. Things like transparent parts, vfx, etc.")]
         public GameObject[] hideHighlight;
 
@@ -89,9 +90,13 @@ namespace Valve.VR.InteractionSystem
         protected virtual void Start()
         {
             highlightMat = (Material)Resources.Load("SteamVR_HoverHighlight", typeof(Material));
+			highlightMatPost = (Material)Resources.Load("SteamVR_HoverHighlightPost", typeof(Material));
 
             if (highlightMat == null)
                 Debug.LogError("<b>[SteamVR Interaction]</b> Hover Highlight Material is missing. Please create a material named 'SteamVR_HoverHighlight' and place it in a Resources folder");
+			if (highlightMatPost == null) {
+				Debug.LogError("<b>[SteamVR Interaction]</b> Hover HighlightPost Material is missing. Please create a material named 'SteamVR_HoverHighlightPost' and place it in a Resources folder");
+			}
 
             if (skeletonPoser != null)
             {
@@ -135,11 +140,12 @@ namespace Valve.VR.InteractionSystem
                 GameObject newSkinnedHolder = new GameObject("SkinnedHolder");
                 newSkinnedHolder.transform.parent = highlightHolder.transform;
                 SkinnedMeshRenderer newSkinned = newSkinnedHolder.AddComponent<SkinnedMeshRenderer>();
-                Material[] materials = new Material[existingSkinned.sharedMaterials.Length];
+                Material[] materials = new Material[existingSkinned.sharedMaterials.Length + 1];
                 for (int materialIndex = 0; materialIndex < materials.Length; materialIndex++)
                 {
                     materials[materialIndex] = highlightMat;
                 }
+				materials[materials.Length - 1] = highlightMatPost; // TODO ugly/unsafe fix
 
                 newSkinned.sharedMaterials = materials;
                 newSkinned.sharedMesh = existingSkinned.sharedMesh;
@@ -168,12 +174,13 @@ namespace Valve.VR.InteractionSystem
                 newFilter.sharedMesh = existingFilter.sharedMesh;
                 MeshRenderer newRenderer = newFilterHolder.AddComponent<MeshRenderer>();
 
-                Material[] materials = new Material[existingRenderer.sharedMaterials.Length];
+                Material[] materials = new Material[existingRenderer.sharedMaterials.Length + 1];
                 for (int materialIndex = 0; materialIndex < materials.Length; materialIndex++)
                 {
                     materials[materialIndex] = highlightMat;
                 }
-                newRenderer.sharedMaterials = materials;
+				materials[materials.Length - 1] = highlightMatPost; // TODO ugly/unsafe fix
+				newRenderer.sharedMaterials = materials;
 
                 highlightRenderers[filterIndex] = newRenderer;
                 existingRenderers[filterIndex] = existingRenderer;
