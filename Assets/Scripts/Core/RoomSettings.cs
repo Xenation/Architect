@@ -2,7 +2,17 @@
 
 namespace Architect {
 	[CreateAssetMenu(fileName = "GridSettings", menuName = "Architect/GridSettings", order = 31)]
-	public class RoomSettings : ScriptableObjectSingleton<RoomSettings> {
+	public class RoomSettings : ScriptableObject {
+
+		private static RoomSettings instance = null;
+		public static RoomSettings I {
+			get {
+				if (instance == null) {
+					Debug.LogWarning("Accessing RoomSettings instance before assignement!");
+				}
+				return instance;
+			}
+		}
 
 		[Header("Grid")]
 		public float gridSnapStep = 0.01f;
