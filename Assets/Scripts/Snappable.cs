@@ -45,11 +45,11 @@ namespace Architect {
 				transform.rotation = preview.transform.rotation;
 				rigidbody.isKinematic = true;
 				Snapped();
+				DisablePreview();
 			} else { // Re-enable physics
 				rigidbody.isKinematic = false;
 			}
 			showPreview = false;
-			DisablePreview();
 		}
 
 		protected virtual void Snapped() {
@@ -65,7 +65,6 @@ namespace Architect {
 		}
 
 		protected virtual void DisablePreview() {
-			if (!preview.activeInHierarchy) return;
 			preview.SetActive(false);
 		}
 
