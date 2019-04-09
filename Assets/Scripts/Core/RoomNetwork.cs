@@ -4,6 +4,36 @@ using UnityEngine;
 namespace Architect {
 	public class RoomNetwork : MonoBehaviour {
 
+		private struct RoomNode {
+			public Room room;
+			public float gCost;
+			public float fCost;
+
+			public RoomNode(Room room, float gCost, float fCost) {
+				this.room = room;
+				this.gCost = gCost;
+				this.fCost = fCost;
+			}
+
+			public static bool operator==(RoomNode a, RoomNode b) {
+				return (a.room == b.room);
+			}
+			public static bool operator !=(RoomNode a, RoomNode b) {
+				return (a.room != b.room);
+			}
+		}
+
+		private class NodeFCost : IComparer<RoomNode> {
+			public int Compare(RoomNode x, RoomNode y) {
+				return (int) (x.fCost - y.fCost);
+			}
+		}
+		private class NodeGCost : IComparer<RoomNode> {
+			public int Compare(RoomNode x, RoomNode y) {
+				return (int) (x.gCost - y.gCost);
+			}
+		}
+
 		public Room startingRoom;
 
 		private List<Room> rooms = new List<Room>();
@@ -45,6 +75,38 @@ namespace Architect {
 			}
 			return null;
 		}
+
+		//public List<RoomLink> FindPath(Room start, Room end) {
+		//	SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
+		//	HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
+		//	openSet.Add(new RoomNode(start, 0, (end.transform.position - start.transform.position).sqrMagnitude));
+		//	List<RoomNode> trace = new List<RoomNode>();
+
+		//	while (openSet.Count != 0) {
+		//		RoomNode current = openSet.Min;
+		//		if (current.room == end) {
+		//			return ReconstructPath(trace, current);
+		//		}
+
+		//		openSet.Remove(current);
+		//		closedSet.Add(current);
+
+		//		foreach (Room neighbor in current.room) {
+		//			if (closedSet.Contains(new RoomNode(neighbor, 0f, 0f))) continue;
+
+		//			float gCost = current.gCost + (end.transform.position - start.transform.position).sqrMagnitude;
+		//		}
+		//	}
+		//}
+
+		//private List<Room> ReconstructPath(List<RoomNode> trace, RoomNode current) {
+		//	List<Room> path = new List<Room>();
+		//	path.Add(current.room);
+		//	foreach (RoomNode curr in trace) {
+
+		//	}
+		//	return path;
+		//}
 
 	}
 }

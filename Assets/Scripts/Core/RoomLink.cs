@@ -12,7 +12,7 @@ namespace Architect {
 			snapPoint = GetComponentInChildren<SnapPoint>();
 		}
 
-		public Room getOther(Room r) {
+		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;
 		}
 
