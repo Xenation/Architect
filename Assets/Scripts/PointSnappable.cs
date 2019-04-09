@@ -4,23 +4,34 @@ namespace Architect {
 	public class PointSnappable : Snappable {
 		
 		public SnapPointType pointType;
-		public GameObject previewPrefab;
 
 		private SnapPoint parentPoint;
 		private SnapPoint hoveredPoint;
 		private SnapPoint prevPoint;
 
 		protected override GameObject CreatePreview() {
-			GameObject prev = Instantiate(previewPrefab);
-			prev.name = "SnapPreview";
+			GameObject prev = new GameObject("SnapTransform");
 			return prev;
+		}
+
+		private void Start() {
+			if (startSnapped) {
+				hoveredPoint = roomnet.GetLinkHover(transform.position)?.snapPoint;
+				if (hoveredPoint != null) {
+					hoveredPoint.Snap(preview.transform, transform);
+					transform.position = preview.transform.position;
+					transform.rotation = preview.transform.rotation;
+					rigidbody.isKinematic = true;
+					Snapped();
+				}
+			}
 		}
 
 		private void Update() {
 			if (showPreview) {
 				prevPoint = hoveredPoint;
 				hoveredPoint = roomnet.GetLinkHover(transform.position)?.snapPoint;
-				if (hoveredPoint != null) {
+				if (hoveredPoint != null && hoveredPoint.snapped == null) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
 					}
@@ -35,14 +46,12 @@ namespace Architect {
 
 		protected override void EnablePreview() {
 			base.EnablePreview();
-			hoveredPoint.model?.SetActive(false);
+			hoveredPoint.EnablePreview();
 		}
 
 		protected override void DisablePreview() {
 			base.DisablePreview();
-			if (!isSnapped) {
-				prevPoint?.model?.SetActive(true);
-			}
+			prevPoint.DisablePreview();
 		}
 
 		protected override void Snapped() {

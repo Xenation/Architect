@@ -16,8 +16,21 @@ namespace Architect {
 			MeshRenderer previewRenderer;
 			GameObject prev = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
 			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * RoomSettings.I.gridSnapStep, Vector3.forward, Vector3.right);
+			previewMesh.CreateQuad(size.Float() * SettingsManager.I.roomSettings.gridSnapStep, Vector3.forward, Vector3.right);
 			return prev;
+		}
+
+		private void Start() {
+			if (startSnapped) {
+				currentGrid = roomnet.GetRoomHover(transform.position)?.grid;
+				if (currentGrid != null) {
+					currentGrid.Snap(preview.transform, transform, size);
+					transform.position = preview.transform.position;
+					transform.rotation = preview.transform.rotation;
+					rigidbody.isKinematic = true;
+					Snapped();
+				}
+			}
 		}
 
 		private void Update() {
@@ -43,7 +56,7 @@ namespace Architect {
 			base.EnablePreview();
 			matFocusIndex = GridManager.I.GetInactiveFocusIndex();
 			GridManager.I.ActivateFocus(matFocusIndex);
-			float focusRadius = size.magnitude / 2f * RoomSettings.I.gridSnapStep;
+			float focusRadius = size.magnitude / 2f * SettingsManager.I.roomSettings.gridSnapStep;
 			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
 		}
 

@@ -30,7 +30,7 @@ namespace Architect {
 
 		public Room GetRoomHover(Vector3 pos) {
 			foreach (Room room in rooms) {
-				if (room.grid.IsOverGrid(pos, RoomSettings.I.gridSnapOverHeight, RoomSettings.I.gridSnapUnderHeight)) {
+				if (room.grid.IsOverGrid(pos, SettingsManager.I.roomSettings.gridSnapOverHeight, SettingsManager.I.roomSettings.gridSnapUnderHeight)) {
 					return room;
 				}
 			}
@@ -39,7 +39,7 @@ namespace Architect {
 
 		public RoomLink GetLinkHover(Vector3 pos) {
 			foreach (RoomLink link in links) {
-				if (Vector3.Distance(pos, link.snapPoint.transform.position) < RoomSettings.I.linkSnapDistance) {
+				if (Vector3.Distance(pos, link.snapPoint.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
 					return link;
 				}
 			}

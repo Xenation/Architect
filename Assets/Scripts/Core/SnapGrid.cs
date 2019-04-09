@@ -26,7 +26,7 @@ namespace Architect {
 			foreach (Recti rect in boundsTest) {
 				boundingRects.Add(rect);
 			}
-			settings = RoomSettings.I;
+			settings = SettingsManager.I.roomSettings;
 			RecreateMesh(mesh, boundingRects);
 			meshRenderer = GetComponent<MeshRenderer>();
 			GridManager.I.RegisterSnapGrid(this);
@@ -73,7 +73,7 @@ namespace Architect {
 
 #if UNITY_EDITOR
 		public void RecreatePreview() {
-			settings = RoomSettings.I;
+			settings = SettingsManager.I.roomSettings;
 			GameObject preview = transform.Find("Preview")?.gameObject;
 			if (preview != null) {
 				DestroyImmediate(preview);
