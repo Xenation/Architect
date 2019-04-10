@@ -112,7 +112,7 @@ namespace Architect {
 		//private List<Room> ReconstructPath(Dictionary<RoomNode, RoomNode> trace, RoomNode current) {
 		//	List<Room> path = new List<Room>();
 		//	path.Add(current.room);
-			
+
 		//	foreach (RoomNode curr in trace.Keys) {
 		//		curr = trace[curr];
 		//	}
