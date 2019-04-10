@@ -76,11 +76,11 @@ namespace Architect {
 			return null;
 		}
 
-		//public List<RoomLink> FindPath(Room start, Room end) {
+		//public List<Room> FindPath(Room start, Room end) {
 		//	SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
 		//	HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
 		//	openSet.Add(new RoomNode(start, 0, (end.transform.position - start.transform.position).sqrMagnitude));
-		//	List<RoomNode> trace = new List<RoomNode>();
+		//	Dictionary<RoomNode, RoomNode> trace = new Dictionary<RoomNode, RoomNode>();
 
 		//	while (openSet.Count != 0) {
 		//		RoomNode current = openSet.Min;
@@ -92,18 +92,29 @@ namespace Architect {
 		//		closedSet.Add(current);
 
 		//		foreach (Room neighbor in current.room) {
-		//			if (closedSet.Contains(new RoomNode(neighbor, 0f, 0f))) continue;
+		//			RoomNode neighborNode = new RoomNode(neighbor, 0f, 0f);
+		//			if (closedSet.Contains(neighborNode)) continue;
 
-		//			float gCost = current.gCost + (end.transform.position - start.transform.position).sqrMagnitude;
+		//			neighborNode.gCost = current.gCost + (current.room.transform.position - neighbor.transform.position).sqrMagnitude;
+
+		//			if (!openSet.Contains(neighborNode)) {
+		//				openSet.Add(neighborNode);
+		//			} else if () {
+		//				continue;
+		//			}
+
+		//			trace.Add(neighborNode, current);
+		//			neighborNode.fCost = neighborNode.gCost + (end.transform.position - neighbor.transform.position).sqrMagnitude;
 		//		}
 		//	}
 		//}
 
-		//private List<Room> ReconstructPath(List<RoomNode> trace, RoomNode current) {
+		//private List<Room> ReconstructPath(Dictionary<RoomNode, RoomNode> trace, RoomNode current) {
 		//	List<Room> path = new List<Room>();
 		//	path.Add(current.room);
-		//	foreach (RoomNode curr in trace) {
-
+			
+		//	foreach (RoomNode curr in trace.Keys) {
+		//		curr = trace[curr];
 		//	}
 		//	return path;
 		//}
