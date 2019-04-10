@@ -17,5 +17,5 @@ MonoBehaviour:
   gridSnapOverHeight: 0.1
   gridSnapUnderHeight: -0.05
   linkSnapDistance: 0.05
-  doorPreview: {fileID: 5541094404300538467, guid: e858eafba4fb44649a67659280e0b88c,
+  doorPreview: {fileID: 6887681034108803316, guid: b7bf350388b66bd42ad3a7bf27806115,
     type: 3}
