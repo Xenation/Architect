@@ -37,7 +37,7 @@ namespace Architect {
 		public Room startingRoom;
 
 		private List<Room> rooms = new List<Room>();
-		private List<RoomLink> links = new List<RoomLink>();
+		private List<SnapPoint> points = new List<SnapPoint>();
 
 		private void Awake() {
 			BuildNetwork();
@@ -47,28 +47,32 @@ namespace Architect {
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
-					link.room1.RegisterLink(link);
-					link.room2.RegisterLink(link);
-					links.Add(link);
+					link.ApplyLink();
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
 					rooms.Add(room);
 				}
 			}
+			GetComponentsInChildren(points);
 		}
 
 		private void OnDrawGizmos() {
-			if (links == null || rooms == null) return;
+			if (rooms == null) return;
 			Color tmpCol = Gizmos.color;
-			
-			foreach (RoomLink link in links) {
-				Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-				Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
-			}
-			Gizmos.color = Color.yellow;
+
+			HashSet<RoomLink> exploredLinks = new HashSet<RoomLink>();
+
 			foreach (Room room in rooms) {
+				Gizmos.color = Color.yellow;
 				Gizmos.DrawWireSphere(room.transform.position, .05f);
+
+				foreach (RoomLink link in room.links) {
+					if (exploredLinks.Contains(link)) continue;
+					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
+					Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
+					exploredLinks.Add(link);
+				}
 			}
 
 			Gizmos.color = tmpCol;
@@ -87,10 +91,10 @@ namespace Architect {
 			return null;
 		}
 
-		public RoomLink GetLinkHover(Vector3 pos) {
-			foreach (RoomLink link in links) {
-				if (Vector3.Distance(pos, link.snapPoint.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
-					return link;
+		public SnapPoint GetPointHover(Vector3 pos) {
+			foreach (SnapPoint point in points) {
+				if (Vector3.Distance(pos, point.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
+					return point;
 				}
 			}
 			return null;

@@ -38,27 +38,34 @@ namespace Architect {
 				currentIndex = 0;
 			}
 		}
-
-		public GameObject whenConnected;
+		
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 
+		private GameObject togglable;
+
 		private void Awake() {
 			grid = GetComponent<SnapGrid>();
+			togglable = transform.Find("Togglable")?.gameObject;
+			togglable?.SetActive(false);
 		}
 
 		public void RegisterLink(RoomLink link) {
 			links.Add(link);
 		}
 
+		public void UnregisterLink(RoomLink link) {
+			links.Remove(link);
+		}
+
 		public void UpdateConnected() {
-			if (whenConnected == null) return;
-			if (isConnectedToStart && !whenConnected.activeInHierarchy) {
-				whenConnected.SetActive(true);
-			} else if (!isConnectedToStart && whenConnected.activeInHierarchy) {
-				whenConnected.SetActive(false);
+			if (togglable == null) return;
+			if (isConnectedToStart && !togglable.activeInHierarchy) {
+				togglable.SetActive(true);
+			} else if (!isConnectedToStart && togglable.activeInHierarchy) {
+				togglable.SetActive(false);
 			}
 		}
 
