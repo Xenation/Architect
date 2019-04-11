@@ -5,14 +5,28 @@ namespace Architect.Edit {
 	[CustomEditor(typeof(SnapGrid))]
 	public class SnapGridEditor : Editor {
 
+		public void OnEnable() {
+			Object[] targs = targets;
+			foreach (SnapGrid grid in targs) {
+				grid.RecreatePreview();
+			}
+		}
+
 		public override void OnInspectorGUI() {
 			base.OnInspectorGUI();
 
-			SnapGrid grid = (SnapGrid) target;
-			if (GUILayout.Button("Preview Shape")) {
-				grid.RecreatePreview();
+			Object[] targs = targets;
+			if (GUILayout.Button("Update Preview")) {
+				foreach (SnapGrid grid in targs) {
+					grid.RecreatePreview();
+				}
 			}
-			if (GUILayout.Button("Delete Preview")) {
+			
+		}
+
+		public void OnDisable() {
+			Object[] targs = targets;
+			foreach (SnapGrid grid in targs) {
 				grid.DeletePreview();
 			}
 		}
