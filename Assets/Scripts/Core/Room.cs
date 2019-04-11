@@ -39,8 +39,11 @@ namespace Architect {
 			}
 		}
 
+		public GameObject whenConnected;
 		[System.NonSerialized] public SnapGrid grid;
-		private List<RoomLink> links = new List<RoomLink>();
+		[System.NonSerialized] public bool isConnectedToStart = false;
+
+		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 
 		private void Awake() {
 			grid = GetComponent<SnapGrid>();
@@ -48,6 +51,15 @@ namespace Architect {
 
 		public void RegisterLink(RoomLink link) {
 			links.Add(link);
+		}
+
+		public void UpdateConnected() {
+			if (whenConnected == null) return;
+			if (isConnectedToStart && !whenConnected.activeInHierarchy) {
+				whenConnected.SetActive(true);
+			} else if (!isConnectedToStart && whenConnected.activeInHierarchy) {
+				whenConnected.SetActive(false);
+			}
 		}
 
 		public IEnumerator<Room> GetEnumerator() {

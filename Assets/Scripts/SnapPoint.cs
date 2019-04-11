@@ -8,6 +8,8 @@ namespace Architect {
 		public GameObject model;
 		public PointSnappable snapped = null;
 
+		[System.NonSerialized] public RoomLink parentLink;
+
 		private uint previewCounter = 0;
 		private GameObject preview;
 

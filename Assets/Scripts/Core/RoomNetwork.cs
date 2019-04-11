@@ -58,6 +58,26 @@ namespace Architect {
 			}
 		}
 
+		private void OnDrawGizmos() {
+			if (links == null || rooms == null) return;
+			Color tmpCol = Gizmos.color;
+			
+			foreach (RoomLink link in links) {
+				Gizmos.color = (link.isOpen) ? Color.green : Color.red;
+				Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
+			}
+			Gizmos.color = Color.yellow;
+			foreach (Room room in rooms) {
+				Gizmos.DrawWireSphere(room.transform.position, .05f);
+			}
+
+			Gizmos.color = tmpCol;
+		}
+
+		private void Update() {
+			UpdateRoomConnections();
+		}
+
 		public Room GetRoomHover(Vector3 pos) {
 			foreach (Room room in rooms) {
 				if (room.grid.IsOverGrid(pos, SettingsManager.I.roomSettings.gridSnapOverHeight, SettingsManager.I.roomSettings.gridSnapUnderHeight)) {
@@ -74,6 +94,41 @@ namespace Architect {
 				}
 			}
 			return null;
+		}
+
+		public void NotifyLinkChange(RoomLink link) {
+			UpdateRoomConnections();
+		}
+
+		public void UpdateRoomConnections() {
+			List<Room> toExplore = new List<Room>();
+			HashSet<Room> explored = new HashSet<Room>();
+			toExplore.Add(startingRoom);
+
+			while (toExplore.Count != 0) {
+				Room current = toExplore[0];
+				toExplore.RemoveAt(0);
+				explored.Add(current);
+
+				foreach (RoomLink link in current.links) {
+					if (!link.isOpen) continue;
+					Room neighbor = link.GetOther(current);
+					if (!explored.Contains(neighbor) && !toExplore.Contains(neighbor)) {
+						toExplore.Add(neighbor);
+					}
+				}
+			}
+
+			foreach (Room room in rooms) { // Set all to disconnected
+				room.isConnectedToStart = false;
+			}
+			foreach (Room room in explored) { // Set connected room to connected
+				room.isConnectedToStart = true;
+				Debug.DrawLine(room.transform.position, room.transform.position + Vector3.up * 0.1f);
+			}
+			foreach (Room room in rooms) { // Update connect state
+				room.UpdateConnected();
+			}
 		}
 
 		//public List<Room> FindPath(Room start, Room end) {
