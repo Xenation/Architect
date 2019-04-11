@@ -31,7 +31,7 @@ namespace Architect {
 			if (showPreview) {
 				prevPoint = hoveredPoint;
 				hoveredPoint = roomnet.GetLinkHover(transform.position)?.snapPoint;
-				if (hoveredPoint != null && hoveredPoint.snapped == null) {
+				if (hoveredPoint != null && hoveredPoint.snapped == null && hoveredPoint.type == pointType) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
 					}

@@ -15,6 +15,7 @@ namespace Architect {
 
 		[Header("Prefabs")]
 		public GameObject doorPreview;
+		public GameObject balconyPreview;
 
 	}
 }

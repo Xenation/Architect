@@ -21,7 +21,14 @@ namespace Architect {
 		}
 
 		private void InitPreview() {
-			preview = Instantiate(SettingsManager.I.roomSettings.doorPreview, transform);
+			switch (type) {
+				case SnapPointType.Door:
+					preview = Instantiate(SettingsManager.I.roomSettings.doorPreview, transform);
+					break;
+				case SnapPointType.Balcony:
+					preview = Instantiate(SettingsManager.I.roomSettings.balconyPreview, transform);
+					break;
+			}
 			preview.transform.position = transform.position;
 			preview.transform.rotation = transform.rotation;
 			preview.name = "SnapPreview";
