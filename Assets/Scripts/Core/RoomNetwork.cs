@@ -37,7 +37,7 @@ namespace Architect {
 		public Room startingRoom;
 
 		private List<Room> rooms = new List<Room>();
-		private List<RoomLink> links = new List<RoomLink>();
+		private List<SnapPoint> points = new List<SnapPoint>();
 
 		private void Awake() {
 			BuildNetwork();
@@ -47,15 +47,39 @@ namespace Architect {
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
-					link.room1.RegisterLink(link);
-					link.room2.RegisterLink(link);
-					links.Add(link);
+					link.ApplyLink();
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
 					rooms.Add(room);
 				}
 			}
+			GetComponentsInChildren(points);
+		}
+
+		private void OnDrawGizmos() {
+			if (rooms == null) return;
+			Color tmpCol = Gizmos.color;
+
+			HashSet<RoomLink> exploredLinks = new HashSet<RoomLink>();
+
+			foreach (Room room in rooms) {
+				Gizmos.color = Color.yellow;
+				Gizmos.DrawWireSphere(room.transform.position, .05f);
+
+				foreach (RoomLink link in room.links) {
+					if (exploredLinks.Contains(link)) continue;
+					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
+					Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
+					exploredLinks.Add(link);
+				}
+			}
+
+			Gizmos.color = tmpCol;
+		}
+
+		private void Update() {
+			UpdateRoomConnections();
 		}
 
 		public Room GetRoomHover(Vector3 pos) {
@@ -67,13 +91,48 @@ namespace Architect {
 			return null;
 		}
 
-		public RoomLink GetLinkHover(Vector3 pos) {
-			foreach (RoomLink link in links) {
-				if (Vector3.Distance(pos, link.snapPoint.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
-					return link;
+		public SnapPoint GetPointHover(Vector3 pos) {
+			foreach (SnapPoint point in points) {
+				if (Vector3.Distance(pos, point.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
+					return point;
 				}
 			}
 			return null;
+		}
+
+		public void NotifyLinkChange(RoomLink link) {
+			UpdateRoomConnections();
+		}
+
+		public void UpdateRoomConnections() {
+			List<Room> toExplore = new List<Room>();
+			HashSet<Room> explored = new HashSet<Room>();
+			toExplore.Add(startingRoom);
+
+			while (toExplore.Count != 0) {
+				Room current = toExplore[0];
+				toExplore.RemoveAt(0);
+				explored.Add(current);
+
+				foreach (RoomLink link in current.links) {
+					if (!link.isOpen) continue;
+					Room neighbor = link.GetOther(current);
+					if (!explored.Contains(neighbor) && !toExplore.Contains(neighbor)) {
+						toExplore.Add(neighbor);
+					}
+				}
+			}
+
+			foreach (Room room in rooms) { // Set all to disconnected
+				room.isConnectedToStart = false;
+			}
+			foreach (Room room in explored) { // Set connected room to connected
+				room.isConnectedToStart = true;
+				Debug.DrawLine(room.transform.position, room.transform.position + Vector3.up * 0.1f);
+			}
+			foreach (Room room in rooms) { // Update connect state
+				room.UpdateConnected();
+			}
 		}
 
 		//public List<Room> FindPath(Room start, Room end) {

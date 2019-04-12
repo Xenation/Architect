@@ -16,7 +16,7 @@ namespace Architect {
 
 		private void Start() {
 			if (startSnapped) {
-				hoveredPoint = roomnet.GetLinkHover(transform.position)?.snapPoint;
+				hoveredPoint = roomnet.GetPointHover(transform.position);
 				if (hoveredPoint != null) {
 					hoveredPoint.Snap(preview.transform, transform);
 					transform.position = preview.transform.position;
@@ -30,7 +30,7 @@ namespace Architect {
 		private void Update() {
 			if (showPreview) {
 				prevPoint = hoveredPoint;
-				hoveredPoint = roomnet.GetLinkHover(transform.position)?.snapPoint;
+				hoveredPoint = roomnet.GetPointHover(transform.position);
 				if (hoveredPoint != null && hoveredPoint.snapped == null && hoveredPoint.type == pointType) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
@@ -58,12 +58,14 @@ namespace Architect {
 			base.Snapped();
 			parentPoint = hoveredPoint;
 			parentPoint.snapped = this;
+			parentPoint.link.isOpen = true;
 		}
 
 		protected override void Unsnapped() {
 			base.Unsnapped();
 			parentPoint.model?.SetActive(true);
 			parentPoint.snapped = null;
+			parentPoint.link.isOpen = false;
 			parentPoint = null;
 		}
 

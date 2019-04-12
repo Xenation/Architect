@@ -8,10 +8,13 @@ namespace Architect {
 		public GameObject model;
 		public PointSnappable snapped = null;
 
+		[System.NonSerialized] public RoomLink link;
+
 		private uint previewCounter = 0;
 		private GameObject preview;
 
 		private void Awake() {
+			link = GetComponentInParent<RoomLink>();
 			InitPreview();
 		}
 
