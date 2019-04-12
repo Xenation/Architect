@@ -13,8 +13,21 @@ namespace Architect {
 		private uint previewCounter = 0;
 		private GameObject preview;
 
+		private Transform entry1;
+		private Transform entry2;
+
 		private void Awake() {
 			link = GetComponentInParent<RoomLink>();
+			entry1 = transform.Find("Entry1");
+			entry2 = transform.Find("Entry2");
+			if (Vector3.Distance(entry1.position, link.room1.transform.position) < Vector3.Distance(entry2.position, link.room1.transform.position)) {
+				link.entry1 = entry1.position;
+				link.entry2 = entry2.position;
+			} else {
+				link.entry1 = entry2.position;
+				link.entry2 = entry1.position;
+			}
+
 			InitPreview();
 		}
 

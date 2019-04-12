@@ -6,6 +6,9 @@ namespace Architect {
 		public Room room1;
 		public Room room2;
 
+		[System.NonSerialized] public Vector3 entry1;
+		[System.NonSerialized] public Vector3 entry2;
+
 		public bool overrideOpen = false;
 
 		private bool _isOpen = false;

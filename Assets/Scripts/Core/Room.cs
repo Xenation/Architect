@@ -11,18 +11,13 @@ namespace Architect {
 			private List<RoomLink> links;
 			private int currentIndex = 0;
 
-			public Room Current {
-				get {
-					return links[currentIndex].GetOther(room);
-				}
-			}
-
+			public Room Current { get { return links[currentIndex].GetOther(room); } }
 			object IEnumerator.Current { get { return links[currentIndex].GetOther(room); } }
 
 			public NeighboorsEnumerator(Room r, List<RoomLink> lnks) {
 				room = r;
-				currentIndex = 0;
 				links = lnks;
+				currentIndex = 0;
 			}
 
 			public void Dispose() {
@@ -38,7 +33,7 @@ namespace Architect {
 				currentIndex = 0;
 			}
 		}
-		
+
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
 
@@ -69,7 +64,7 @@ namespace Architect {
 			}
 		}
 
-		public IEnumerator<Room> GetEnumerator() {
+		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {
 			return new NeighboorsEnumerator(this, links);
 		}
 
@@ -78,6 +73,4 @@ namespace Architect {
 		}
 
 	}
-
-	
 }

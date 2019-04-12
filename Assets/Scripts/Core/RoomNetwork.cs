@@ -4,28 +4,35 @@ using UnityEngine;
 namespace Architect {
 	public class RoomNetwork : MonoBehaviour {
 
-		private struct RoomNode {
+		private class RoomNode {
 			public Room room;
+			public int parentLinkIndex;
+			public RoomNode parentNode;
 			public float gCost;
-			public float fCost;
+			public float hCost;
 
-			public RoomNode(Room room, float gCost, float fCost) {
+			public float fCost {
+				get {
+					return gCost + hCost;
+				}
+			}
+
+			public RoomNode(Room room) {
 				this.room = room;
-				this.gCost = gCost;
-				this.fCost = fCost;
+				gCost = 0f;
+				hCost = 0f;
+				parentLinkIndex = 0;
+				parentNode = null;
 			}
 
-			public static bool operator==(RoomNode a, RoomNode b) {
-				return (a.room == b.room);
-			}
-			public static bool operator !=(RoomNode a, RoomNode b) {
-				return (a.room != b.room);
+			public override int GetHashCode() {
+				return room.gameObject.GetInstanceID();
 			}
 		}
 
 		private class NodeFCost : IComparer<RoomNode> {
 			public int Compare(RoomNode x, RoomNode y) {
-				return (int) (x.fCost - y.fCost);
+				return (int) ((x.fCost - y.fCost) * 100f);
 			}
 		}
 		private class NodeGCost : IComparer<RoomNode> {
@@ -39,8 +46,11 @@ namespace Architect {
 		private List<Room> rooms = new List<Room>();
 		private List<SnapPoint> points = new List<SnapPoint>();
 
+		private Dictionary<Room, RoomNode> roomGraph = new Dictionary<Room, RoomNode>();
+
 		private void Awake() {
 			BuildNetwork();
+			BuildGraph();
 		}
 
 		private void BuildNetwork() {
@@ -57,6 +67,12 @@ namespace Architect {
 			GetComponentsInChildren(points);
 		}
 
+		private void BuildGraph() {
+			foreach (Room room in rooms) {
+				roomGraph.Add(room, new RoomNode(room));
+			}
+		}
+
 		private void OnDrawGizmos() {
 			if (rooms == null) return;
 			Color tmpCol = Gizmos.color;
@@ -70,7 +86,9 @@ namespace Architect {
 				foreach (RoomLink link in room.links) {
 					if (exploredLinks.Contains(link)) continue;
 					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-					Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
+					Gizmos.DrawLine(link.room1.transform.position, link.entry1);
+					Gizmos.DrawLine(link.entry1, link.entry2);
+					Gizmos.DrawLine(link.entry2, link.room2.transform.position);
 					exploredLinks.Add(link);
 				}
 			}
@@ -133,6 +151,64 @@ namespace Architect {
 			foreach (Room room in rooms) { // Update connect state
 				room.UpdateConnected();
 			}
+		}
+
+		public List<RoomLink> FindPath(Room start, Room target) {
+			SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
+			HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
+			RoomNode startNode = roomGraph[start];
+			startNode.hCost = (target.transform.position - start.transform.position).magnitude;
+			RoomNode targetNode = roomGraph[target];
+			openSet.Add(startNode);
+
+			while (openSet.Count > 0) {
+				RoomNode current = openSet.Min; // TODO Check that Min is trully the lowest fCost
+
+				openSet.Remove(current);
+				closedSet.Add(current);
+
+				if (current.room == target) {
+					return Retrace(startNode, current);
+				}
+
+				foreach (RoomLink link in current.room.links) {
+					Room neighbor = link.GetOther(current.room);
+					RoomNode neighborNode = roomGraph[neighbor];
+					if (!link.isOpen || closedSet.Contains(neighborNode)) {
+						continue;
+					}
+
+					float nCostToNeighbor = current.gCost + (neighbor.transform.position - current.room.transform.position).magnitude;
+					if (nCostToNeighbor < neighborNode.gCost || !openSet.Contains(neighborNode)) {
+						neighborNode.gCost = nCostToNeighbor;
+						neighborNode.hCost = (target.transform.position - neighbor.transform.position).magnitude;
+						neighborNode.parentLinkIndex = neighbor.links.IndexOf(link);
+						neighborNode.parentNode = current;
+
+						if (!openSet.Contains(neighborNode)) {
+							openSet.Add(neighborNode);
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+		private List<RoomLink> Retrace(RoomNode start, RoomNode end) {
+			List<RoomLink> path = new List<RoomLink>();
+			RoomNode current = end;
+
+			while (current != start) {
+				RoomLink link = current.room.links[current.parentLinkIndex];
+				path.Add(link);
+				current = current.parentNode;
+				Debug.DrawLine(link.room1.transform.position, link.room2.transform.position, Color.blue);
+			}
+
+			path.Reverse();
+
+			return path;
 		}
 
 		//public List<Room> FindPath(Room start, Room end) {
