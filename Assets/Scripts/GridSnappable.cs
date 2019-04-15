@@ -7,8 +7,10 @@ namespace Architect {
 		public Vector2Int size;
 		public Material previewMaterial;
 
-		private SnapGrid currentGrid;
+		private Room currentRoom;
 		private Mesh previewMesh;
+		private Transform exitPoint;
+		private RoomLink link;
 
 		private int matFocusIndex = -1;
 
@@ -16,18 +18,37 @@ namespace Architect {
 			MeshRenderer previewRenderer;
 			GameObject prev = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
 			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * RoomSettings.I.gridSnapStep, Vector3.forward, Vector3.right);
+			previewMesh.CreateQuad(size.Float() * SettingsManager.I.roomSettings.gridSnapStep, Vector3.forward, Vector3.right);
 			return prev;
+		}
+
+		private new void Awake() {
+			base.Awake();
+			exitPoint = transform.Find("ExitPoint");
+			link = gameObject.AddComponent<RoomLink>();
+		}
+
+		private void Start() {
+			if (startSnapped) {
+				currentRoom = roomnet.GetRoomHover(transform.position);
+				if (currentRoom != null) {
+					currentRoom.grid.Snap(preview.transform, transform, size);
+					transform.position = preview.transform.position;
+					transform.rotation = preview.transform.rotation;
+					rigidbody.isKinematic = true;
+					Snapped();
+				}
+			}
 		}
 
 		private void Update() {
 			if (showPreview) {
-				currentGrid = roomnet.GetRoomHover(transform.position)?.grid;
-				if (currentGrid != null) {
+				currentRoom = roomnet.GetRoomHover(transform.position);
+				if (currentRoom != null) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
 					}
-					currentGrid.Snap(preview.transform, transform, size);
+					currentRoom.grid.Snap(preview.transform, transform, size);
 				} else {
 					if (preview.activeInHierarchy) {
 						DisablePreview();
@@ -43,7 +64,7 @@ namespace Architect {
 			base.EnablePreview();
 			matFocusIndex = GridManager.I.GetInactiveFocusIndex();
 			GridManager.I.ActivateFocus(matFocusIndex);
-			float focusRadius = size.magnitude / 2f * RoomSettings.I.gridSnapStep;
+			float focusRadius = size.magnitude / 2f * SettingsManager.I.roomSettings.gridSnapStep;
 			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
 		}
 
@@ -51,6 +72,25 @@ namespace Architect {
 			base.DisablePreview();
 			GridManager.I.DeactivateFocus(matFocusIndex);
 			matFocusIndex = -1;
+		}
+
+		protected override void Snapped() {
+			base.Snapped();
+			Room linkedRoom = roomnet.GetRoomHover(exitPoint.position);
+			if (linkedRoom != null) {
+				link.room1 = currentRoom;
+				link.room2 = linkedRoom;
+				link.ApplyLink();
+				link.isOpen = true;
+			}
+		}
+
+		protected override void Unsnapped() {
+			base.Unsnapped();
+			if (link.valid) {
+				link.isOpen = false;
+				link.BreakLink();
+			}
 		}
 
 	}

@@ -6,6 +6,7 @@ namespace Architect {
 	public abstract class Snappable : MonoBehaviour {
 
 		public RoomNetwork roomnet;
+		public bool startSnapped = false;
 
 		protected bool showPreview = false;
 		protected bool isSnapped = false;
@@ -16,7 +17,7 @@ namespace Architect {
 
 		protected virtual void Awake() {
 			preview = CreatePreview();
-			preview.SetActive(false);
+			preview?.SetActive(false);
 
 			throwable = GetComponent<Throwable>();
 			throwable.onPickUp.AddListener(PickedUp);
@@ -45,11 +46,11 @@ namespace Architect {
 				transform.rotation = preview.transform.rotation;
 				rigidbody.isKinematic = true;
 				Snapped();
+				DisablePreview();
 			} else { // Re-enable physics
 				rigidbody.isKinematic = false;
 			}
 			showPreview = false;
-			DisablePreview();
 		}
 
 		protected virtual void Snapped() {
@@ -61,12 +62,11 @@ namespace Architect {
 		}
 
 		protected virtual void EnablePreview() {
-			preview.SetActive(true);
+			preview?.SetActive(true);
 		}
 
 		protected virtual void DisablePreview() {
-			if (!preview.activeInHierarchy) return;
-			preview.SetActive(false);
+			preview?.SetActive(false);
 		}
 
 	}
