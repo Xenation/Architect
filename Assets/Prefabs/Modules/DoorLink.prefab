@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 2172385607347036419}
   - component: {fileID: 2172385607347036418}
   m_Layer: 0
-  m_Name: Link
+  m_Name: DoorLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   room1: {fileID: 0}
   room2: {fileID: 0}
+  overrideOpen: 0
 --- !u!1 &2172385607568958153
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +96,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2172385607568958158
 Transform:
