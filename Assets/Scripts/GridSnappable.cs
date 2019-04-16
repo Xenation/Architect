@@ -2,46 +2,53 @@
 using Valve.VR.InteractionSystem;
 
 namespace Architect {
-	public class GridSnappable : MonoBehaviour {
-
-		public RoomNetwork roomnet;
+	public class GridSnappable : Snappable {
+		
 		public Vector2Int size;
 		public Material previewMaterial;
 
-		private bool showPreview = false;
-
-		private SnapGrid currentGrid;
-		private GameObject preview;
+		private Room currentRoom;
 		private Mesh previewMesh;
-		private Throwable throwable;
+		private Transform exitPoint;
+		private RoomLink link;
 
 		private int matFocusIndex = -1;
 
-		private void Awake() {
+		protected override GameObject CreatePreview() {
 			MeshRenderer previewRenderer;
-			preview = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
+			GameObject prev = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
 			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * roomnet.gridSettings.snapStep, Vector3.forward, Vector3.right);
-			preview.SetActive(false);
-
-			throwable = GetComponent<Throwable>();
-			throwable?.onPickUp.AddListener(PickedUp);
-			throwable?.onDetachFromHand.AddListener(Detached);
+			previewMesh.CreateQuad(size.Float() * SettingsManager.I.roomSettings.gridSnapStep, Vector3.forward, Vector3.right);
+			return prev;
 		}
 
-		private void OnDestroy() {
-			throwable?.onPickUp.RemoveListener(PickedUp);
-			throwable?.onDetachFromHand.RemoveListener(Detached);
+		private new void Awake() {
+			base.Awake();
+			exitPoint = transform.Find("ExitPoint");
+			link = gameObject.AddComponent<RoomLink>();
+		}
+
+		private void Start() {
+			if (startSnapped) {
+				currentRoom = roomnet.GetRoomHover(transform.position);
+				if (currentRoom != null) {
+					currentRoom.grid.Snap(preview.transform, transform, size);
+					transform.position = preview.transform.position;
+					transform.rotation = preview.transform.rotation;
+					rigidbody.isKinematic = true;
+					Snapped();
+				}
+			}
 		}
 
 		private void Update() {
 			if (showPreview) {
-				currentGrid = roomnet.GetRoomHover(transform.position)?.grid;
-				if (currentGrid != null) {
+				currentRoom = roomnet.GetRoomHover(transform.position);
+				if (currentRoom != null) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
 					}
-					currentGrid.Snap(preview.transform, transform, size);
+					currentRoom.grid.Snap(preview.transform, transform, size);
 				} else {
 					if (preview.activeInHierarchy) {
 						DisablePreview();
@@ -53,35 +60,36 @@ namespace Architect {
 			}
 		}
 
-		private void PickedUp() {
-			showPreview = true;
-		}
-
-		private void Detached() {
-			if (preview.activeInHierarchy) { // Has a valid snap point -> Snap
-				transform.position = preview.transform.position;
-				transform.rotation = preview.transform.rotation;
-				GetComponent<Rigidbody>().isKinematic = true;
-			} else { // Re-enable physics
-				GetComponent<Rigidbody>().isKinematic = false;
-			}
-			showPreview = false;
-			DisablePreview();
-		}
-
-		private void EnablePreview() {
-			preview.SetActive(true);
+		protected override void EnablePreview() {
+			base.EnablePreview();
 			matFocusIndex = GridManager.I.GetInactiveFocusIndex();
 			GridManager.I.ActivateFocus(matFocusIndex);
-			float focusRadius = size.magnitude / 2f * GridSettings.I.snapStep;
+			float focusRadius = size.magnitude / 2f * SettingsManager.I.roomSettings.gridSnapStep;
 			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
 		}
 
-		private void DisablePreview() {
-			if (preview.activeInHierarchy) {
-				preview.SetActive(false);
-				GridManager.I.DeactivateFocus(matFocusIndex);
-				matFocusIndex = -1;
+		protected override void DisablePreview() {
+			base.DisablePreview();
+			GridManager.I.DeactivateFocus(matFocusIndex);
+			matFocusIndex = -1;
+		}
+
+		protected override void Snapped() {
+			base.Snapped();
+			Room linkedRoom = roomnet.GetRoomHover(exitPoint.position);
+			if (linkedRoom != null) {
+				link.room1 = currentRoom;
+				link.room2 = linkedRoom;
+				link.ApplyLink();
+				link.isOpen = true;
+			}
+		}
+
+		protected override void Unsnapped() {
+			base.Unsnapped();
+			if (link.valid) {
+				link.isOpen = false;
+				link.BreakLink();
 			}
 		}
 

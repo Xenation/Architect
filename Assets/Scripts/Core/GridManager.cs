@@ -32,7 +32,7 @@ namespace Architect {
 		}
 
 		public Material CreateGridMaterialInstance() {
-			Material matInstance = new Material(GridSettings.I.gridMaterial);
+			Material matInstance = new Material(SettingsManager.I.roomSettings.gridMaterial);
 			gridMaterialInstances.Add(matInstance);
 			return matInstance;
 		}

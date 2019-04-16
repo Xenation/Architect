@@ -17,7 +17,7 @@ namespace Architect {
 		private MeshRenderer meshRenderer;
 		[System.NonSerialized] public Material gridMat;
 
-		private GridSettings settings;
+		private RoomSettings settings;
 
 		public void Awake() {
 			filter = GetComponent<MeshFilter>();
@@ -26,7 +26,7 @@ namespace Architect {
 			foreach (Recti rect in boundsTest) {
 				boundingRects.Add(rect);
 			}
-			settings = GridSettings.I;
+			settings = SettingsManager.I.roomSettings;
 			RecreateMesh(mesh, boundingRects);
 			meshRenderer = GetComponent<MeshRenderer>();
 			GridManager.I.RegisterSnapGrid(this);
@@ -52,8 +52,8 @@ namespace Architect {
 			Vector3[] verts = new Vector3[rects.Count * 4];
 			int[] indices = new int[rects.Count * 6];
 			for (int i = 0; i < rects.Count; i++) {
-				Vector3 min = rects[i].min.Unflat(0).Float() * settings.snapStep;
-				Vector3 max = rects[i].max.Unflat(0).Float() * settings.snapStep;
+				Vector3 min = rects[i].min.Unflat(0).Float() * settings.gridSnapStep;
+				Vector3 max = rects[i].max.Unflat(0).Float() * settings.gridSnapStep;
 				verts[i * 4] = new Vector3(min.x, min.y, min.z);
 				verts[i * 4 + 1] = new Vector3(min.x, min.y, max.z);
 				verts[i * 4 + 2] = new Vector3(max.x, min.y, max.z);
@@ -73,7 +73,7 @@ namespace Architect {
 
 #if UNITY_EDITOR
 		public void RecreatePreview() {
-			settings = GridSettings.I;
+			settings = SettingsManager.I.roomSettings;
 			GameObject preview = transform.Find("Preview")?.gameObject;
 			if (preview != null) {
 				DestroyImmediate(preview);
@@ -86,8 +86,8 @@ namespace Architect {
 			rend.sharedMaterial = new Material(Shader.Find("Shader Graphs/SnapGrid2"));
 			rend.sharedMaterial.SetFloat("_FocusRadius", 500f);
 			rend.sharedMaterial.SetFloat("_FocusFalloffRadius", 500f);
-			rend.sharedMaterial.SetFloat("_Snap", settings.snapStep);
-			rend.sharedMaterial.SetFloat("_Width", settings.snapStep * 0.2f);
+			rend.sharedMaterial.SetFloat("_Snap", settings.gridSnapStep);
+			rend.sharedMaterial.SetFloat("_Width", settings.gridSnapStep * 0.2f);
 			prevFilter.sharedMesh = new Mesh();
 			RecreateMesh(prevFilter.sharedMesh, boundsTest);
 		}
@@ -155,11 +155,11 @@ namespace Architect {
 			return IsInGrid(gridRect.min) && IsInGrid(new Vector2Int(gridRect.min.x, gridRect.max.y)) && IsInGrid(gridRect.max) && IsInGrid(new Vector2Int(gridRect.max.x, gridRect.min.y));
 		}
 
-		public bool IsOverGrid(Vector3 pos, float maxHeight) {
+		public bool IsOverGrid(Vector3 pos, float maxHeight, float minHeight) {
 			Vector2Int gridPos = WorldToGrid(pos);
 			if (!IsInGrid(gridPos)) return false;
 			float dist = pos.y - transform.position.y;
-			return dist < maxHeight && dist > -0.05f;
+			return dist < maxHeight && dist > minHeight;
 		}
 
 		public Vector2Int ProjectInGrid(Vector2Int gridPos) {
@@ -193,21 +193,21 @@ namespace Architect {
 		}
 
 		public Vector2Int WorldToGrid(Vector3 worldPos) {
-			return (wtl.MultiplyPoint3x4(worldPos) / settings.snapStep).Flat().RoundToInt();
+			return (wtl.MultiplyPoint3x4(worldPos) / settings.gridSnapStep).Flat().RoundToInt();
 		}
 
 		public Vector3 GridToWorld(Vector2Int gridPos) {
-			return ltw.MultiplyPoint3x4((gridPos.Float() * settings.snapStep).Unflat(0));
+			return ltw.MultiplyPoint3x4((gridPos.Float() * settings.gridSnapStep).Unflat(0));
 		}
 
 		public Vector3 GridToWorld(Vector2 gridPos) {
-			return ltw.MultiplyPoint3x4((gridPos * settings.snapStep).Unflat(0));
+			return ltw.MultiplyPoint3x4((gridPos * settings.gridSnapStep).Unflat(0));
 		}
 
 		public Recti WorldToGrid(Vector3 center, Vector2Int size) {
 			Vector2Int gridCenter = WorldToGrid(center);
 			//Debug.DrawRay(GridToWorld(gridCenter), Vector3.up, Color.yellow);
-			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / settings.snapStep).Flat().FloorToInt();
+			Vector2Int gridCenterFloored = (wtl.MultiplyPoint3x4(center) / settings.gridSnapStep).Flat().FloorToInt();
 			//Debug.DrawRay(GridToWorld(gridCenterFloored), Vector3.up, Color.red);
 			Recti gridRect = new Recti();
 			if (size.x % 2 != 0) { // Odd
