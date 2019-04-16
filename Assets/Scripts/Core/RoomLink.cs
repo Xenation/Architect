@@ -26,6 +26,10 @@ namespace Architect {
 		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;
 		}
+
+		public Vector3 GetEntry(Room r) {
+			return (r == room1) ? entry1 : entry2;
+		}
 		
 		public void ApplyLink() {
 			room1.RegisterLink(this);

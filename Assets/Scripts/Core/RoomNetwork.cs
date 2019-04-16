@@ -42,6 +42,7 @@ namespace Architect {
 		}
 
 		public Room startingRoom;
+		[System.NonSerialized] public Room lastLitRoom = null;
 
 		private List<Room> rooms = new List<Room>();
 		private List<SnapPoint> points = new List<SnapPoint>();
@@ -146,6 +147,7 @@ namespace Architect {
 			}
 			foreach (Room room in explored) { // Set connected room to connected
 				room.isConnectedToStart = true;
+				lastLitRoom = room;
 				Debug.DrawLine(room.transform.position, room.transform.position + Vector3.up * 0.1f);
 			}
 			foreach (Room room in rooms) { // Update connect state

@@ -64,6 +64,15 @@ namespace Architect {
 			}
 		}
 
+		public RoomLink GetOpenLink() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen) {
+					return link;
+				}
+			}
+			return null;
+		}
+
 		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {
 			return new NeighboorsEnumerator(this, links);
 		}
