@@ -10,6 +10,7 @@ namespace Architect {
 		[System.NonSerialized] public Vector3 entry2;
 
 		public bool overrideOpen = false;
+		private bool _prevOverrideOpen = false;
 
 		private bool _isOpen = false;
 		public bool isOpen {
@@ -17,11 +18,17 @@ namespace Architect {
 				return overrideOpen || _isOpen;
 			}
 			set {
+				bool prevOpen = _isOpen;
 				_isOpen = value;
+				if (prevOpen != _isOpen) {
+					roomnet?.OnLinkChange(this);
+				}
 			}
 		}
 
 		[System.NonSerialized] public bool valid = false;
+
+		private RoomNetwork roomnet;
 
 		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;
@@ -35,12 +42,25 @@ namespace Architect {
 			room1.RegisterLink(this);
 			room2.RegisterLink(this);
 			valid = true;
+			roomnet?.OnLinkChange(this);
 		}
 
 		public void BreakLink() {
 			room1.UnregisterLink(this);
 			room2.UnregisterLink(this);
 			valid = false;
+			roomnet?.OnLinkChange(this);
+		}
+
+		private void Start() {
+			roomnet = FindObjectOfType<RoomNetwork>();
+		}
+
+		private void Update() {
+			if (_prevOverrideOpen != overrideOpen) {
+				_prevOverrideOpen = overrideOpen;
+				roomnet?.OnLinkChange(this);
+			}
 		}
 
 	}

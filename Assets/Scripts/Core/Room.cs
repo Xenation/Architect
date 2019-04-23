@@ -36,6 +36,7 @@ namespace Architect {
 
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
+		[System.NonSerialized] public int linkCountToStart = 0;
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 
@@ -71,6 +72,25 @@ namespace Architect {
 				}
 			}
 			return null;
+		}
+
+		public RoomLink GetOpenLinkToConnected() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart) {
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		public RoomLink GetClosestOpenLinkToConnected() {
+			RoomLink closestLink = null;
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart && (closestLink == null || closestLink.GetOther(this).linkCountToStart > link.GetOther(this).linkCountToStart)) {
+					closestLink = link;
+				}
+			}
+			return closestLink;
 		}
 
 		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {

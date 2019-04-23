@@ -18,26 +18,41 @@ namespace Architect {
 		public RoomNetwork roomnet;
 		public float speed = 0.1f;
 
-		private State state = State.Idle;
-		private TravellingState travellingState = TravellingState.InRoom;
+		[SerializeField] private State state = State.Idle;
+		[SerializeField] private TravellingState travellingState = TravellingState.InRoom;
 		private List<RoomLink> path;
 		private Room currentRoom = null;
 		private Room targetRoom = null;
 		private Vector3 targetPosition;
 
-		private void Awake() {
-
+		private void Start() {
+			currentRoom = roomnet.GetRoomHover(transform.position);
+			roomnet.LastLitChangedEvent += LastLitRoomChanged;
 		}
 
 		private void Update() {
-			targetRoom = roomnet.lastLitRoom;
 			UpdateState();
+		}
+
+		private void OnDrawGizmos() {
+			if (targetRoom != null) {
+				Gizmos.DrawCube(targetRoom.transform.position, Vector3.one * 0.05f);
+			}
+		}
+
+		private void LastLitRoomChanged(Room lastLit) {
+			//Debug.Log("Lastlit Changed!");
+			switch (state) {
+				case State.Travelling:
+				case State.Idle:
+					targetRoom = lastLit;
+					break;
+			}
 		}
 
 		private void UpdateState() {
 			switch (state) {
 				case State.Idle:
-					//targetRoom = roomnet.GetRoomHover(debugTarget.position);
 					if (!currentRoom.isConnectedToStart) {
 						state = State.Sleeping;
 					} else if (targetRoom != null && targetRoom != currentRoom) {
@@ -48,8 +63,9 @@ namespace Architect {
 					UpdateTravel();
 					break;
 				case State.Sleeping:
-					RoomLink linkToLit = currentRoom.GetOpenLink();
+					RoomLink linkToLit = currentRoom.GetClosestOpenLinkToConnected();
 					if (linkToLit != null) {
+						targetRoom = linkToLit.GetOther(currentRoom);
 						state = State.Travelling;
 					}
 					break;
@@ -87,8 +103,8 @@ namespace Architect {
 							}
 						}
 					}
-
 					break;
+
 				case TravellingState.InLink:
 					targetPosition = path[0].GetEntry(path[0].GetOther(currentRoom));
 					toTarget = targetPosition - transform.position;
