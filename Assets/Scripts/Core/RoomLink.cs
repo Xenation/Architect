@@ -30,6 +30,10 @@ namespace Architect {
 
 		private RoomNetwork roomnet;
 
+		public delegate void NotifyCallback();
+		public event NotifyCallback OnCharEntered;
+		public event NotifyCallback OnCharExited;
+
 		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;
 		}
@@ -61,6 +65,14 @@ namespace Architect {
 				_prevOverrideOpen = overrideOpen;
 				roomnet?.OnLinkChange(this);
 			}
+		}
+
+		public void NotifyCharacterEnter() {
+			OnCharEntered?.Invoke();
+		}
+
+		public void NotifyCharacterExit() {
+			OnCharExited?.Invoke();
 		}
 
 	}

@@ -89,7 +89,7 @@ namespace Architect {
 					}
 
 					if (path != null) {
-						if (targetRoom == currentRoom) {
+						if (targetRoom == currentRoom) { // In Destination Room
 							targetPosition = currentRoom.transform.position;
 						} else {
 							targetPosition = path[0].GetEntry(currentRoom);
@@ -99,6 +99,7 @@ namespace Architect {
 							if (targetRoom == currentRoom) {
 								state = State.Idle;
 							} else {
+								path[0].NotifyCharacterEnter();
 								travellingState = TravellingState.InLink;
 							}
 						}
@@ -110,6 +111,7 @@ namespace Architect {
 					toTarget = targetPosition - transform.position;
 
 					if (toTarget.magnitude < 0.01f) {
+						path[0].NotifyCharacterExit(); // TODO left here
 						travellingState = TravellingState.InRoom;
 					}
 					break;
