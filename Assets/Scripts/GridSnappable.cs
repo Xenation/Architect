@@ -80,10 +80,11 @@ namespace Architect {
 			base.Snapped();
 			Room linkedRoom = roomnet.GetRoomHover(entryUp.position);
 			if (linkedRoom != null) {
+				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
 				link.room1 = currentRoom;
-				link.entry1 = entryDown.position;
+				link.entry1 = roomnet.WorldToRelativePos(entryDown.position);
 				link.room2 = linkedRoom;
-				link.entry2 = entryUp.position;
+				link.entry2 = roomnet.WorldToRelativePos(entryUp.position);
 				link.ApplyLink();
 				link.isOpen = true;
 			}

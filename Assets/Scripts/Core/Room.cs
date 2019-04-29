@@ -39,10 +39,12 @@ namespace Architect {
 		[System.NonSerialized] public int linkCountToStart = 0;
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
+		public RoomTraverser traverser;
 
 		private GameObject togglable;
 
 		private void Awake() {
+			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);

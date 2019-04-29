@@ -24,6 +24,7 @@ namespace Architect {
 		private Room currentRoom = null;
 		private Room targetRoom = null;
 		private Vector3 targetPosition;
+		private Traverser currentTraverser;
 
 		private void Start() {
 			currentRoom = roomnet.GetRoomHover(transform.position);
@@ -73,33 +74,22 @@ namespace Architect {
 		}
 
 		private void UpdateTravel() {
-			Vector3 toTarget = Vector3.zero;
-
 			switch (travellingState) {
 				case TravellingState.InRoom:
 					Room room = roomnet.GetRoomHover(transform.position);
 					if (room != null) {
 						currentRoom = room;
-					}
-
-					//targetRoom = roomnet.GetRoomHover(debugTarget.position);
-
-					if (targetRoom != null && currentRoom != null) {
 						path = roomnet.FindPath(currentRoom, targetRoom);
-					}
-
-					if (path != null) {
-						if (targetRoom == currentRoom) { // In Destination Room
-							targetPosition = currentRoom.transform.position;
-						} else {
-							targetPosition = path[0].GetEntry(currentRoom);
-						}
-						toTarget = targetPosition - transform.position;
-						if (toTarget.magnitude < 0.01f) {
-							if (targetRoom == currentRoom) {
+						currentTraverser = currentRoom.traverser;
+						if (targetRoom == currentRoom) {
+							currentRoom.traverser.SetTarget(roomnet.WorldToRelativePos(currentRoom.transform.position));
+							if (currentTraverser.Traverse(this)) {
 								state = State.Idle;
-							} else {
-								path[0].NotifyCharacterEnter();
+							}
+						} else {
+							currentRoom.traverser.SetTarget(path[0]);
+							if (currentTraverser.Traverse(this)) {
+
 								travellingState = TravellingState.InLink;
 							}
 						}
@@ -107,19 +97,14 @@ namespace Architect {
 					break;
 
 				case TravellingState.InLink:
-					targetPosition = path[0].GetEntry(path[0].GetOther(currentRoom));
-					toTarget = targetPosition - transform.position;
+					currentTraverser = path[0].traverser;
+					path[0].traverser.SetTarget(currentRoom);
 
-					if (toTarget.magnitude < 0.01f) {
-						path[0].NotifyCharacterExit(); // TODO left here
+					if (currentTraverser.Traverse(this)) {
 						travellingState = TravellingState.InRoom;
 					}
 					break;
 			}
-
-			Vector3 direction = toTarget.normalized;
-			transform.position += direction * speed * Time.deltaTime;
-			transform.rotation = Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, direction, Vector3.up), 0f);
 		}
 
 	}

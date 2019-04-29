@@ -65,6 +65,7 @@ namespace Architect {
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
+					link.traverser = new DefaultLinkTraverser(link, this);
 					link.ApplyLink();
 				}
 				Room room = child.GetComponent<Room>();
@@ -94,9 +95,9 @@ namespace Architect {
 				foreach (RoomLink link in room.links) {
 					if (exploredLinks.Contains(link)) continue;
 					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-					Gizmos.DrawLine(link.room1.transform.position, link.entry1);
-					Gizmos.DrawLine(link.entry1, link.entry2);
-					Gizmos.DrawLine(link.entry2, link.room2.transform.position);
+					Gizmos.DrawLine(link.room1.transform.position, RelativeToWorldPos(link.entry1));
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry1), RelativeToWorldPos(link.entry2));
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.transform.position);
 					exploredLinks.Add(link);
 				}
 			}
@@ -124,6 +125,30 @@ namespace Architect {
 				}
 			}
 			return null;
+		}
+
+		public Vector3 WorldToRelativePos(Vector3 pos) {
+			return transform.InverseTransformPoint(pos);
+		}
+
+		public Vector3 WorldToRelativeVec(Vector3 vec ) {
+			return transform.InverseTransformVector(vec);
+		}
+
+		public Vector3 WorldToRelativeDir(Vector3 dir) {
+			return transform.InverseTransformDirection(dir);
+		}
+
+		public Vector3 RelativeToWorldPos(Vector3 pos) {
+			return transform.TransformPoint(pos);
+		}
+
+		public Vector3 RelativeToWorldVec(Vector3 vec) {
+			return transform.TransformVector(vec);
+		}
+
+		public Vector3 RelativeToWorldDir(Vector3 dir) {
+			return transform.TransformDirection(dir);
 		}
 
 		public void OnLinkChange(RoomLink link) {

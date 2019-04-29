@@ -27,6 +27,7 @@ namespace Architect {
 		}
 
 		[System.NonSerialized] public bool valid = false;
+		public LinkTraverser traverser;
 
 		private RoomNetwork roomnet;
 
