@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/Alfred/ProtoVR.unity
-    guid: c6b4b082b2d8b5144924689db4c2cee9
+    path: Assets/Scenes/Test/Alfred/ProtoLight.unity
+    guid: 6dc4899af6ccc42408e8734e989a272d
   m_configObjects: {}
