@@ -5,6 +5,8 @@ using Valve.VR;
 namespace Architect {
 	public class MenuManager : MonoBehaviour {
 
+		private static bool musicStarted = false;
+
 		public RoomLink linkPlay;
 		public string playLevel;
 		public RoomLink linkSettings;
@@ -21,6 +23,10 @@ namespace Architect {
 		}
 
 		private void Start() {
+			if (!musicStarted) {
+				musicStarted = true;
+				AkSoundEngine.PostEvent("Play_Music", gameObject);
+			}
 			if (linkPlay != null) {
 				linkPlay.traverser = new TriggerTraverser(linkPlay, roomnet, PlayTriggered);
 			}
