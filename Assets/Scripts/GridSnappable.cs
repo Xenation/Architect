@@ -9,7 +9,8 @@ namespace Architect {
 
 		private Room currentRoom;
 		private Mesh previewMesh;
-		private Transform exitPoint;
+		private Transform entryDown;
+		private Transform entryUp;
 		private RoomLink link;
 
 		private int matFocusIndex = -1;
@@ -24,7 +25,8 @@ namespace Architect {
 
 		private new void Awake() {
 			base.Awake();
-			exitPoint = transform.Find("ExitPoint");
+			entryUp = transform.Find("UpStairs");
+			entryDown = transform.Find("DownStairs");
 			link = gameObject.AddComponent<RoomLink>();
 		}
 
@@ -76,10 +78,13 @@ namespace Architect {
 
 		protected override void Snapped() {
 			base.Snapped();
-			Room linkedRoom = roomnet.GetRoomHover(exitPoint.position);
+			Room linkedRoom = roomnet.GetRoomHover(entryUp.position);
 			if (linkedRoom != null) {
+				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
 				link.room1 = currentRoom;
+				link.entry1 = roomnet.WorldToRelativePos(entryDown.position);
 				link.room2 = linkedRoom;
+				link.entry2 = roomnet.WorldToRelativePos(entryUp.position);
 				link.ApplyLink();
 				link.isOpen = true;
 			}
