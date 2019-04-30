@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 656339024468563305}
   - component: {fileID: 1263430978730760827}
+  - component: {fileID: 4696623053985468052}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -59,6 +60,31 @@ MonoBehaviour:
   maxSoundPropagationDepth: 0
   diffractionFlags: 0
   engineLogging: 0
+--- !u!114 &4696623053985468052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721638572337438466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e939753b2b44054cba6db3678f89e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: ae8d9d44
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 621fe7830d448bf449b9f0a24e424581,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &2020820454614605851
 GameObject:
   m_ObjectHideFlags: 0
