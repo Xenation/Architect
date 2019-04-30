@@ -62,6 +62,7 @@ namespace Architect {
 
 		private void BuildNetwork() {
 			startingRoom.isConnectedToStart = true;
+			startingRoom.UpdateConnected();
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -106,7 +107,7 @@ namespace Architect {
 		}
 
 		private void Update() {
-			//UpdateRoomConnections();
+			UpdateRoomConnections();
 		}
 
 		public Room GetRoomHover(Vector3 pos) {
@@ -152,7 +153,7 @@ namespace Architect {
 		}
 
 		public void OnLinkChange(RoomLink link) {
-			UpdateRoomConnections();
+			//UpdateRoomConnections();
 		}
 
 		public void UpdateRoomConnections() {

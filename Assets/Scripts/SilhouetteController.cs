@@ -79,7 +79,15 @@ namespace Architect {
 					Room room = roomnet.GetRoomHover(transform.position);
 					if (room != null) {
 						currentRoom = room;
+						if (!currentRoom.isConnectedToStart) {
+							state = State.Sleeping;
+							return;
+						}
 						path = roomnet.FindPath(currentRoom, targetRoom);
+						if (path == null) {
+							state = State.Idle;
+							return;
+						}
 						currentTraverser = currentRoom.traverser;
 						if (targetRoom == currentRoom) {
 							currentRoom.traverser.SetTarget(roomnet.WorldToRelativePos(currentRoom.transform.position));
