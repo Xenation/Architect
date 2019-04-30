@@ -191,33 +191,33 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586462706158154167
+    m_lastTime: -8586449772164837578
     List:
-    - name: test
-      guid: cf6644872c9f7f40821c7d7db2f3d074
-      id: 3157003241
+    - name: MainSoundBank
+      guid: 165842bf901544409a4dbb0848c74102
+      id: 534561221
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: test
+      - ElementName: MainSoundBank
         ObjectType: 7
-      Path: Default Work Unit\test
+      Path: Default Work Unit\MainSoundBank
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586462706158068369
+    m_lastTime: -8586449821729643487
     List:
-    - name: Play_B03_Loop_Full
-      guid: 0ee3fbbdbc4ec64bb1f350fe597e1922
-      id: 2037297080
+    - name: Play_Music
+      guid: fd952e251f59c54385d798f0fc89613d
+      id: 2932040671
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_B03_Loop_Full
+      - ElementName: Play_Music
         ObjectType: 3
-      Path: Default Work Unit\Play_B03_Loop_Full
+      Path: Default Work Unit\Play_Music
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -353,14 +353,45 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: a5d1e652a268d9468c9fa01a243b9884
     GuidInternal: 
-    m_lastTime: -8586468763384560657
-    List: []
+    m_lastTime: -8586449736929515089
+    List:
+    - name: State_Music
+      guid: d4e0aa17bf7f8942a585860c987a2264
+      id: 1992488372
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: State_Music
+        ObjectType: 9
+      Path: Default Work Unit\State_Music
+      values:
+      - name: Ingame
+        guid: f3fec6da8b00404abdd42d90c3be4b30
+        id: 984691642
+        PathAndIcons:
+        - ElementName: Ingame
+          ObjectType: 8
+      - name: Menu
+        guid: 07ebb1b1d8764d4580c36060be441633
+        id: 2607556080
+        PathAndIcons:
+        - ElementName: Menu
+          ObjectType: 8
+      - name: None
+        guid: b8f659e2865bb043b84f9f16f8a881c8
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 8ddc3acea0cfcb4190716a91774d077d
     GuidInternal: 
-    m_lastTime: -8586468763384550685
+    m_lastTime: -8586449736929754342
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -371,7 +402,8 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ArchitectWwise
-  - /ArchitectWwise/Events
-  - /ArchitectWwise/Events/Default Work Unit
+  - /ArchitectWwise/States
+  - /ArchitectWwise/States/Default Work Unit
+  - /ArchitectWwise/States/Default Work Unit/State_Music
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
