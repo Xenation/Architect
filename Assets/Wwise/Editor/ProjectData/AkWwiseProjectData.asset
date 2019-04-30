@@ -17,13 +17,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: e70e47061fe25c458f3369fd36190de1
     GuidInternal: 
-    m_lastTime: -8586471305539367084
+    m_lastTime: -8586468763384550685
     List: []
   - PhysicalPath: Virtual Acoustics\Factory Reflect Acoustic Textures.wwu
     ParentPhysicalPath: 
     guid: 6b663d46a83ca54f8b4a5fef12b883f6
     GuidInternal: 
-    m_lastTime: -8586471305539367084
+    m_lastTime: -8586468763384560657
     List:
     - name: Acoustic_Banner
       guid: f2532d2fccda8e408b8898b1b52a26d6
@@ -184,34 +184,55 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586471305540045264
+    m_lastTime: -8586468763384770031
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586471305539397012
-    List: []
+    m_lastTime: -8586462706158154167
+    List:
+    - name: test
+      guid: cf6644872c9f7f40821c7d7db2f3d074
+      id: 3157003241
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: test
+        ObjectType: 7
+      Path: Default Work Unit\test
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586471305540075181
-    List: []
+    m_lastTime: -8586462706158068369
+    List:
+    - name: Play_B03_Loop_Full
+      guid: 0ee3fbbdbc4ec64bb1f350fe597e1922
+      id: 2037297080
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_B03_Loop_Full
+        ObjectType: 3
+      Path: Default Work Unit\Play_B03_Loop_Full
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586471305540075181
+    m_lastTime: -8586468763384799935
     List: []
   - PhysicalPath: Game Parameters\Factory Motion.wwu
     ParentPhysicalPath: 
     guid: 225213d7dbd1d042adc0930743567776
     GuidInternal: 
-    m_lastTime: -8586471305540065216
+    m_lastTime: -8586468763384809913
     List:
     - name: Playback_Rate
       guid: e37e38283ac11643b9c3db5c521624af
@@ -235,7 +256,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
     GuidInternal: 
-    m_lastTime: -8586471305540065216
+    m_lastTime: -8586468763384809913
     List:
     - name: SS_Air_Fear
       guid: 59062ef746431c4ea1b1dab46a05101e
@@ -332,22 +353,25 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: a5d1e652a268d9468c9fa01a243b9884
     GuidInternal: 
-    m_lastTime: -8586471305539387034
+    m_lastTime: -8586468763384560657
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 8ddc3acea0cfcb4190716a91774d077d
     GuidInternal: 
-    m_lastTime: -8586471305539387034
+    m_lastTime: -8586468763384550685
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: d051c08353bec04980f91ee3a215d4a9
     GuidInternal: 
-    m_lastTime: -8586471305539377058
+    m_lastTime: -8586468763384550685
     List: []
-  ExpandedItems: []
+  ExpandedItems:
+  - /ArchitectWwise
+  - /ArchitectWwise/Events
+  - /ArchitectWwise/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
