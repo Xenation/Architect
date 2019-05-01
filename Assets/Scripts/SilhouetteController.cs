@@ -18,6 +18,8 @@ namespace Architect {
 		public RoomNetwork roomnet;
 		public float speed = 0.1f;
 
+		private Animator animator;
+
 		[SerializeField] private State state = State.Idle;
 		[SerializeField] private TravellingState travellingState = TravellingState.InRoom;
 		private List<RoomLink> path;
@@ -29,6 +31,7 @@ namespace Architect {
 		private void Start() {
 			currentRoom = roomnet.GetRoomHover(transform.position);
 			roomnet.LastLitChangedEvent += LastLitRoomChanged;
+			animator = GetComponentInChildren<Animator>();
 		}
 
 		private void Update() {
@@ -52,6 +55,7 @@ namespace Architect {
 		}
 
 		private void UpdateState() {
+			Vector3 prevPos = roomnet.WorldToRelativePos(transform.position);
 			switch (state) {
 				case State.Idle:
 					if (!currentRoom.isConnectedToStart) {
@@ -71,6 +75,8 @@ namespace Architect {
 					}
 					break;
 			}
+			Vector3 deltaPos = roomnet.WorldToRelativePos(transform.position) - prevPos;
+			animator.SetFloat("Velocity", deltaPos.magnitude / Time.deltaTime);
 		}
 
 		private void UpdateTravel() {
