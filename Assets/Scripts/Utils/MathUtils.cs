@@ -76,6 +76,20 @@ namespace Architect {
 			return new Vector3(v.x, v.y, v.z);
 		}
 
+		// COLLIDERS
+		public static bool IsInside(this BoxCollider box, Vector3 point) {
+			point = box.transform.InverseTransformPoint(point) - box.center;
+			float halfX = box.size.x * .5f;
+			float halfY = box.size.y * .5f;
+			float halfZ = box.size.z * .5f;
+			if (point.x < halfX && point.x > -halfX &&
+				point.y < halfY && point.y > -halfY &&
+				point.z < halfZ && point.z > -halfZ) {
+				return true;
+			}
+			return false;
+		}
+
 	}
 
 	[System.Serializable]

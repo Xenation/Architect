@@ -11,18 +11,13 @@ namespace Architect {
 			private List<RoomLink> links;
 			private int currentIndex = 0;
 
-			public Room Current {
-				get {
-					return links[currentIndex].GetOther(room);
-				}
-			}
-
+			public Room Current { get { return links[currentIndex].GetOther(room); } }
 			object IEnumerator.Current { get { return links[currentIndex].GetOther(room); } }
 
 			public NeighboorsEnumerator(Room r, List<RoomLink> lnks) {
 				room = r;
-				currentIndex = 0;
 				links = lnks;
+				currentIndex = 0;
 			}
 
 			public void Dispose() {
@@ -38,15 +33,18 @@ namespace Architect {
 				currentIndex = 0;
 			}
 		}
-		
+
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
+		[System.NonSerialized] public int linkCountToStart = 0;
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
+		public RoomTraverser traverser;
 
 		private GameObject togglable;
 
 		private void Awake() {
+			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
@@ -69,7 +67,35 @@ namespace Architect {
 			}
 		}
 
-		public IEnumerator<Room> GetEnumerator() {
+		public RoomLink GetOpenLink() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen) {
+					return link;
+				}
+			}
+			return null;
+		}
+
+		public RoomLink GetOpenLinkToConnected() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart) {
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		public RoomLink GetClosestOpenLinkToConnected() {
+			RoomLink closestLink = null;
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart && (closestLink == null || closestLink.GetOther(this).linkCountToStart > link.GetOther(this).linkCountToStart)) {
+					closestLink = link;
+				}
+			}
+			return closestLink;
+		}
+
+		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {
 			return new NeighboorsEnumerator(this, links);
 		}
 
@@ -78,6 +104,4 @@ namespace Architect {
 		}
 
 	}
-
-	
 }
