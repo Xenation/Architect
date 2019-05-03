@@ -4592,36 +4592,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
---- !u!1 &7733976472571393305
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7733976472571393306}
-  m_Layer: 0
-  m_Name: Windows
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7733976472571393306
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7733976472571393305}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7733976473962909975}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7733976473168298735
 GameObject:
   m_ObjectHideFlags: 0
@@ -4772,7 +4742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7733976473962909975}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4788,8 +4758,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7733976472571393306}
+  m_Children: []
   m_Father: {fileID: 7733976473638319956}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4800,11 +4769,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7733976473638319956}
     m_Modifications:
-    - target: {fileID: 8905887246423560841, guid: f684eda50945f14438d1b809b4bcc5d8,
-        type: 3}
-      propertyPath: m_Name
-      value: Silhouette
-      objectReference: {fileID: 0}
     - target: {fileID: 8905887246423560843, guid: f684eda50945f14438d1b809b4bcc5d8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4859,6 +4823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905887246423560841, guid: f684eda50945f14438d1b809b4bcc5d8,
+        type: 3}
+      propertyPath: m_Name
+      value: Silhouette
       objectReference: {fileID: 0}
     - target: {fileID: 8905887246423560842, guid: f684eda50945f14438d1b809b4bcc5d8,
         type: 3}
