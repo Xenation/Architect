@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.XR;
 
 namespace Architect {
 	[System.Serializable]
@@ -19,27 +20,17 @@ namespace Architect {
 		}
 
 	}
-
+	
 	public sealed class OutlineRenderer : PostProcessEffectRenderer<Outline> {
 
-		private struct CameraRT {
-			public RenderTexture main;
-			public RenderTexture outline;
-			public RenderTargetBinding outlinePassBinding;
-			public RenderTargetIdentifier outlineColorBufferIdentifier;
-			public RenderTextureDescriptor blurDescriptor;
-		}
-
 		private bool isValid = true;
-
-		private Dictionary<Camera, CameraRT> renderTextures;
 
 		private Shader outlineUnlit;
 		private Shader blur;
 		private Shader outlineCompositor;
 
 		private int outlineColorID;
-		private int blurPassTexID;
+		private int blurTexID;
 		private int tmpTexID;
 		private int blurSizeID;
 		private int outlineTexID;
@@ -60,7 +51,7 @@ namespace Architect {
 
 			// Find the used shader properties
 			outlineColorID = Shader.PropertyToID("_OutlineColor");
-			blurPassTexID = Shader.PropertyToID("_BlurTex");
+			blurTexID = Shader.PropertyToID("_BlurTex");
 			tmpTexID = Shader.PropertyToID("_TmpTex");
 			blurSizeID = Shader.PropertyToID("_BlurSize");
 			outlineTexID = Shader.PropertyToID("_OutlineTex");
@@ -69,81 +60,68 @@ namespace Architect {
 			outlineUnlitMaterial = new Material(outlineUnlit);
 			blurMaterial = new Material(blur);
 			outlineCompositorMaterial = new Material(outlineCompositor);
-
-			InitializeRenderTextures();
-		}
-
-		private void InitializeRenderTextures() {
-			renderTextures = new Dictionary<Camera, CameraRT>();
 		}
 
 		public override void Render(PostProcessRenderContext context) {
-			if (!isValid) {
+			if (!isValid) { // Avoid applying anything if some shaders are missing
 				context.command.Blit(context.source, context.destination);
 				return;
 			}
 
-			CameraRT rt;
-			if (!renderTextures.TryGetValue(context.camera, out rt)) {
-				rt = InitializeCameraRT(context.camera);
+			// Fix for exit play mode destroying materials
+			if (outlineUnlitMaterial == null) {
+				outlineUnlitMaterial = new Material(outlineUnlit);
+			}
+			if (blurMaterial == null) {
+				blurMaterial = new Material(blur);
+			}
+			if (outlineCompositorMaterial == null) {
+				outlineCompositorMaterial = new Material(outlineCompositor);
 			}
 
+			// Prepare blur RT descriptor
+			RenderTextureDescriptor blurDescriptor;
+			if (context.camera.stereoEnabled) {
+				blurDescriptor = XRSettings.eyeTextureDesc;
+				blurDescriptor.depthBufferBits = 0;
+			} else {
+				blurDescriptor = new RenderTextureDescriptor(context.camera.pixelWidth, context.camera.pixelHeight);
+			}
+			blurDescriptor.width = blurDescriptor.width >> 1;
+			blurDescriptor.height = blurDescriptor.height >> 1;
+
+			context.command.BeginSample("Outline");
+
 			// Render the outlined objects in the outline RT
-			context.command.SetRenderTarget(rt.outlinePassBinding);
+			context.GetScreenSpaceTemporaryRT(context.command, outlineTexID);
+			context.command.SetRenderTarget(outlineTexID);
 			context.command.ClearRenderTarget(true, true, Color.clear);
 			foreach (Outlined outlined in OutlinedManager.I.outlinedObjects) {
 				if (!outlined.enabled) continue;
 				context.command.SetGlobalColor(outlineColorID, outlined.outlineColor);
-				foreach (Renderer renderer in outlined.GetComponentsInChildren<Renderer>()) { // TODO by more optimized method
+				foreach (Renderer renderer in outlined.GetComponentsInChildren<Renderer>()) { // TODO use more optimized method
 					context.command.DrawRenderer(renderer, outlineUnlitMaterial);
 				}
 			}
 
 			// Blur the outlined RT
-			context.command.GetTemporaryRT(blurPassTexID, rt.blurDescriptor, FilterMode.Bilinear);
-			context.command.GetTemporaryRT(tmpTexID, rt.blurDescriptor, FilterMode.Bilinear);
-			context.command.Blit(rt.outlineColorBufferIdentifier, blurPassTexID); // Copy outline RT to blur RT
-
-			context.command.SetGlobalVector(blurSizeID, new Vector4(1.5f / rt.blurDescriptor.width, 1.5f / rt.blurDescriptor.height, 0f, 0f));
+			context.command.GetTemporaryRT(blurTexID, blurDescriptor, FilterMode.Bilinear);
+			context.command.GetTemporaryRT(tmpTexID, blurDescriptor, FilterMode.Bilinear);
+			context.command.Blit(outlineTexID, blurTexID); // Copy outline RT to blur RT
+			context.command.SetGlobalVector(blurSizeID, new Vector4(1.5f / blurDescriptor.width, 1.5f / blurDescriptor.height, 0f, 0f));
 
 			for (int i = 0; i < 4; i++) { // Blur passes
-				context.command.Blit(blurPassTexID, tmpTexID, blurMaterial, 0); // Horizontal
-				context.command.Blit(tmpTexID, blurPassTexID, blurMaterial, 1); // Vertical
+				context.command.Blit(blurTexID, tmpTexID, blurMaterial, 0); // Horizontal
+				context.command.Blit(tmpTexID, blurTexID, blurMaterial, 1); // Vertical
 			}
+			context.command.ReleaseTemporaryRT(tmpTexID);
 
 			// Composite the main RT with the blur RT
-			context.command.SetGlobalTexture(outlineTexID, blurPassTexID);
-			context.command.Blit(context.source, context.destination, outlineCompositorMaterial);
-		}
+			context.command.Blit(context.source, context.destination, outlineCompositorMaterial, 0);
+			context.command.ReleaseTemporaryRT(blurTexID);
+			context.command.ReleaseTemporaryRT(outlineTexID);
 
-		private CameraRT InitializeCameraRT(Camera camera) {
-			RenderTexture mainRT = camera.targetTexture;
-			// Create a render texture with no depth
-			RenderTextureDescriptor desc = camera.targetTexture.descriptor;
-			desc.depthBufferBits = 0;
-			RenderTexture outlineRT = new RenderTexture(desc);
-			// Create the bindings, identifiers and descriptors
-			RenderTargetSetup rtSetup = new RenderTargetSetup(outlineRT.colorBuffer, mainRT.depthBuffer);
-			RenderTargetBinding outlineBinding = new RenderTargetBinding(rtSetup);
-			RenderTargetIdentifier outlineColorIdentifier = new RenderTargetIdentifier(outlineRT.colorBuffer);
-			RenderTextureDescriptor blurDescriptor = outlineRT.descriptor;
-			blurDescriptor.height = blurDescriptor.height >> 1;
-			blurDescriptor.width = blurDescriptor.width >> 1;
-			// Create the 
-			CameraRT rt = new CameraRT { main = mainRT, outline = outlineRT, outlinePassBinding = outlineBinding, outlineColorBufferIdentifier = outlineColorIdentifier, blurDescriptor = blurDescriptor };
-			renderTextures.Add(camera, rt);
-			return rt;
-		}
-
-		public override void Release() {
-			ReleaseRenderTextures();
-		}
-
-		private void ReleaseRenderTextures() {
-			foreach (CameraRT rt in renderTextures.Values) {
-				rt.outline.Release();
-			}
-			renderTextures = null;
+			context.command.EndSample("Outline");
 		}
 
 	}
