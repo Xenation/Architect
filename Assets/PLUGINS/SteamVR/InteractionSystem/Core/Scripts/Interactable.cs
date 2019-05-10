@@ -130,6 +130,7 @@ namespace Valve.VR.InteractionSystem
         {
 			if (highlightScript != null) {
 				highlightScript.enabled = true;
+				return;
 			}
 
 			existingSkinnedRenderers = this.GetComponentsInChildren<SkinnedMeshRenderer>(true);

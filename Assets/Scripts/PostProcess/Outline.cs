@@ -106,7 +106,7 @@ namespace Architect {
 			foreach (Outlined outlined in OutlinedManager.I.outlinedObjects) {
 				if (!outlined.enabled) continue;
 				context.command.SetGlobalColor(outlineColorID, outlined.outlineColor);
-				foreach (Renderer renderer in outlined.GetComponentsInChildren<Renderer>()) { // TODO use more optimized method
+				foreach (Renderer renderer in outlined.renderers) {
 					context.command.DrawRenderer(renderer, outlineUnlitMaterial);
 				}
 			}
