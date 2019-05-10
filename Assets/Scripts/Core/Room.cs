@@ -41,13 +41,21 @@ namespace Architect {
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
 
+		public Vector3 center {
+			get {
+				return (centerTransf != null) ? centerTransf.position : transform.position;
+			}
+		}
+
 		private GameObject togglable;
+		private Transform centerTransf;
 
 		private void Awake() {
 			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
+			centerTransf = transform.Find("Center");
 		}
 
 		public void RegisterLink(RoomLink link) {
