@@ -33,11 +33,14 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   blend:
-    overrideState: 0
-    value: 0.5
-  outlineColor:
-    overrideState: 0
-    value: {r: 0, g: 1, b: 0, a: 1}
+    overrideState: 1
+    value: 1
+  blurDownscale:
+    overrideState: 1
+    value: 0
+  blurPasses:
+    overrideState: 1
+    value: 4
 --- !u!114 &114252324386167986
 MonoBehaviour:
   m_ObjectHideFlags: 3

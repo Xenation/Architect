@@ -10,10 +10,13 @@ namespace Architect {
 	public sealed class Outline : PostProcessEffectSettings {
 
 		[Range(0f, 1f), Tooltip("Outline Effect Intensity")]
-		public FloatParameter blend = new FloatParameter { value = 0.5f };
+		public FloatParameter blend = new FloatParameter { value = 1f };
 
-		[Tooltip("Outline Color")]
-		public ColorParameter outlineColor = new ColorParameter { value = Color.green };
+		[Range(0, 4), Tooltip("The number of times the resolution is halved for the blur")]
+		public IntParameter blurDownscale = new IntParameter { value = 1 };
+
+		[Range(1, 8), Tooltip("The number of blur passes executed (higher = more blurry)")]
+		public IntParameter blurPasses = new IntParameter { value = 4 };
 
 		public override bool IsEnabledAndSupported(PostProcessRenderContext context) {
 			return enabled.value && blend.value > 0f;
@@ -34,6 +37,7 @@ namespace Architect {
 		private int tmpTexID;
 		private int blurSizeID;
 		private int outlineTexID;
+		private int blendID;
 
 		private Material outlineUnlitMaterial;
 		private Material blurMaterial;
@@ -55,6 +59,7 @@ namespace Architect {
 			tmpTexID = Shader.PropertyToID("_TmpTex");
 			blurSizeID = Shader.PropertyToID("_BlurSize");
 			outlineTexID = Shader.PropertyToID("_OutlineTex");
+			blendID = Shader.PropertyToID("_OutlineBlend");
 
 			// Create the materials used
 			outlineUnlitMaterial = new Material(outlineUnlit);
@@ -81,19 +86,21 @@ namespace Architect {
 
 			// Prepare blur RT descriptor
 			RenderTextureDescriptor blurDescriptor;
-			if (context.camera.stereoEnabled) {
-				blurDescriptor = XRSettings.eyeTextureDesc;
-				blurDescriptor.depthBufferBits = 0;
-			} else {
-				blurDescriptor = new RenderTextureDescriptor(context.camera.pixelWidth, context.camera.pixelHeight);
-			}
-			blurDescriptor.width = blurDescriptor.width >> 1;
-			blurDescriptor.height = blurDescriptor.height >> 1;
+			//if (context.camera.stereoEnabled) {
+			//	blurDescriptor = XRSettings.eyeTextureDesc;
+			//	blurDescriptor.depthBufferBits = 0;
+			//} else {
+			//	blurDescriptor = new RenderTextureDescriptor(context.camera.pixelWidth, context.camera.pixelHeight);
+			//}
+			blurDescriptor = new RenderTextureDescriptor(context.camera.pixelWidth * ((context.camera.stereoEnabled) ? 2 : 1), context.camera.pixelHeight);
+			blurDescriptor.width = blurDescriptor.width >> settings.blurDownscale;
+			blurDescriptor.height = blurDescriptor.height >> settings.blurDownscale;
 
 			context.command.BeginSample("Outline");
 
 			// Render the outlined objects in the outline RT
-			context.GetScreenSpaceTemporaryRT(context.command, outlineTexID);
+			//context.GetScreenSpaceTemporaryRT(context.command, outlineTexID);
+			context.command.GetTemporaryRT(outlineTexID, new RenderTextureDescriptor(context.camera.pixelWidth * ((context.camera.stereoEnabled) ? 2 : 1), context.camera.pixelHeight));
 			context.command.SetRenderTarget(outlineTexID);
 			context.command.ClearRenderTarget(true, true, Color.clear);
 			foreach (Outlined outlined in OutlinedManager.I.outlinedObjects) {
@@ -110,13 +117,14 @@ namespace Architect {
 			context.command.Blit(outlineTexID, blurTexID); // Copy outline RT to blur RT
 			context.command.SetGlobalVector(blurSizeID, new Vector4(1.5f / blurDescriptor.width, 1.5f / blurDescriptor.height, 0f, 0f));
 
-			for (int i = 0; i < 4; i++) { // Blur passes
+			for (int i = 0; i < settings.blurPasses; i++) { // Blur passes
 				context.command.Blit(blurTexID, tmpTexID, blurMaterial, 0); // Horizontal
 				context.command.Blit(tmpTexID, blurTexID, blurMaterial, 1); // Vertical
 			}
 			context.command.ReleaseTemporaryRT(tmpTexID);
 
 			// Composite the main RT with the blur RT
+			context.command.SetGlobalFloat(blendID, settings.blend);
 			context.command.Blit(context.source, context.destination, outlineCompositorMaterial, 0);
 			context.command.ReleaseTemporaryRT(blurTexID);
 			context.command.ReleaseTemporaryRT(outlineTexID);

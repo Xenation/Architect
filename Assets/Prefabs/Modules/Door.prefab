@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6913843946568564023}
   - component: {fileID: 227011399167397482}
   - component: {fileID: 7471351492480354015}
+  - component: {fileID: 1790971921464246779}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   skeletonPoser: {fileID: 0}
   handFollowTransform: 1
   highlightOnHover: 1
+  highlightScript: {fileID: 1790971921464246779}
   hideHighlight: []
 --- !u!54 &4519509807732657373
 Rigidbody:
@@ -193,6 +195,19 @@ MonoBehaviour:
   roomnet: {fileID: 0}
   startSnapped: 1
   pointType: 0
+--- !u!114 &1790971921464246779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27895776382185123}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc43fc9f98c6e64cb86270189227518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &4826911059623579939
 GameObject:
   m_ObjectHideFlags: 0

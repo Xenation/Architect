@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 5391948533502105120}
   - component: {fileID: 5391948533502105115}
   - component: {fileID: 5391948533502105126}
+  - component: {fileID: 5061665167496565818}
   m_Layer: 12
   m_Name: Moving
   m_TagString: Untagged
@@ -198,6 +199,7 @@ MonoBehaviour:
   skeletonPoser: {fileID: 0}
   handFollowTransform: 1
   highlightOnHover: 1
+  highlightScript: {fileID: 5061665167496565818}
   hideHighlight: []
 --- !u!114 &5391948533502105125
 MonoBehaviour:
@@ -296,6 +298,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.17, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5061665167496565818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5391948533502105113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc43fc9f98c6e64cb86270189227518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &5391948533520558140
 GameObject:
   m_ObjectHideFlags: 0
