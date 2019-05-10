@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4506262467828459031}
   - component: {fileID: 4506262467828459028}
   - component: {fileID: 4506262467828459029}
+  - component: {fileID: 650758780978013383}
   m_Layer: 0
   m_Name: Balcony
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   skeletonPoser: {fileID: 0}
   handFollowTransform: 1
   highlightOnHover: 1
+  highlightScript: {fileID: 650758780978013383}
   hideHighlight: []
 --- !u!54 &4506262467828459025
 Rigidbody:
@@ -193,6 +195,19 @@ MonoBehaviour:
   roomnet: {fileID: 0}
   startSnapped: 1
   pointType: 1
+--- !u!114 &650758780978013383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506262467828459035}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc43fc9f98c6e64cb86270189227518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &4506262467997026250
 GameObject:
   m_ObjectHideFlags: 0

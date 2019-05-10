@@ -96,7 +96,7 @@ namespace Architect {
 						}
 						currentTraverser = currentRoom.traverser;
 						if (targetRoom == currentRoom) {
-							currentRoom.traverser.SetTarget(roomnet.WorldToRelativePos(currentRoom.transform.position));
+							currentRoom.traverser.SetTarget(roomnet.WorldToRelativePos(currentRoom.center));
 							if (currentTraverser.Traverse(this)) {
 								state = State.Idle;
 							}
