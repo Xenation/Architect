@@ -3174,18 +3174,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7881652092948295641}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &319924148 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3917272499724956016, guid: 3d489e4a981670245acee05025cd28b6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7733976472455032292}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46f8e9e70f68ee3418ad85992778c116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &327071682
 Mesh:
   m_ObjectHideFlags: 0
@@ -14864,11 +14852,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6574343020538591924, guid: 3d489e4a981670245acee05025cd28b6,
-        type: 3}
-      propertyPath: rotationMapping
-      value: 
-      objectReference: {fileID: 319924148}
     - target: {fileID: 7733976473638319947, guid: 3d489e4a981670245acee05025cd28b6,
         type: 3}
       propertyPath: m_Name
