@@ -78,6 +78,7 @@ namespace Architect {
 
 		protected override void Snapped() {
 			base.Snapped();
+			transform.SetParent(roomnet.transform);
 			Room linkedRoom = roomnet.GetRoomHover(entryUp.position);
 			if (linkedRoom != null) {
 				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
@@ -92,6 +93,7 @@ namespace Architect {
 
 		protected override void Unsnapped() {
 			base.Unsnapped();
+			transform.SetParent(null);
 			if (link.valid) {
 				link.isOpen = false;
 				link.BreakLink();

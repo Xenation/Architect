@@ -56,6 +56,7 @@ namespace Architect {
 
 		protected override void Snapped() {
 			base.Snapped();
+			transform.SetParent(roomnet.transform);
 			parentPoint = hoveredPoint;
 			parentPoint.snapped = this;
 			parentPoint.link.isOpen = true;
@@ -63,6 +64,7 @@ namespace Architect {
 
 		protected override void Unsnapped() {
 			base.Unsnapped();
+			transform.SetParent(null);
 			parentPoint.model?.SetActive(true);
 			parentPoint.snapped = null;
 			parentPoint.link.isOpen = false;
