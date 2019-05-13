@@ -43,7 +43,8 @@ namespace Architect {
 			}
 		}
 
-		private void Update() {
+		private new void Update() {
+			base.Update();
 			if (showPreview) {
 				currentRoom = roomnet.GetRoomHover(transform.position);
 				if (currentRoom != null) {

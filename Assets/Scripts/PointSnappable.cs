@@ -27,7 +27,8 @@ namespace Architect {
 			}
 		}
 
-		private void Update() {
+		private new void Update() {
+			base.Update();
 			if (showPreview) {
 				prevPoint = hoveredPoint;
 				hoveredPoint = roomnet.GetPointHover(transform.position);

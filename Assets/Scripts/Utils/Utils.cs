@@ -93,5 +93,15 @@ namespace Architect {
 			mesh.RecalculateBounds();
 		}
 
+		public static bool IsInside(this Collider collider, Vector3 pos) {
+			Vector3 closest = collider.ClosestPoint(pos);
+			Vector3 center = collider.bounds.center;
+
+			Vector3 centerToContact = (closest - center).normalized;
+			Vector3 centerToPos = (closest - pos).normalized;
+
+			return Vector3.Dot(centerToContact, centerToPos) > 0;
+		}
+
 	}
 }

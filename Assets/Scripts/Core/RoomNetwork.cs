@@ -55,9 +55,22 @@ namespace Architect {
 
 		private Dictionary<Room, RoomNode> roomGraph = new Dictionary<Room, RoomNode>();
 
+		private Transform respawnPoint;
+		public Vector3 moduleRespawnPosition {
+			get {
+				return respawnPoint.position;
+			}
+		}
+
+		public float moduleZoneRadius = 2;
+		public float moduleZoneFloor = 0.1f;
+		public float moduleZoneCeilling = 4f;
+
 		private void Awake() {
 			BuildNetwork();
 			BuildGraph();
+
+			respawnPoint = transform.Find("ModulesRespawn");
 		}
 
 		private void BuildNetwork() {
@@ -278,6 +291,12 @@ namespace Architect {
 			path.Reverse();
 
 			return path;
+		}
+
+		public bool IsInModuleZone(Vector3 pos) {
+			Vector2 toPos = new Vector2(pos.x - transform.position.x, pos.z - transform.position.z);
+
+			return toPos.magnitude < moduleZoneRadius && pos.y > moduleZoneFloor && pos.y < moduleZoneCeilling;
 		}
 
 	}
