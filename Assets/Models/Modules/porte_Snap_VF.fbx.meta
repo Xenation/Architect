@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: 863d4100a06ee56439d3b5f76225e567
+guid: 361b9c4e3e4dc5741abe85f75629a96e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: cadre
-    2100002: joint
-    2100004: verre
+    2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Plane
+    4300000: Cube.009
   externalObjects: {}
   materials:
     importMaterials: 1
