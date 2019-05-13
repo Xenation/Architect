@@ -50,7 +50,9 @@ namespace Architect {
 
 		private void Clear() {
 			OutlinedManager.I.outlinedObjects.Remove(this);
-			_renderers.Clear();
+			if (_renderers != null) {
+				_renderers.Clear();
+			}
 		}
 
 	}
