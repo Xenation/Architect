@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586468763384770031
+    m_lastTime: -8586435786883206261
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586449772164837578
+    m_lastTime: -8586435791690904199
     List:
     - name: MainSoundBank
       guid: 165842bf901544409a4dbb0848c74102
@@ -207,8 +207,152 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586449821729643487
+    m_lastTime: -8586435791984624847
     List:
+    - name: Play_Acsenseur00
+      guid: ffc5e8c708d2a74a8378fae5693223ac
+      id: 1950492197
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Acsenseur00
+        ObjectType: 3
+      Path: Default Work Unit\Play_Acsenseur00
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Acsenseur01
+      guid: 81d02551b51ab442bf91774073c4d82c
+      id: 1950492196
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Acsenseur01
+        ObjectType: 3
+      Path: Default Work Unit\Play_Acsenseur01
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Acsenseur02
+      guid: a40370f483f24a47ac799b760e97d8cb
+      id: 1950492199
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Acsenseur02
+        ObjectType: 3
+      Path: Default Work Unit\Play_Acsenseur02
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Acsenseur03
+      guid: 136defbb286528488557d61abee94b0d
+      id: 1950492198
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Acsenseur03
+        ObjectType: 3
+      Path: Default Work Unit\Play_Acsenseur03
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Acsenseur04
+      guid: 9acc716939c362469e005d0ddf7ce6d5
+      id: 1950492193
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Acsenseur04
+        ObjectType: 3
+      Path: Default Work Unit\Play_Acsenseur04
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_AcsenseurTOP
+      guid: 311275306aeeff4b894dd7bc1d71e85b
+      id: 1589065314
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_AcsenseurTOP
+        ObjectType: 3
+      Path: Default Work Unit\Play_AcsenseurTOP
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Bassin
+      guid: 7cc9a228ff59414080b9ad16c75e8a8e
+      id: 258901810
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Bassin
+        ObjectType: 3
+      Path: Default Work Unit\Play_Bassin
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Cascade
+      guid: d6cf9c6d54285b43b779800fe8637618
+      id: 33491128
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Cascade
+        ObjectType: 3
+      Path: Default Work Unit\Play_Cascade
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Chemin_Lumiere
+      guid: cd2407e949d0494f9cbe0ca7c7e3cdb2
+      id: 1544534530
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Chemin_Lumiere
+        ObjectType: 3
+      Path: Default Work Unit\Play_Chemin_Lumiere
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lumiere_Allume
+      guid: 0f1119a8e99fd44d9f1cbd0c1617cfb2
+      id: 3548864740
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Lumiere_Allume
+        ObjectType: 3
+      Path: Default Work Unit\Play_Lumiere_Allume
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lumiere_Eteint
+      guid: bec3259f064013449cfb3e5537aece30
+      id: 1015332243
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Lumiere_Eteint
+        ObjectType: 3
+      Path: Default Work Unit\Play_Lumiere_Eteint
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lumiere_Gresille
+      guid: 23febae7a137934496db9337dc24a21b
+      id: 4120605449
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Lumiere_Gresille
+        ObjectType: 3
+      Path: Default Work Unit\Play_Lumiere_Gresille
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - name: Play_Music
       guid: fd952e251f59c54385d798f0fc89613d
       id: 2932040671
@@ -218,6 +362,102 @@ MonoBehaviour:
       - ElementName: Play_Music
         ObjectType: 3
       Path: Default Work Unit\Play_Music
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Plante
+      guid: c7dd8e51ec4c7c48becacc800e331203
+      id: 3892494798
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Plante
+        ObjectType: 3
+      Path: Default Work Unit\Play_Plante
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Pluie_Ext
+      guid: ca2344093a331741bdba90b76ac4d152
+      id: 147443677
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Pluie_Ext
+        ObjectType: 3
+      Path: Default Work Unit\Play_Pluie_Ext
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Pluie_Toit
+      guid: bd9aa3ac3d9a644bb6079eac92df5343
+      id: 4269863952
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Pluie_Toit
+        ObjectType: 3
+      Path: Default Work Unit\Play_Pluie_Toit
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Poser_Module
+      guid: 5d8b7732b0e01d46bc5114bca9132666
+      id: 1614550972
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Poser_Module
+        ObjectType: 3
+      Path: Default Work Unit\Play_Poser_Module
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Prendre_Module
+      guid: 2e356e80a0ac25478ae20585a8241ca1
+      id: 922352807
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Prendre_Module
+        ObjectType: 3
+      Path: Default Work Unit\Play_Prendre_Module
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Tp_Module
+      guid: 722c8d46a9333c45b62607358478de09
+      id: 2211386577
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Tp_Module
+        ObjectType: 3
+      Path: Default Work Unit\Play_Tp_Module
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Ville
+      guid: ff5f8650a7b5ae4cb709e3dd9bfde06b
+      id: 2800623694
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Ville
+        ObjectType: 3
+      Path: Default Work Unit\Play_Ville
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Wrong
+      guid: 908a84f70fb5a64fae655cc720d320c1
+      id: 92581801
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Wrong
+        ObjectType: 3
+      Path: Default Work Unit\Play_Wrong
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -402,8 +642,7 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ArchitectWwise
-  - /ArchitectWwise/States
-  - /ArchitectWwise/States/Default Work Unit
-  - /ArchitectWwise/States/Default Work Unit/State_Music
+  - /ArchitectWwise/Events
+  - /ArchitectWwise/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

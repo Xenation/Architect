@@ -13,7 +13,27 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_ACSENSEUR00 = 1950492197U;
+        static const AkUniqueID PLAY_ACSENSEUR01 = 1950492196U;
+        static const AkUniqueID PLAY_ACSENSEUR02 = 1950492199U;
+        static const AkUniqueID PLAY_ACSENSEUR03 = 1950492198U;
+        static const AkUniqueID PLAY_ACSENSEUR04 = 1950492193U;
+        static const AkUniqueID PLAY_ACSENSEURTOP = 1589065314U;
+        static const AkUniqueID PLAY_BASSIN = 258901810U;
+        static const AkUniqueID PLAY_CASCADE = 33491128U;
+        static const AkUniqueID PLAY_CHEMIN_LUMIERE = 1544534530U;
+        static const AkUniqueID PLAY_LUMIERE_ALLUME = 3548864740U;
+        static const AkUniqueID PLAY_LUMIERE_ETEINT = 1015332243U;
+        static const AkUniqueID PLAY_LUMIERE_GRESILLE = 4120605449U;
         static const AkUniqueID PLAY_MUSIC = 2932040671U;
+        static const AkUniqueID PLAY_PLANTE = 3892494798U;
+        static const AkUniqueID PLAY_PLUIE_EXT = 147443677U;
+        static const AkUniqueID PLAY_PLUIE_TOIT = 4269863952U;
+        static const AkUniqueID PLAY_POSER_MODULE = 1614550972U;
+        static const AkUniqueID PLAY_PRENDRE_MODULE = 922352807U;
+        static const AkUniqueID PLAY_TP_MODULE = 2211386577U;
+        static const AkUniqueID PLAY_VILLE = 2800623694U;
+        static const AkUniqueID PLAY_WRONG = 92581801U;
     } // namespace EVENTS
 
     namespace STATES
@@ -55,7 +75,10 @@ namespace AK
 
     namespace BUSSES
     {
+        static const AkUniqueID AMBIANCE = 2981377429U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
+        static const AkUniqueID MUSIC = 3991942870U;
+        static const AkUniqueID PLUIE = 101146708U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES
