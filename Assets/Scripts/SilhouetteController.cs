@@ -69,7 +69,12 @@ namespace Architect {
 					break;
 				case State.Sleeping:
 					if (currentRoom.isConnectedToStart) {
-						targetRoom = roomnet.fallbackRoom;
+						Room connectedEnd = roomnet.GetLinkedEndRoom();
+						if (connectedEnd != null) { //Has direct link to end
+							targetRoom = connectedEnd;
+						} else {
+							targetRoom = roomnet.fallbackRoom;
+						}
 						state = State.Travelling;
 					}
 					break;

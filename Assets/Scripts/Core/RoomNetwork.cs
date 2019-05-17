@@ -46,6 +46,7 @@ namespace Architect {
 		}
 
 		public Room startingRoom;
+		public Room[] endingRooms;
 		[System.NonSerialized] public Room lastLitRoom = null;
 		public delegate void LastLitChanged(Room lastLit);
 		public event LastLitChanged LastLitChangedEvent;
@@ -317,6 +318,15 @@ namespace Architect {
 			Vector2 toPos = new Vector2(pos.x - transform.position.x, pos.z - transform.position.z);
 
 			return toPos.magnitude < moduleZoneRadius && pos.y > moduleZoneFloor && pos.y < moduleZoneCeilling;
+		}
+
+		public Room GetLinkedEndRoom() {
+			foreach (Room room in endingRooms) {
+				if (room.isConnectedToStart) {
+					return room;
+				}
+			}
+			return null;
 		}
 
 	}
