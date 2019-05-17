@@ -26,6 +26,16 @@ namespace Architect {
 			rigidbody = GetComponent<Rigidbody>();
 		}
 
+		protected virtual void Update() {
+			if (!roomnet.IsInModuleZone(transform.position)) {
+				transform.position = roomnet.moduleRespawnPosition;
+				rigidbody.velocity = Vector3.zero;
+				rigidbody.angularVelocity = Vector3.zero;
+				// TODO trigger Teleportation Module
+				Debug.Log("Respawning Module ...");
+			}
+		}
+
 		protected virtual void OnDestroy() {
 			throwable.onPickUp.AddListener(PickedUp);
 			throwable.onDetachFromHand.AddListener(Detached);
@@ -38,6 +48,7 @@ namespace Architect {
 			if (isSnapped) {
 				Unsnapped();
 			}
+			// TODO trigger Prise Module
 		}
 
 		protected virtual void Detached() {
@@ -55,6 +66,7 @@ namespace Architect {
 
 		protected virtual void Snapped() {
 			isSnapped = true;
+			// TODO trigger Pose Module
 		}
 
 		protected virtual void Unsnapped() {

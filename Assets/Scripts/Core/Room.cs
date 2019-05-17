@@ -34,6 +34,8 @@ namespace Architect {
 			}
 		}
 
+		public bool isFallback = false;
+
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
 		[System.NonSerialized] public int linkCountToStart = 0;
@@ -41,13 +43,28 @@ namespace Architect {
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
 
+		public Vector3 center {
+			get {
+				return (centerTransf != null) ? centerTransf.position : transform.position;
+			}
+		}
+
 		private GameObject togglable;
+		private Transform centerTransf;
+		private Transform insideTransf;
+		private Collider[] insideColliders;
 
 		private void Awake() {
 			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
+			centerTransf = transform.Find("Center");
+			insideTransf = transform.Find("Inside");
+			insideColliders = insideTransf.GetComponentsInChildren<Collider>();
+			foreach (Collider collider in insideColliders) { // Make sure every "inside collider" is trigger
+				collider.isTrigger = true;
+			}
 		}
 
 		public void RegisterLink(RoomLink link) {
@@ -62,8 +79,10 @@ namespace Architect {
 			if (togglable == null) return;
 			if (isConnectedToStart && !togglable.activeInHierarchy) {
 				togglable.SetActive(true);
+				// TODO trigger Lumiere s'allume
 			} else if (!isConnectedToStart && togglable.activeInHierarchy) {
 				togglable.SetActive(false);
+				// TODO trigger Lumiere eteinte
 			}
 		}
 
@@ -93,6 +112,15 @@ namespace Architect {
 				}
 			}
 			return closestLink;
+		}
+
+		public bool isInside(Vector3 pos) {
+			foreach (Collider insideCollider in insideColliders) {
+				if (insideCollider.ClosestPoint(pos) == pos) { // TODO maybe use error margin for test
+					return true;
+				}
+			}
+			return false;
 		}
 
 		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {

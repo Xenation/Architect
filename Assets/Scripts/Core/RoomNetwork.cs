@@ -46,6 +46,7 @@ namespace Architect {
 		}
 
 		public Room startingRoom;
+		public Room[] endingRooms;
 		[System.NonSerialized] public Room lastLitRoom = null;
 		public delegate void LastLitChanged(Room lastLit);
 		public event LastLitChanged LastLitChangedEvent;
@@ -55,13 +56,31 @@ namespace Architect {
 
 		private Dictionary<Room, RoomNode> roomGraph = new Dictionary<Room, RoomNode>();
 
+		private Transform respawnPoint;
+		public Vector3 moduleRespawnPosition {
+			get {
+				return respawnPoint.position;
+			}
+		}
+
+		public float moduleZoneRadius = 2;
+		public float moduleZoneFloor = 0.1f;
+		public float moduleZoneCeilling = 4f;
+
+		[System.NonSerialized] public Room fallbackRoom = null;
+
 		private void Awake() {
 			BuildNetwork();
 			BuildGraph();
+
+			respawnPoint = transform.Find("ModulesRespawn");
 		}
 
 		private void BuildNetwork() {
 			startingRoom.isConnectedToStart = true;
+			startingRoom.isFallback = true;
+			fallbackRoom = startingRoom;
+			startingRoom.UpdateConnected();
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -89,15 +108,22 @@ namespace Architect {
 			HashSet<RoomLink> exploredLinks = new HashSet<RoomLink>();
 
 			foreach (Room room in rooms) {
-				Gizmos.color = Color.yellow;
-				Gizmos.DrawWireSphere(room.transform.position, .05f);
+				if (room.isFallback) {
+					Gizmos.color = Color.cyan;
+					if (room == fallbackRoom) {
+						Gizmos.color = Color.blue;
+					}
+				} else {
+					Gizmos.color = Color.yellow;
+				}
+				Gizmos.DrawWireSphere(room.center, .05f);
 
 				foreach (RoomLink link in room.links) {
 					if (exploredLinks.Contains(link)) continue;
 					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-					Gizmos.DrawLine(link.room1.transform.position, RelativeToWorldPos(link.entry1));
+					Gizmos.DrawLine(link.room1.center, RelativeToWorldPos(link.entry1));
 					Gizmos.DrawLine(RelativeToWorldPos(link.entry1), RelativeToWorldPos(link.entry2));
-					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.transform.position);
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.center);
 					exploredLinks.Add(link);
 				}
 			}
@@ -106,10 +132,19 @@ namespace Architect {
 		}
 
 		private void Update() {
-			//UpdateRoomConnections();
+			UpdateRoomConnections();
 		}
 
-		public Room GetRoomHover(Vector3 pos) {
+		public Room GetRoom(Vector3 pos) {
+			foreach (Room room in rooms) {
+				if (room.isInside(pos)) {
+					return room;
+				}
+			}
+			return null;
+		}
+
+		public Room GetRoomGridHover(Vector3 pos) {
 			foreach (Room room in rooms) {
 				if (room.grid.IsOverGrid(pos, SettingsManager.I.roomSettings.gridSnapOverHeight, SettingsManager.I.roomSettings.gridSnapUnderHeight)) {
 					return room;
@@ -152,7 +187,7 @@ namespace Architect {
 		}
 
 		public void OnLinkChange(RoomLink link) {
-			UpdateRoomConnections();
+			//UpdateRoomConnections();
 		}
 
 		public void UpdateRoomConnections() {
@@ -212,6 +247,15 @@ namespace Architect {
 			if (furthest != null) {
 				LastLitChangedEvent?.Invoke(furthest);
 				lastLitRoom = furthest;
+				// Find the furthest previously lit fallback room
+				Room currentFallback = null;
+				foreach (Room room in rooms) {
+					if (!room.isConnectedToStart || !room.isFallback || explored.Contains(room) || (currentFallback != null && currentFallback.linkCountToStart > room.linkCountToStart)) continue;
+					currentFallback = room;
+				}
+				if (currentFallback != null) {
+					fallbackRoom = currentFallback;
+				}
 			}
 		}
 
@@ -277,6 +321,21 @@ namespace Architect {
 			path.Reverse();
 
 			return path;
+		}
+
+		public bool IsInModuleZone(Vector3 pos) {
+			Vector2 toPos = new Vector2(pos.x - transform.position.x, pos.z - transform.position.z);
+
+			return toPos.magnitude < moduleZoneRadius && pos.y > moduleZoneFloor && pos.y < moduleZoneCeilling;
+		}
+
+		public Room GetLinkedEndRoom() {
+			foreach (Room room in endingRooms) {
+				if (room.isConnectedToStart) {
+					return room;
+				}
+			}
+			return null;
 		}
 
 	}

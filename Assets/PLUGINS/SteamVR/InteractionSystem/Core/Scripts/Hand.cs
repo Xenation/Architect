@@ -979,7 +979,7 @@ namespace Valve.VR.InteractionSystem
                     transform.position = noSteamVRFallbackCamera.transform.forward * (-1000.0f);
 
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(ray, out raycastHit, noSteamVRFallbackMaxDistanceNoItem))
+                    if (Physics.Raycast(ray, out raycastHit, noSteamVRFallbackMaxDistanceNoItem, hoverLayerMask.value))
                     {
                         transform.position = raycastHit.point;
 
