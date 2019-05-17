@@ -68,9 +68,8 @@ namespace Architect {
 					UpdateTravel();
 					break;
 				case State.Sleeping:
-					RoomLink linkToLit = currentRoom.GetClosestOpenLinkToConnected();
-					if (linkToLit != null) {
-						targetRoom = linkToLit.GetOther(currentRoom);
+					if (currentRoom.isConnectedToStart) {
+						targetRoom = roomnet.fallbackRoom;
 						state = State.Travelling;
 					}
 					break;

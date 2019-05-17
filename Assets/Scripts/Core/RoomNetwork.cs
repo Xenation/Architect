@@ -66,6 +66,8 @@ namespace Architect {
 		public float moduleZoneFloor = 0.1f;
 		public float moduleZoneCeilling = 4f;
 
+		[System.NonSerialized] public Room fallbackRoom = null;
+
 		private void Awake() {
 			BuildNetwork();
 			BuildGraph();
@@ -75,6 +77,8 @@ namespace Architect {
 
 		private void BuildNetwork() {
 			startingRoom.isConnectedToStart = true;
+			startingRoom.isFallback = true;
+			fallbackRoom = startingRoom;
 			startingRoom.UpdateConnected();
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
@@ -103,15 +107,22 @@ namespace Architect {
 			HashSet<RoomLink> exploredLinks = new HashSet<RoomLink>();
 
 			foreach (Room room in rooms) {
-				Gizmos.color = Color.yellow;
-				Gizmos.DrawWireSphere(room.transform.position, .05f);
+				if (room.isFallback) {
+					Gizmos.color = Color.cyan;
+					if (room == fallbackRoom) {
+						Gizmos.color = Color.blue;
+					}
+				} else {
+					Gizmos.color = Color.yellow;
+				}
+				Gizmos.DrawWireSphere(room.center, .05f);
 
 				foreach (RoomLink link in room.links) {
 					if (exploredLinks.Contains(link)) continue;
 					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-					Gizmos.DrawLine(link.room1.transform.position, RelativeToWorldPos(link.entry1));
+					Gizmos.DrawLine(link.room1.center, RelativeToWorldPos(link.entry1));
 					Gizmos.DrawLine(RelativeToWorldPos(link.entry1), RelativeToWorldPos(link.entry2));
-					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.transform.position);
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.center);
 					exploredLinks.Add(link);
 				}
 			}
@@ -226,6 +237,15 @@ namespace Architect {
 			if (furthest != null) {
 				LastLitChangedEvent?.Invoke(furthest);
 				lastLitRoom = furthest;
+				// Find the furthest previously lit fallback room
+				Room currentFallback = null;
+				foreach (Room room in rooms) {
+					if (!room.isConnectedToStart || !room.isFallback || explored.Contains(room) || (currentFallback != null && currentFallback.linkCountToStart > room.linkCountToStart)) continue;
+					currentFallback = room;
+				}
+				if (currentFallback != null) {
+					fallbackRoom = currentFallback;
+				}
 			}
 		}
 

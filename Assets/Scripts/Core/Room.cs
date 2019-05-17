@@ -34,6 +34,8 @@ namespace Architect {
 			}
 		}
 
+		public bool isFallback = false;
+
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
 		[System.NonSerialized] public int linkCountToStart = 0;
