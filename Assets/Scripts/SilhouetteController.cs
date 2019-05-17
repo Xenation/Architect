@@ -60,6 +60,7 @@ namespace Architect {
 				case State.Idle:
 					if (!currentRoom.isConnectedToStart) {
 						state = State.Sleeping;
+						animator.SetBool("isSleeping", true);
 					} else if (targetRoom != null && targetRoom != currentRoom) {
 						state = State.Travelling;
 					}
@@ -76,6 +77,7 @@ namespace Architect {
 							targetRoom = roomnet.fallbackRoom;
 						}
 						state = State.Travelling;
+						animator.SetBool("isSleeping", false);
 					}
 					break;
 			}
@@ -91,6 +93,7 @@ namespace Architect {
 						currentRoom = room;
 						if (!currentRoom.isConnectedToStart) {
 							state = State.Sleeping;
+							animator.SetBool("isSleeping", true);
 							return;
 						}
 						path = roomnet.FindPath(currentRoom, targetRoom);
