@@ -29,7 +29,7 @@ namespace Architect {
 		private Traverser currentTraverser;
 
 		private void Start() {
-			currentRoom = roomnet.GetRoomHover(transform.position);
+			currentRoom = roomnet.GetRoom(transform.position);
 			roomnet.LastLitChangedEvent += LastLitRoomChanged;
 			animator = GetComponentInChildren<Animator>();
 		}
@@ -86,7 +86,7 @@ namespace Architect {
 		private void UpdateTravel() {
 			switch (travellingState) {
 				case TravellingState.InRoom:
-					Room room = roomnet.GetRoomHover(transform.position);
+					Room room = roomnet.GetRoom(transform.position);
 					if (room != null) {
 						currentRoom = room;
 						if (!currentRoom.isConnectedToStart) {

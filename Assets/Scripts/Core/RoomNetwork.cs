@@ -135,7 +135,16 @@ namespace Architect {
 			UpdateRoomConnections();
 		}
 
-		public Room GetRoomHover(Vector3 pos) {
+		public Room GetRoom(Vector3 pos) {
+			foreach (Room room in rooms) {
+				if (room.isInside(pos)) {
+					return room;
+				}
+			}
+			return null;
+		}
+
+		public Room GetRoomGridHover(Vector3 pos) {
 			foreach (Room room in rooms) {
 				if (room.grid.IsOverGrid(pos, SettingsManager.I.roomSettings.gridSnapOverHeight, SettingsManager.I.roomSettings.gridSnapUnderHeight)) {
 					return room;

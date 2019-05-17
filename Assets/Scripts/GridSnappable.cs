@@ -32,7 +32,7 @@ namespace Architect {
 
 		private void Start() {
 			if (startSnapped) {
-				currentRoom = roomnet.GetRoomHover(transform.position);
+				currentRoom = roomnet.GetRoomGridHover(transform.position);
 				if (currentRoom != null) {
 					currentRoom.grid.Snap(preview.transform, transform, size);
 					transform.position = preview.transform.position;
@@ -46,7 +46,7 @@ namespace Architect {
 		private new void Update() {
 			base.Update();
 			if (showPreview) {
-				currentRoom = roomnet.GetRoomHover(transform.position);
+				currentRoom = roomnet.GetRoomGridHover(transform.position);
 				if (currentRoom != null) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
@@ -80,7 +80,7 @@ namespace Architect {
 		protected override void Snapped() {
 			base.Snapped();
 			transform.SetParent(roomnet.transform);
-			Room linkedRoom = roomnet.GetRoomHover(entryUp.position);
+			Room linkedRoom = roomnet.GetRoomGridHover(entryUp.position);
 			if (linkedRoom != null) {
 				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
 				link.room1 = currentRoom;

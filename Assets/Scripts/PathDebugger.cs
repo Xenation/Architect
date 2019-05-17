@@ -14,8 +14,8 @@ namespace Architect {
 		}
 
 		private void Update() {
-			Room startRoom = roomnet.GetRoomHover(start.position);
-			Room targetRoom = roomnet.GetRoomHover(target.position);
+			Room startRoom = roomnet.GetRoom(start.position);
+			Room targetRoom = roomnet.GetRoom(target.position);
 			if (startRoom == null || targetRoom == null) {
 				//Debug.Log("No start or target!");
 				return;
