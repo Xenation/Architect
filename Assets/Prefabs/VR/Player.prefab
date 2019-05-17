@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 7016875830006266230}
     - target: {fileID: 11497470, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: hoverLayerMask.m_Bits
-      value: 39939
+      value: 6144
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: otherHand
@@ -314,6 +314,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3827613481803443238, guid: 0e858761672f1fa47af1c70ff077d664,
         type: 3}
+    - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: hoverLayerMask.m_Bits
+      value: 6144
+      objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: otherHand
       value: 
@@ -331,6 +335,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2007840688712657000, guid: d50d8ba47a8556a4bb86c0a18a1f5509,
         type: 3}
+    - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: hoverLayerMask.m_Bits
+      value: 6144
+      objectReference: {fileID: 0}
     - target: {fileID: 114000012749712888, guid: dc06161b6d97feb419f45f03b62e14b9,
         type: 3}
       propertyPath: doNotDestroy

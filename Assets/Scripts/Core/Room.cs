@@ -79,8 +79,10 @@ namespace Architect {
 			if (togglable == null) return;
 			if (isConnectedToStart && !togglable.activeInHierarchy) {
 				togglable.SetActive(true);
+				// TODO trigger Lumiere s'allume
 			} else if (!isConnectedToStart && togglable.activeInHierarchy) {
 				togglable.SetActive(false);
+				// TODO trigger Lumiere eteinte
 			}
 		}
 

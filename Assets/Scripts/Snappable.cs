@@ -31,6 +31,7 @@ namespace Architect {
 				transform.position = roomnet.moduleRespawnPosition;
 				rigidbody.velocity = Vector3.zero;
 				rigidbody.angularVelocity = Vector3.zero;
+				// TODO trigger Teleportation Module
 				Debug.Log("Respawning Module ...");
 			}
 		}
@@ -47,6 +48,7 @@ namespace Architect {
 			if (isSnapped) {
 				Unsnapped();
 			}
+			// TODO trigger Prise Module
 		}
 
 		protected virtual void Detached() {
@@ -64,6 +66,7 @@ namespace Architect {
 
 		protected virtual void Snapped() {
 			isSnapped = true;
+			// TODO trigger Pose Module
 		}
 
 		protected virtual void Unsnapped() {
