@@ -184,7 +184,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586435786883206261
+    m_lastTime: -8586434225294932648
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
@@ -207,7 +207,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586435791984624847
+    m_lastTime: -8586435224982297705
     List:
     - name: Play_Acsenseur00
       guid: ffc5e8c708d2a74a8378fae5693223ac
@@ -466,8 +466,26 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586468763384799935
-    List: []
+    m_lastTime: -8586434225294812962
+    List:
+    - name: RTPC_Distance_Cascade
+      guid: 3955beaf96fecf4085e3a3cd6177e70d
+      id: 2173016469
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: RTPC_Distance_Cascade
+        ObjectType: 13
+      Path: Default Work Unit\RTPC_Distance_Cascade
+    - name: SideChainAmbianceRTPC
+      guid: 6d2cb1e2b25cfb44b1149af64db93d4f
+      id: 3027670798
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SideChainAmbianceRTPC
+        ObjectType: 13
+      Path: Default Work Unit\SideChainAmbianceRTPC
   - PhysicalPath: Game Parameters\Factory Motion.wwu
     ParentPhysicalPath: 
     guid: 225213d7dbd1d042adc0930743567776

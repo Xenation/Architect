@@ -79,11 +79,13 @@ namespace Architect {
 			if (togglable == null) return;
 			if (isConnectedToStart && !togglable.activeInHierarchy) {
 				togglable.SetActive(true);
-				// TODO trigger Lumiere s'allume
+                // trigger Lumiere s'allume (TODO sauf première)
+                AkSoundEngine.PostEvent("Play_Lumiere_Allume", gameObject);
 			} else if (!isConnectedToStart && togglable.activeInHierarchy) {
 				togglable.SetActive(false);
-				// TODO trigger Lumiere eteinte
-			}
+                // trigger Lumiere eteinte
+                AkSoundEngine.PostEvent("Play_Lumiere_Eteint", gameObject);
+            }
 		}
 
 		public RoomLink GetOpenLink() {
