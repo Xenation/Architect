@@ -22,6 +22,11 @@ namespace Architect {
 				_isOpen = value;
 				if (prevOpen != _isOpen) {
 					roomnet?.OnLinkChange(this);
+					if (_isOpen) {
+						OnLinkOpened?.Invoke(this);
+					} else {
+						OnLinkClosed?.Invoke(this);
+					}
 				}
 			}
 		}
@@ -34,6 +39,9 @@ namespace Architect {
 		public delegate void NotifyCallback();
 		public event NotifyCallback OnCharEntered;
 		public event NotifyCallback OnCharExited;
+		public delegate void TargetedNotifyCallback(RoomLink link);
+		public event TargetedNotifyCallback OnLinkClosed;
+		public event TargetedNotifyCallback OnLinkOpened;
 
 		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;

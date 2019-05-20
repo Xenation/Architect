@@ -42,10 +42,17 @@ namespace Architect {
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
+		public RoomLightPath lightPath;
 
 		public Vector3 center {
 			get {
 				return (centerTransf != null) ? centerTransf.position : transform.position;
+			}
+		}
+
+		public Transform centerTransform {
+			get {
+				return (centerTransf != null) ? centerTransf : transform;
 			}
 		}
 
@@ -69,19 +76,34 @@ namespace Architect {
 
 		public void RegisterLink(RoomLink link) {
 			links.Add(link);
+			lightPath.BuildLinkPath(link);
+			link.OnLinkOpened += LinkOpened;
+			link.OnLinkClosed += LinkClosed;
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
+			lightPath.DeleteLinkPath(link);
+			link.OnLinkOpened -= LinkOpened;
+			link.OnLinkClosed -= LinkClosed;
+		}
+
+		private void LinkOpened(RoomLink link) {
+			if (isConnectedToStart || link.GetOther(this).isConnectedToStart) {
+				lightPath.InConnect(link);
+			}
+		}
+
+		private void LinkClosed(RoomLink link) {
+			lightPath.InDisconnect(link);
 		}
 
 		public void UpdateConnected() {
-			if (togglable == null) return;
 			if (isConnectedToStart && !togglable.activeInHierarchy) {
-				togglable.SetActive(true);
+				togglable?.SetActive(true);
 				// TODO trigger Lumiere s'allume
 			} else if (!isConnectedToStart && togglable.activeInHierarchy) {
-				togglable.SetActive(false);
+				togglable?.SetActive(false);
 				// TODO trigger Lumiere eteinte
 			}
 		}

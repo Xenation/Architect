@@ -80,7 +80,6 @@ namespace Architect {
 			startingRoom.isConnectedToStart = true;
 			startingRoom.isFallback = true;
 			fallbackRoom = startingRoom;
-			startingRoom.UpdateConnected();
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -89,10 +88,16 @@ namespace Architect {
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
+					room.lightPath = new RoomLightPath(room, this);
 					rooms.Add(room);
 				}
 			}
 			GetComponentsInChildren(points);
+			// Build Light Paths
+			foreach (Room room in rooms) {
+				room.lightPath.BuildAll();
+			}
+			startingRoom.UpdateConnected();
 		}
 
 		private void BuildGraph() {
@@ -188,6 +193,14 @@ namespace Architect {
 
 		public void OnLinkChange(RoomLink link) {
 			//UpdateRoomConnections();
+		}
+
+		public void OnLinkOpenned(RoomLink link) {
+			
+		}
+
+		public void OnLinkClosed(RoomLink link) {
+
 		}
 
 		public void UpdateRoomConnections() {
