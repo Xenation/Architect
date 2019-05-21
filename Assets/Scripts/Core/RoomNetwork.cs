@@ -88,15 +88,10 @@ namespace Architect {
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
-					room.lightPath = new RoomLightPath(room, this);
 					rooms.Add(room);
 				}
 			}
 			GetComponentsInChildren(points);
-			// Build Light Paths
-			foreach (Room room in rooms) {
-				room.lightPath.BuildAll();
-			}
 			startingRoom.UpdateConnected();
 		}
 

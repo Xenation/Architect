@@ -42,7 +42,6 @@ namespace Architect {
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
-		public RoomLightPath lightPath;
 
 		public Vector3 center {
 			get {
@@ -76,26 +75,10 @@ namespace Architect {
 
 		public void RegisterLink(RoomLink link) {
 			links.Add(link);
-			lightPath.BuildLinkPath(link);
-			link.OnLinkOpened += LinkOpened;
-			link.OnLinkClosed += LinkClosed;
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
-			lightPath.DeleteLinkPath(link);
-			link.OnLinkOpened -= LinkOpened;
-			link.OnLinkClosed -= LinkClosed;
-		}
-
-		private void LinkOpened(RoomLink link) {
-			if (isConnectedToStart || link.GetOther(this).isConnectedToStart) {
-				lightPath.InConnect(link);
-			}
-		}
-
-		private void LinkClosed(RoomLink link) {
-			lightPath.InDisconnect(link);
 		}
 
 		public void UpdateConnected() {
