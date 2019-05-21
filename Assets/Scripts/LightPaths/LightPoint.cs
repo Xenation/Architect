@@ -4,14 +4,12 @@ using UnityEngine;
 namespace Architect.LightPaths {
 	public class LightPoint : LightElement {
 
-		protected Transform transform;
-
 		protected List<LightLine> connected = new List<LightLine>();
 
-		protected override void OnUpdate(LightElement origin, float dt) {
+		protected override void OnSignalUpdate(LightElement origin, float dt) {
 			foreach (LightLine line in connected) {
 				if (!line.activated || line == origin) continue;
-				line.Update(this, dt);
+				line.UpdateSignal(this, dt);
 			}
 		}
 

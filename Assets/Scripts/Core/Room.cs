@@ -43,7 +43,8 @@ namespace Architect {
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
-		[System.NonSerialized] public LightNode lightNode;
+		[System.NonSerialized] public LightNode lightNode = null;
+		private Dictionary<RoomLink, LightLine> linkLights = new Dictionary<RoomLink, LightLine>();
 		
 
 		public Vector3 center {
@@ -75,7 +76,7 @@ namespace Architect {
 				collider.isTrigger = true;
 			}
 		}
-
+		
 		public void BuildLightNode() {
 			RoomSettings roomSettings = SettingsManager.I.roomSettings;
 			// Create Node
@@ -84,30 +85,27 @@ namespace Architect {
 			} else {
 				lightNode = Instantiate(roomSettings.normalNodePrefab, transform).GetComponent<LightNode>();
 			}
+			lightNode.gameObject.name = "Node-" + gameObject.name;
+			lightNode.transform.position = center;
+			lightNode.activated = true;
 		}
 
 		public void RegisterLink(RoomLink link) {
+			if (lightNode == null) BuildLightNode();
 			links.Add(link);
-			lightPath.BuildLinkPath(link);
-			link.OnLinkOpened += LinkOpened;
-			link.OnLinkClosed += LinkClosed;
+			LightLine line = LightLine.BuildNew(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
+			linkLights.Add(link, line);
+			link.lightLines.Add(line);
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
-			lightPath.DeleteLinkPath(link);
-			link.OnLinkOpened -= LinkOpened;
-			link.OnLinkClosed -= LinkClosed;
-		}
-
-		private void LinkOpened(RoomLink link) {
-			if (isConnectedToStart || link.GetOther(this).isConnectedToStart) {
-				lightPath.InConnect(link);
+			LightLine line;
+			if (linkLights.TryGetValue(link, out line)) {
+				linkLights.Remove(link);
+				link.lightLines.Remove(line);
+				LightLine.DestroyLine(line);
 			}
-		}
-
-		private void LinkClosed(RoomLink link) {
-			lightPath.InDisconnect(link);
 		}
 
 		public void UpdateConnected() {

@@ -16,6 +16,12 @@ namespace Architect.LightPaths {
 			return lightLine;
 		}
 
+		public static void DestroyLine(LightLine line) {
+			line.point1.UnregisterConnected(line);
+			line.point2.UnregisterConnected(line);
+			Destroy(line.gameObject);
+		}
+		
 		private float _progress = 0f;
 		public float progress {
 			get {
@@ -52,11 +58,14 @@ namespace Architect.LightPaths {
 		private MeshFilter filter;
 		private MeshRenderer meshRenderer;
 
-		protected override void OnUpdate(LightElement origin, float dt) {
+		protected override void OnSignalUpdate(LightElement origin, float dt) {
+			if (origin != point1) {
+				reverse = true;
+			}
 			progress += dt;
 			if (progress >= 1f) {
 				progress = 1f;
-				GetOther(origin as LightPoint)?.Update(this, dt);
+				GetOther(origin as LightPoint)?.UpdateSignal(this, dt);
 			}
 		}
 
@@ -65,7 +74,7 @@ namespace Architect.LightPaths {
 		}
 
 		private LightPoint GetOther(LightPoint point) {
-			return (point == point1) ? point1 : ((point == point2) ? point2 : null);
+			return (point == point1) ? point2 : ((point == point2) ? point1 : null);
 		}
 		
 		private void Start() {
@@ -78,6 +87,14 @@ namespace Architect.LightPaths {
 			reverseID = Shader.PropertyToID("_Reverse");
 			progress = 0f; // Safety
 			GenerateMesh();
+		}
+
+		private void Update() {
+			if (wasUpdated) {
+				wasUpdated = false;
+				return;
+			}
+			progress = 0f;
 		}
 
 		public void GenerateMesh() {
