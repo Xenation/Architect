@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Architect.LightPaths;
 
 namespace Architect {
 	[RequireComponent(typeof(SnapGrid))]
@@ -42,7 +43,8 @@ namespace Architect {
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
-		public RoomLightPath lightPath;
+		[System.NonSerialized] public LightNode lightNode;
+		
 
 		public Vector3 center {
 			get {
@@ -71,6 +73,16 @@ namespace Architect {
 			insideColliders = insideTransf.GetComponentsInChildren<Collider>();
 			foreach (Collider collider in insideColliders) { // Make sure every "inside collider" is trigger
 				collider.isTrigger = true;
+			}
+		}
+
+		public void BuildLightNode() {
+			RoomSettings roomSettings = SettingsManager.I.roomSettings;
+			// Create Node
+			if (isFallback) {
+				lightNode = Instantiate(roomSettings.fallbackNodePrefab, transform).GetComponent<LightNode>();
+			} else {
+				lightNode = Instantiate(roomSettings.normalNodePrefab, transform).GetComponent<LightNode>();
 			}
 		}
 

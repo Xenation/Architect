@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Architect {
+namespace Architect.Old {
 	[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 	public class LightPath : ProgressingElement {
 		

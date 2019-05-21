@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Architect.LightPaths;
 
 namespace Architect {
 	public class RoomLink : MonoBehaviour {
@@ -43,6 +45,11 @@ namespace Architect {
 		public event TargetedNotifyCallback OnLinkClosed;
 		public event TargetedNotifyCallback OnLinkOpened;
 
+		[System.NonSerialized] public LightPoint[] lightPoints;
+		[System.NonSerialized] public List<LightLine> lightLines = new List<LightLine>();
+		private Transform lightPointRoot;
+		private Transform lightLineRoot;
+
 		public Room GetOther(Room r) {
 			return (r == room1) ? room2 : room1;
 		}
@@ -82,6 +89,23 @@ namespace Architect {
 
 		public void NotifyCharacterExit() {
 			OnCharExited?.Invoke();
+		}
+
+		public void BuildLightElements() {
+			lightPointRoot = transform.Find("LightPoints");
+			lightPoints = new LightPoint[lightPointRoot.childCount];
+			for (int i = 0; i < lightPointRoot.childCount; i++) {
+				lightPoints[i] = lightPointRoot.GetChild(i).GetComponent<LightPoint>();
+			}
+			lightLineRoot = new GameObject("LightLines").transform;
+			lightLineRoot.SetParent(transform, false);
+			for (int i = 1; i < lightPointRoot.childCount; i++) {
+				lightLines.Add(LightLine.BuildNew(lightLineRoot, gameObject.name, lightPointRoot.GetChild(i - 1).GetComponent<LightPoint>(), lightPointRoot.GetChild(i).GetComponent<LightPoint>()));
+			}
+		}
+
+		public LightPoint GetLightPoint(Room r) {
+
 		}
 
 	}

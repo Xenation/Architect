@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Architect.LightPaths;
 
 namespace Architect {
 	public class RoomLightPath {
 		
 		private Room room;
 		private RoomNetwork roomnet;
-		private Dictionary<RoomLink, LightPath> paths = new Dictionary<RoomLink, LightPath>();
+		private Dictionary<RoomLink, LightLine> lines = new Dictionary<RoomLink, LightLine>();
 		private LightNode lightNode;
 
 		private Transform root;
@@ -43,7 +44,7 @@ namespace Architect {
 			lightPath.start = start;
 			lightPath.end = room.centerTransform;
 			lightPath.HasReachedTarget += PathReachedTarget;
-			paths.Add(link, lightPath);
+			lines.Add(link, LightLine.BuildNew(root, link.gameObject.name, lightNode, ));
 		}
 
 		public void DeleteLinkPath(RoomLink link) {

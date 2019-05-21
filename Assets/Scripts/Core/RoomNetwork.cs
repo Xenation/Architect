@@ -80,6 +80,7 @@ namespace Architect {
 			startingRoom.isConnectedToStart = true;
 			startingRoom.isFallback = true;
 			fallbackRoom = startingRoom;
+			// Initialize Links and Rooms
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -88,15 +89,18 @@ namespace Architect {
 				}
 				Room room = child.GetComponent<Room>();
 				if (room != null) {
-					room.lightPath = new RoomLightPath(room, this);
+					room.BuildLightNode();
 					rooms.Add(room);
 				}
 			}
-			GetComponentsInChildren(points);
 			// Build Light Paths
-			foreach (Room room in rooms) {
-				room.lightPath.BuildAll();
+			foreach (Transform child in transform) {
+				RoomLink link = child.GetComponent<RoomLink>();
+				if (link != null) {
+					link.BuildLightElements();
+				}
 			}
+			GetComponentsInChildren(points);
 			startingRoom.UpdateConnected();
 		}
 
