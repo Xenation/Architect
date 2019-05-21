@@ -16,7 +16,7 @@ namespace Architect {
 			levelLoader = GetComponent<SteamVR_LoadLevel>();
 			Vector3 entry1Pos = roomnet.WorldToRelativePos(transform.Find("Entry1").position);
 			Vector3 entry2Pos = roomnet.WorldToRelativePos(transform.Find("Entry2").position);
-			if (Vector3.Distance(entry1Pos, roomnet.WorldToRelativePos(link.room1.transform.position)) < Vector3.Distance(entry2Pos, roomnet.WorldToRelativePos(link.room1.transform.position))) {
+			if (Vector3.Distance(entry1Pos, roomnet.WorldToRelativePos(link.room1.center)) < Vector3.Distance(entry2Pos, roomnet.WorldToRelativePos(link.room1.center))) {
 				link.entry1 = entry1Pos;
 				link.entry2 = entry2Pos;
 			} else {

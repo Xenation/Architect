@@ -45,12 +45,18 @@ namespace Architect {
 
 		public Vector3 center {
 			get {
+				if (centerTransf == null) {
+					centerTransf = transform.Find("Center");
+				}
 				return (centerTransf != null) ? centerTransf.position : transform.position;
 			}
 		}
 
 		public Transform centerTransform {
 			get {
+				if (centerTransf == null) {
+					centerTransf = transform.Find("Center");
+				}
 				return (centerTransf != null) ? centerTransf : transform;
 			}
 		}
@@ -65,7 +71,6 @@ namespace Architect {
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
-			centerTransf = transform.Find("Center");
 			insideTransf = transform.Find("Inside");
 			insideColliders = insideTransf.GetComponentsInChildren<Collider>();
 			foreach (Collider collider in insideColliders) { // Make sure every "inside collider" is trigger

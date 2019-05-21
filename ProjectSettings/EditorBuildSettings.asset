@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/Alfred/ProtoMenu.unity
-    guid: 95235f7a569c47343b4b49c6d86db830
+    path: Assets/Scenes/Test/Alfred/Menu2.unity
+    guid: ed29e4e884036244394cbe8e525f1107
   - enabled: 1
     path: Assets/Scenes/Test/Alfred/ProtoLight.unity
     guid: 6dc4899af6ccc42408e8734e989a272d

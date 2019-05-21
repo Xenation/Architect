@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8915997969187934997}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UpStairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2432064931413599077}
   - component: {fileID: 7659512094762296900}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Col (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4704004973110171406}
   - component: {fileID: 8373540164956569675}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Col (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975244691556377314}
   - component: {fileID: 9073554755225313370}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Col (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9110512057236556087}
   - component: {fileID: 8897891233114237649}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Col (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3678070369955386252}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DownStairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1300519717405441961}
   - component: {fileID: 3857522853215146433}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Col
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 7881652092667137190}
   - component: {fileID: 7881652092667137191}
   - component: {fileID: 4626645186600267395}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ Transform:
   m_LocalPosition: {x: -1.351, y: 1.012, z: -0.4071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7737900546589086180}
+  - {fileID: 8534181118279602996}
   - {fileID: 8915997969187934997}
   - {fileID: 3678070369955386252}
   - {fileID: 1300519717405441961}
@@ -497,16 +497,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineColor: {r: 0, g: 1, b: 0, a: 1}
   ignoredObjects: []
+--- !u!1 &9222910404161840763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8534181118279602996}
+  m_Layer: 11
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8534181118279602996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222910404161840763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7737900546589086180}
+  m_Father: {fileID: 7881652092667137188}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7737900546588691300
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7881652092667137188}
+    m_TransformParent: {fileID: 8534181118279602996}
     m_Modifications:
     - target: {fileID: 100000, guid: 78b8595a92d1cc8488fee959e9d00907, type: 3}
       propertyPath: m_Name
       value: escalier_VF
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 78b8595a92d1cc8488fee959e9d00907, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 78b8595a92d1cc8488fee959e9d00907, type: 3}
       propertyPath: m_LocalPosition.x
@@ -552,6 +587,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180.00002
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 78b8595a92d1cc8488fee959e9d00907, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce5020a133ecc5c49850302cc802743f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78b8595a92d1cc8488fee959e9d00907, type: 3}
 --- !u!4 &7737900546589086180 stripped
