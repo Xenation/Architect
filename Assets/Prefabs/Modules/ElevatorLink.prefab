@@ -141,7 +141,7 @@ MonoBehaviour:
   room1: {fileID: 0}
   room2: {fileID: 0}
   overrideOpen: 0
-  linkPoints: 1
+  invisibleLinks: 1
 --- !u!114 &5391948533405603136
 MonoBehaviour:
   m_ObjectHideFlags: 0

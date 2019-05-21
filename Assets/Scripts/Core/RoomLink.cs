@@ -48,10 +48,10 @@ namespace Architect {
 		public event TargetedNotifyCallback OnLinkOpened;
 
 		[System.NonSerialized] public LightPoint[] lightPoints;
-		[System.NonSerialized] public List<LightLine> lightLines = new List<LightLine>();
+		[System.NonSerialized] public List<LightLink> lightLinks = new List<LightLink>();
 		private Transform lightPointRoot;
 		private Transform lightLineRoot;
-		public bool linkPoints = true;
+		public bool invisibleLinks = false;
 
 		private bool lightElementsBuilded = false;
 
@@ -103,11 +103,15 @@ namespace Architect {
 			for (int i = 0; i < lightPointRoot.childCount; i++) {
 				lightPoints[i] = lightPointRoot.GetChild(i).GetComponent<LightPoint>();
 			}
-			if (linkPoints) {
-				lightLineRoot = new GameObject("LightLines").transform;
-				lightLineRoot.SetParent(transform, false);
+			lightLineRoot = new GameObject("LightLines").transform;
+			lightLineRoot.SetParent(transform, false);
+			if (invisibleLinks) {
 				for (int i = 1; i < lightPointRoot.childCount; i++) {
-					lightLines.Add(LightLine.BuildNew(lightLineRoot, gameObject.name, lightPointRoot.GetChild(i - 1).GetComponent<LightPoint>(), lightPointRoot.GetChild(i).GetComponent<LightPoint>()));
+					lightLinks.Add(LightLine.BuildLink(lightLineRoot, gameObject.name, lightPointRoot.GetChild(i - 1).GetComponent<LightPoint>(), lightPointRoot.GetChild(i).GetComponent<LightPoint>()));
+				}
+			} else {
+				for (int i = 1; i < lightPointRoot.childCount; i++) {
+					lightLinks.Add(LightLine.BuildLine(lightLineRoot, gameObject.name, lightPointRoot.GetChild(i - 1).GetComponent<LightPoint>(), lightPointRoot.GetChild(i).GetComponent<LightPoint>()));
 				}
 			}
 		}
@@ -133,8 +137,8 @@ namespace Architect {
 			foreach (LightPoint point in lightPoints) {
 				point.activated = true;
 			}
-			foreach (LightLine line in lightLines) {
-				line.activated = true;
+			foreach (LightLink link in lightLinks) {
+				link.activated = true;
 			}
 		}
 
@@ -142,8 +146,8 @@ namespace Architect {
 			foreach (LightPoint point in lightPoints) {
 				point.activated = false;
 			}
-			foreach (LightLine line in lightLines) {
-				line.activated = false;
+			foreach (LightLink link in lightLinks) {
+				link.activated = false;
 			}
 		}
 

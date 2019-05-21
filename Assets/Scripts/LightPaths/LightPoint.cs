@@ -1,30 +1,29 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace Architect.LightPaths {
 	public class LightPoint : LightElement {
 
-		protected List<LightLine> connected = new List<LightLine>();
+		protected List<LightLink> connected = new List<LightLink>();
 
 		protected override void OnSignalUpdate(LightElement origin, float dt) {
-			foreach (LightLine line in connected) {
-				if (!line.activated || line == origin) continue;
-				line.UpdateSignal(this, dt);
+			foreach (LightLink link in connected) {
+				if (!link.activated || link == origin) continue;
+				link.UpdateSignal(this, dt);
 			}
 		}
 
 		protected override void OnClearUpdateFlag(LightElement origin) {
-			foreach (LightLine line in connected) {
-				if (!line.activated || line == origin) continue;
-				line.ClearUpdateFlag(this);
+			foreach (LightLink link in connected) {
+				if (!link.activated || link == origin) continue;
+				link.ClearUpdateFlag(this);
 			}
 		}
 
-		public void RegisterConnected(LightLine elem) {
+		public void RegisterConnected(LightLink elem) {
 			connected.Add(elem);
 		}
 
-		public void UnregisterConnected(LightLine elem) {
+		public void UnregisterConnected(LightLink elem) {
 			connected.Remove(elem);
 		}
 	}

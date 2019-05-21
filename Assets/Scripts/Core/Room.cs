@@ -44,7 +44,7 @@ namespace Architect {
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
 		[System.NonSerialized] public LightNode lightNode = null;
-		private Dictionary<RoomLink, LightLine> linkLights = new Dictionary<RoomLink, LightLine>();
+		private Dictionary<RoomLink, LightLink> linkLightLinks = new Dictionary<RoomLink, LightLink>();
 		
 
 		public Vector3 center {
@@ -93,18 +93,18 @@ namespace Architect {
 		public void RegisterLink(RoomLink link) {
 			if (lightNode == null) BuildLightNode();
 			links.Add(link);
-			LightLine line = LightLine.BuildNew(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
-			linkLights.Add(link, line);
-			link.lightLines.Add(line);
+			LightLink lightLink = LightLine.BuildLine(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
+			linkLightLinks.Add(link, lightLink);
+			link.lightLinks.Add(lightLink);
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
-			LightLine line;
-			if (linkLights.TryGetValue(link, out line)) {
-				linkLights.Remove(link);
-				link.lightLines.Remove(line);
-				LightLine.DestroyLine(line);
+			LightLink lightLink;
+			if (linkLightLinks.TryGetValue(link, out lightLink)) {
+				linkLightLinks.Remove(link);
+				link.lightLinks.Remove(lightLink);
+				LightLine.Destroy(lightLink);
 			}
 		}
 

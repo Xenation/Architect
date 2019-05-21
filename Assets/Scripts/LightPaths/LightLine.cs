@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 namespace Architect.LightPaths {
-	public class LightLine : LightElement {
+	public class LightLine : LightLink {
 
-		public static LightLine BuildNew(Transform parent, string name, LightPoint p1, LightPoint p2) {
+		public static LightLine BuildLine(Transform parent, string name, LightPoint p1, LightPoint p2) {
 			GameObject pathObj = new GameObject("Line-" + name, typeof(MeshFilter), typeof(MeshRenderer));
 			pathObj.transform.SetParent(parent, false);
 			MeshRenderer renderer = pathObj.GetComponent<MeshRenderer>();
@@ -14,12 +14,6 @@ namespace Architect.LightPaths {
 			p1.RegisterConnected(lightLine);
 			p2.RegisterConnected(lightLine);
 			return lightLine;
-		}
-
-		public static void DestroyLine(LightLine line) {
-			line.point1.UnregisterConnected(line);
-			line.point2.UnregisterConnected(line);
-			Destroy(line.gameObject);
 		}
 		
 		private float _progress = 0f;
@@ -48,9 +42,6 @@ namespace Architect.LightPaths {
 			}
 		}
 
-		public LightPoint point1;
-		public LightPoint point2;
-
 		private Material material;
 		private int progressID;
 		private int reverseID;
@@ -65,16 +56,8 @@ namespace Architect.LightPaths {
 			progress += dt;
 			if (progress >= 1f) {
 				progress = 1f;
-				GetOther(origin as LightPoint)?.UpdateSignal(this, dt);
+				base.OnSignalUpdate(origin, dt);
 			}
-		}
-
-		protected override void OnClearUpdateFlag(LightElement origin) {
-			GetOther(origin as LightPoint)?.ClearUpdateFlag(this);
-		}
-
-		private LightPoint GetOther(LightPoint point) {
-			return (point == point1) ? point2 : ((point == point2) ? point1 : null);
 		}
 		
 		private void Start() {
