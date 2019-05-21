@@ -11,18 +11,13 @@ namespace Architect {
 			private List<RoomLink> links;
 			private int currentIndex = 0;
 
-			public Room Current {
-				get {
-					return links[currentIndex].GetOther(room);
-				}
-			}
-
+			public Room Current { get { return links[currentIndex].GetOther(room); } }
 			object IEnumerator.Current { get { return links[currentIndex].GetOther(room); } }
 
 			public NeighboorsEnumerator(Room r, List<RoomLink> lnks) {
 				room = r;
-				currentIndex = 0;
 				links = lnks;
+				currentIndex = 0;
 			}
 
 			public void Dispose() {
@@ -38,18 +33,38 @@ namespace Architect {
 				currentIndex = 0;
 			}
 		}
-		
+
+		public bool isFallback = false;
+
 		[System.NonSerialized] public SnapGrid grid;
 		[System.NonSerialized] public bool isConnectedToStart = false;
+		[System.NonSerialized] public int linkCountToStart = 0;
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
+		public RoomTraverser traverser;
+
+		public Vector3 center {
+			get {
+				return (centerTransf != null) ? centerTransf.position : transform.position;
+			}
+		}
 
 		private GameObject togglable;
+		private Transform centerTransf;
+		private Transform insideTransf;
+		private Collider[] insideColliders;
 
 		private void Awake() {
+			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
+			centerTransf = transform.Find("Center");
+			insideTransf = transform.Find("Inside");
+			insideColliders = insideTransf.GetComponentsInChildren<Collider>();
+			foreach (Collider collider in insideColliders) { // Make sure every "inside collider" is trigger
+				collider.isTrigger = true;
+			}
 		}
 
 		public void RegisterLink(RoomLink link) {
@@ -69,7 +84,44 @@ namespace Architect {
 			}
 		}
 
-		public IEnumerator<Room> GetEnumerator() {
+		public RoomLink GetOpenLink() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen) {
+					return link;
+				}
+			}
+			return null;
+		}
+
+		public RoomLink GetOpenLinkToConnected() {
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart) {
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		public RoomLink GetClosestOpenLinkToConnected() {
+			RoomLink closestLink = null;
+			foreach (RoomLink link in links) {
+				if (link.isOpen && link.GetOther(this).isConnectedToStart && (closestLink == null || closestLink.GetOther(this).linkCountToStart > link.GetOther(this).linkCountToStart)) {
+					closestLink = link;
+				}
+			}
+			return closestLink;
+		}
+
+		public bool isInside(Vector3 pos) {
+			foreach (Collider insideCollider in insideColliders) {
+				if (insideCollider.ClosestPoint(pos) == pos) { // TODO maybe use error margin for test
+					return true;
+				}
+			}
+			return false;
+		}
+
+		IEnumerator<Room> IEnumerable<Room>.GetEnumerator() {
 			return new NeighboorsEnumerator(this, links);
 		}
 
@@ -78,6 +130,4 @@ namespace Architect {
 		}
 
 	}
-
-	
 }

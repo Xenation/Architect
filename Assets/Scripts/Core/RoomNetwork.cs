@@ -4,28 +4,39 @@ using UnityEngine;
 namespace Architect {
 	public class RoomNetwork : MonoBehaviour {
 
-		private struct RoomNode {
+		private class RoomNode {
 			public Room room;
+			public int parentLinkIndex;
+			public RoomNode parentNode;
 			public float gCost;
-			public float fCost;
+			public float hCost;
 
-			public RoomNode(Room room, float gCost, float fCost) {
+			public float fCost {
+				get {
+					return gCost + hCost;
+				}
+			}
+
+			public RoomNode(Room room) {
 				this.room = room;
-				this.gCost = gCost;
-				this.fCost = fCost;
+				Reset();
 			}
 
-			public static bool operator==(RoomNode a, RoomNode b) {
-				return (a.room == b.room);
+			public void Reset() {
+				gCost = 0f;
+				hCost = 0f;
+				parentLinkIndex = 0;
+				parentNode = null;
 			}
-			public static bool operator !=(RoomNode a, RoomNode b) {
-				return (a.room != b.room);
+
+			public override int GetHashCode() {
+				return room.gameObject.GetInstanceID();
 			}
 		}
 
 		private class NodeFCost : IComparer<RoomNode> {
 			public int Compare(RoomNode x, RoomNode y) {
-				return (int) (x.fCost - y.fCost);
+				return (int) ((x.fCost - y.fCost) * 10000f);
 			}
 		}
 		private class NodeGCost : IComparer<RoomNode> {
@@ -35,18 +46,45 @@ namespace Architect {
 		}
 
 		public Room startingRoom;
+		public Room[] endingRooms;
+		[System.NonSerialized] public Room lastLitRoom = null;
+		public delegate void LastLitChanged(Room lastLit);
+		public event LastLitChanged LastLitChangedEvent;
 
 		private List<Room> rooms = new List<Room>();
 		private List<SnapPoint> points = new List<SnapPoint>();
 
+		private Dictionary<Room, RoomNode> roomGraph = new Dictionary<Room, RoomNode>();
+
+		private Transform respawnPoint;
+		public Vector3 moduleRespawnPosition {
+			get {
+				return respawnPoint.position;
+			}
+		}
+
+		public float moduleZoneRadius = 2;
+		public float moduleZoneFloor = 0.1f;
+		public float moduleZoneCeilling = 4f;
+
+		[System.NonSerialized] public Room fallbackRoom = null;
+
 		private void Awake() {
 			BuildNetwork();
+			BuildGraph();
+
+			respawnPoint = transform.Find("ModulesRespawn");
 		}
 
 		private void BuildNetwork() {
+			startingRoom.isConnectedToStart = true;
+			startingRoom.isFallback = true;
+			fallbackRoom = startingRoom;
+			startingRoom.UpdateConnected();
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
+					link.traverser = new DefaultLinkTraverser(link, this);
 					link.ApplyLink();
 				}
 				Room room = child.GetComponent<Room>();
@@ -57,6 +95,12 @@ namespace Architect {
 			GetComponentsInChildren(points);
 		}
 
+		private void BuildGraph() {
+			foreach (Room room in rooms) {
+				roomGraph.Add(room, new RoomNode(room));
+			}
+		}
+
 		private void OnDrawGizmos() {
 			if (rooms == null) return;
 			Color tmpCol = Gizmos.color;
@@ -64,13 +108,22 @@ namespace Architect {
 			HashSet<RoomLink> exploredLinks = new HashSet<RoomLink>();
 
 			foreach (Room room in rooms) {
-				Gizmos.color = Color.yellow;
-				Gizmos.DrawWireSphere(room.transform.position, .05f);
+				if (room.isFallback) {
+					Gizmos.color = Color.cyan;
+					if (room == fallbackRoom) {
+						Gizmos.color = Color.blue;
+					}
+				} else {
+					Gizmos.color = Color.yellow;
+				}
+				Gizmos.DrawWireSphere(room.center, .05f);
 
 				foreach (RoomLink link in room.links) {
 					if (exploredLinks.Contains(link)) continue;
 					Gizmos.color = (link.isOpen) ? Color.green : Color.red;
-					Gizmos.DrawLine(link.room1.transform.position, link.room2.transform.position);
+					Gizmos.DrawLine(link.room1.center, RelativeToWorldPos(link.entry1));
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry1), RelativeToWorldPos(link.entry2));
+					Gizmos.DrawLine(RelativeToWorldPos(link.entry2), link.room2.center);
 					exploredLinks.Add(link);
 				}
 			}
@@ -82,7 +135,16 @@ namespace Architect {
 			UpdateRoomConnections();
 		}
 
-		public Room GetRoomHover(Vector3 pos) {
+		public Room GetRoom(Vector3 pos) {
+			foreach (Room room in rooms) {
+				if (room.isInside(pos)) {
+					return room;
+				}
+			}
+			return null;
+		}
+
+		public Room GetRoomGridHover(Vector3 pos) {
 			foreach (Room room in rooms) {
 				if (room.grid.IsOverGrid(pos, SettingsManager.I.roomSettings.gridSnapOverHeight, SettingsManager.I.roomSettings.gridSnapUnderHeight)) {
 					return room;
@@ -100,11 +162,46 @@ namespace Architect {
 			return null;
 		}
 
-		public void NotifyLinkChange(RoomLink link) {
-			UpdateRoomConnections();
+		public Vector3 WorldToRelativePos(Vector3 pos) {
+			return transform.InverseTransformPoint(pos);
+		}
+
+		public Vector3 WorldToRelativeVec(Vector3 vec ) {
+			return transform.InverseTransformVector(vec);
+		}
+
+		public Vector3 WorldToRelativeDir(Vector3 dir) {
+			return transform.InverseTransformDirection(dir);
+		}
+
+		public Vector3 RelativeToWorldPos(Vector3 pos) {
+			return transform.TransformPoint(pos);
+		}
+
+		public Vector3 RelativeToWorldVec(Vector3 vec) {
+			return transform.TransformVector(vec);
+		}
+
+		public Vector3 RelativeToWorldDir(Vector3 dir) {
+			return transform.TransformDirection(dir);
+		}
+
+		public void OnLinkChange(RoomLink link) {
+			//UpdateRoomConnections();
 		}
 
 		public void UpdateRoomConnections() {
+			// Finding previously lit rooms
+			HashSet<Room> previouslyLit = new HashSet<Room>();
+			foreach (Room room in rooms) {
+				room.linkCountToStart = 2000; // Reseting link distance
+				if (room.isConnectedToStart) {
+					previouslyLit.Add(room);
+				}
+			}
+			startingRoom.linkCountToStart = 0;
+
+			// Exploring rooms that are linked to start
 			List<Room> toExplore = new List<Room>();
 			HashSet<Room> explored = new HashSet<Room>();
 			toExplore.Add(startingRoom);
@@ -117,12 +214,17 @@ namespace Architect {
 				foreach (RoomLink link in current.links) {
 					if (!link.isOpen) continue;
 					Room neighbor = link.GetOther(current);
+					int potentialLinkCount = current.linkCountToStart + 1;
+					if (neighbor.linkCountToStart > potentialLinkCount) {
+						neighbor.linkCountToStart = potentialLinkCount;
+					}
 					if (!explored.Contains(neighbor) && !toExplore.Contains(neighbor)) {
 						toExplore.Add(neighbor);
 					}
 				}
 			}
 
+			// Updating connected state
 			foreach (Room room in rooms) { // Set all to disconnected
 				room.isConnectedToStart = false;
 			}
@@ -133,50 +235,108 @@ namespace Architect {
 			foreach (Room room in rooms) { // Update connect state
 				room.UpdateConnected();
 			}
+
+			// Finding last lit room(s)
+			explored.ExceptWith(previouslyLit);
+			Room furthest = null;
+			foreach (Room nLitRoom in explored) {
+				if (furthest == null || furthest.linkCountToStart < nLitRoom.linkCountToStart) {
+					furthest = nLitRoom;
+				}
+			}
+			if (furthest != null) {
+				LastLitChangedEvent?.Invoke(furthest);
+				lastLitRoom = furthest;
+				// Find the furthest previously lit fallback room
+				Room currentFallback = null;
+				foreach (Room room in rooms) {
+					if (!room.isConnectedToStart || !room.isFallback || explored.Contains(room) || (currentFallback != null && currentFallback.linkCountToStart > room.linkCountToStart)) continue;
+					currentFallback = room;
+				}
+				if (currentFallback != null) {
+					fallbackRoom = currentFallback;
+				}
+			}
 		}
 
-		//public List<Room> FindPath(Room start, Room end) {
-		//	SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
-		//	HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
-		//	openSet.Add(new RoomNode(start, 0, (end.transform.position - start.transform.position).sqrMagnitude));
-		//	Dictionary<RoomNode, RoomNode> trace = new Dictionary<RoomNode, RoomNode>();
+		public List<RoomLink> FindPath(Room start, Room target) {
+			// Reset Node graph values
+			foreach (RoomNode node in roomGraph.Values) {
+				node.Reset();
+			}
 
-		//	while (openSet.Count != 0) {
-		//		RoomNode current = openSet.Min;
-		//		if (current.room == end) {
-		//			return ReconstructPath(trace, current);
-		//		}
+			// Pathfinding
+			SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
+			HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
+			RoomNode startNode = roomGraph[start];
+			startNode.hCost = (target.transform.position - start.transform.position).magnitude;
+			RoomNode targetNode = roomGraph[target];
+			openSet.Add(startNode);
 
-		//		openSet.Remove(current);
-		//		closedSet.Add(current);
+			while (openSet.Count > 0) {
+				RoomNode current = openSet.Min; // TODO Check that Min is trully the lowest fCost
 
-		//		foreach (Room neighbor in current.room) {
-		//			RoomNode neighborNode = new RoomNode(neighbor, 0f, 0f);
-		//			if (closedSet.Contains(neighborNode)) continue;
+				openSet.Remove(current);
+				closedSet.Add(current);
 
-		//			neighborNode.gCost = current.gCost + (current.room.transform.position - neighbor.transform.position).sqrMagnitude;
+				if (current.room == target) {
+					return Retrace(startNode, current);
+				}
 
-		//			if (!openSet.Contains(neighborNode)) {
-		//				openSet.Add(neighborNode);
-		//			} else if () {
-		//				continue;
-		//			}
+				foreach (RoomLink link in current.room.links) {
+					Room neighbor = link.GetOther(current.room);
+					RoomNode neighborNode = roomGraph[neighbor];
+					if (!link.isOpen || closedSet.Contains(neighborNode)) {
+						continue;
+					}
 
-		//			trace.Add(neighborNode, current);
-		//			neighborNode.fCost = neighborNode.gCost + (end.transform.position - neighbor.transform.position).sqrMagnitude;
-		//		}
-		//	}
-		//}
+					float nCostToNeighbor = current.gCost + (neighbor.transform.position - current.room.transform.position).magnitude;
+					if (nCostToNeighbor < neighborNode.gCost || !openSet.Contains(neighborNode)) {
+						neighborNode.gCost = nCostToNeighbor;
+						neighborNode.hCost = (target.transform.position - neighbor.transform.position).magnitude;
+						neighborNode.parentLinkIndex = neighbor.links.IndexOf(link);
+						neighborNode.parentNode = current;
 
-		//private List<Room> ReconstructPath(Dictionary<RoomNode, RoomNode> trace, RoomNode current) {
-		//	List<Room> path = new List<Room>();
-		//	path.Add(current.room);
+						if (!openSet.Contains(neighborNode)) {
+							openSet.Add(neighborNode);
+						}
+					}
+				}
+			}
 
-		//	foreach (RoomNode curr in trace.Keys) {
-		//		curr = trace[curr];
-		//	}
-		//	return path;
-		//}
+			return null;
+		}
+
+		private List<RoomLink> Retrace(RoomNode start, RoomNode end) {
+			List<RoomLink> path = new List<RoomLink>();
+			RoomNode current = end;
+
+			while (current != start) {
+				RoomLink link = current.room.links[current.parentLinkIndex];
+				path.Add(link);
+				current = current.parentNode;
+				Debug.DrawLine(link.room1.transform.position, link.room2.transform.position, Color.blue);
+			}
+
+			path.Reverse();
+
+			return path;
+		}
+
+		public bool IsInModuleZone(Vector3 pos) {
+			Vector2 toPos = new Vector2(pos.x - transform.position.x, pos.z - transform.position.z);
+
+			return toPos.magnitude < moduleZoneRadius && pos.y > moduleZoneFloor && pos.y < moduleZoneCeilling;
+		}
+
+		public Room GetLinkedEndRoom() {
+			foreach (Room room in endingRooms) {
+				if (room.isConnectedToStart) {
+					return room;
+				}
+			}
+			return null;
+		}
 
 	}
 }

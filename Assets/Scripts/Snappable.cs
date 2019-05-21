@@ -26,6 +26,15 @@ namespace Architect {
 			rigidbody = GetComponent<Rigidbody>();
 		}
 
+		protected virtual void Update() {
+			if (!roomnet.IsInModuleZone(transform.position)) {
+				transform.position = roomnet.moduleRespawnPosition;
+				rigidbody.velocity = Vector3.zero;
+				rigidbody.angularVelocity = Vector3.zero;
+				Debug.Log("Respawning Module ...");
+			}
+		}
+
 		protected virtual void OnDestroy() {
 			throwable.onPickUp.AddListener(PickedUp);
 			throwable.onDetachFromHand.AddListener(Detached);

@@ -9,7 +9,8 @@ namespace Architect {
 
 		private Room currentRoom;
 		private Mesh previewMesh;
-		private Transform exitPoint;
+		private Transform entryDown;
+		private Transform entryUp;
 		private RoomLink link;
 
 		private int matFocusIndex = -1;
@@ -24,13 +25,14 @@ namespace Architect {
 
 		private new void Awake() {
 			base.Awake();
-			exitPoint = transform.Find("ExitPoint");
+			entryUp = transform.Find("UpStairs");
+			entryDown = transform.Find("DownStairs");
 			link = gameObject.AddComponent<RoomLink>();
 		}
 
 		private void Start() {
 			if (startSnapped) {
-				currentRoom = roomnet.GetRoomHover(transform.position);
+				currentRoom = roomnet.GetRoomGridHover(transform.position);
 				if (currentRoom != null) {
 					currentRoom.grid.Snap(preview.transform, transform, size);
 					transform.position = preview.transform.position;
@@ -41,9 +43,10 @@ namespace Architect {
 			}
 		}
 
-		private void Update() {
+		private new void Update() {
+			base.Update();
 			if (showPreview) {
-				currentRoom = roomnet.GetRoomHover(transform.position);
+				currentRoom = roomnet.GetRoomGridHover(transform.position);
 				if (currentRoom != null) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();
@@ -76,10 +79,14 @@ namespace Architect {
 
 		protected override void Snapped() {
 			base.Snapped();
-			Room linkedRoom = roomnet.GetRoomHover(exitPoint.position);
+			transform.SetParent(roomnet.transform);
+			Room linkedRoom = roomnet.GetRoomGridHover(entryUp.position);
 			if (linkedRoom != null) {
+				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
 				link.room1 = currentRoom;
+				link.entry1 = roomnet.WorldToRelativePos(entryDown.position);
 				link.room2 = linkedRoom;
+				link.entry2 = roomnet.WorldToRelativePos(entryUp.position);
 				link.ApplyLink();
 				link.isOpen = true;
 			}
@@ -87,6 +94,7 @@ namespace Architect {
 
 		protected override void Unsnapped() {
 			base.Unsnapped();
+			transform.SetParent(null);
 			if (link.valid) {
 				link.isOpen = false;
 				link.BreakLink();

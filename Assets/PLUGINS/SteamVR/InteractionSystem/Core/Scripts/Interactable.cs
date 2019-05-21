@@ -60,6 +60,8 @@ namespace Valve.VR.InteractionSystem
 
         [Tooltip("Set whether or not you want this interactible to highlight when hovering over it")]
         public bool highlightOnHover = true;
+		[Tooltip("Set it if you want the highlight to be controlled by another script")]
+		public MonoBehaviour highlightScript = null;
         protected MeshRenderer[] highlightRenderers;
         protected MeshRenderer[] existingRenderers;
         protected GameObject highlightHolder;
@@ -126,7 +128,12 @@ namespace Valve.VR.InteractionSystem
 
         protected virtual void CreateHighlightRenderers()
         {
-            existingSkinnedRenderers = this.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+			if (highlightScript != null) {
+				highlightScript.enabled = true;
+				return;
+			}
+
+			existingSkinnedRenderers = this.GetComponentsInChildren<SkinnedMeshRenderer>(true);
             highlightHolder = new GameObject("Highlighter");
             highlightSkinnedRenderers = new SkinnedMeshRenderer[existingSkinnedRenderers.Length];
 
@@ -189,7 +196,11 @@ namespace Valve.VR.InteractionSystem
 
         protected virtual void UpdateHighlightRenderers()
         {
-            if (highlightHolder == null)
+			if (highlightScript != null) {
+				return;
+			}
+
+			if (highlightHolder == null)
                 return;
 
             for (int skinnedIndex = 0; skinnedIndex < existingSkinnedRenderers.Length; skinnedIndex++)
@@ -259,8 +270,15 @@ namespace Valve.VR.InteractionSystem
             wasHovering = isHovering;
             isHovering = false;
 
-            if (highlightOnHover && highlightHolder != null)
-                Destroy(highlightHolder);
+			if (highlightOnHover) {
+				if (highlightScript != null) {
+					highlightScript.enabled = false;
+					return;
+				}
+				if (highlightHolder != null) {
+					Destroy(highlightHolder);
+				}
+			}
         }
 
         protected virtual void Update()
