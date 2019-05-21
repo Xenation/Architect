@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="134">
+	<RootPaths>
+		<ProjectRoot>C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\Architect\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="534561221" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\MainSoundBank</ObjectPath>
+			<ShortName>MainSoundBank</ShortName>
+			<Path>MainSoundBank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="3806987005" Name="Play_Ascenseur" ObjectPath="\Events\Default Work Unit\Play_Ascenseur"/>
+				<Event Id="258901810" Name="Play_Bassin" ObjectPath="\Events\Default Work Unit\Play_Bassin" MaxAttenuation="1.000000"/>
+				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="100.000000"/>
+				<Event Id="1544534530" Name="Play_Chemin_Lumiere" ObjectPath="\Events\Default Work Unit\Play_Chemin_Lumiere"/>
+				<Event Id="3548864740" Name="Play_Lumiere_Allume" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Allume"/>
+				<Event Id="1015332243" Name="Play_Lumiere_Eteint" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Eteint"/>
+				<Event Id="4120605449" Name="Play_Lumiere_Gresille" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Gresille"/>
+				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Play_Music"/>
+				<Event Id="3892494798" Name="Play_Plante" ObjectPath="\Events\Default Work Unit\Play_Plante"/>
+				<Event Id="147443677" Name="Play_Pluie_Ext" ObjectPath="\Events\Default Work Unit\Play_Pluie_Ext"/>
+				<Event Id="4269863952" Name="Play_Pluie_Toit" ObjectPath="\Events\Default Work Unit\Play_Pluie_Toit" MaxAttenuation="100.000000"/>
+				<Event Id="1614550972" Name="Play_Poser_Module" ObjectPath="\Events\Default Work Unit\Play_Poser_Module"/>
+				<Event Id="922352807" Name="Play_Prendre_Module" ObjectPath="\Events\Default Work Unit\Play_Prendre_Module"/>
+				<Event Id="2211386577" Name="Play_Tp_Module" ObjectPath="\Events\Default Work Unit\Play_Tp_Module"/>
+				<Event Id="2800623694" Name="Play_Ville" ObjectPath="\Events\Default Work Unit\Play_Ville"/>
+				<Event Id="92581801" Name="Play_Wrong" ObjectPath="\Events\Default Work Unit\Play_Wrong"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="14445283" Language="SFX">
+					<ShortName>TP MODULE.wav</ShortName>
+					<Path>SFX\TP MODULE_E37C7245.wem</Path>
+				</File>
+				<File Id="18659226" Language="SFX">
+					<ShortName>VILLE HAUTEUR-001.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR-001_E37C7245.wem</Path>
+				</File>
+				<File Id="57007878" Language="SFX">
+					<ShortName>LUMIERE ETEINTE .wav</ShortName>
+					<Path>SFX\LUMIERE ETEINTE _E37C7245.wem</Path>
+				</File>
+				<File Id="80041516" Language="SFX">
+					<ShortName>TAP ASCENSEUR-005.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-005_E37C7245.wem</Path>
+				</File>
+				<File Id="101783780" Language="SFX">
+					<ShortName>LUMIERE ALLUME02.wav</ShortName>
+					<Path>SFX\LUMIERE ALLUME02_E37C7245.wem</Path>
+				</File>
+				<File Id="145130390" Language="SFX">
+					<ShortName>PLANTE-002.wav</ShortName>
+					<Path>SFX\PLANTE-002_8E09B74F.wem</Path>
+				</File>
+				<File Id="185844298" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-005.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-005_E37C7245.wem</Path>
+				</File>
+				<File Id="203234394" Language="SFX">
+					<ShortName>LUMIERE ALLUME04.wav</ShortName>
+					<Path>SFX\LUMIERE ALLUME04_E37C7245.wem</Path>
+				</File>
+				<File Id="214254575" Language="SFX">
+					<ShortName>POSER MODULE.wav</ShortName>
+					<Path>SFX\POSER MODULE_E37C7245.wem</Path>
+				</File>
+				<File Id="226267322" Language="SFX">
+					<ShortName>CHEMIN LUMIERE .wav</ShortName>
+					<Path>SFX\CHEMIN LUMIERE _05EFD9D7.wem</Path>
+				</File>
+				<File Id="241742901" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-006.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-006_E37C7245.wem</Path>
+				</File>
+				<File Id="250424197" Language="SFX">
+					<ShortName>LUMIERE ALLUME01.wav</ShortName>
+					<Path>SFX\LUMIERE ALLUME01_E37C7245.wem</Path>
+				</File>
+				<File Id="252144129" Language="SFX">
+					<ShortName>VILLE HAUTEUR-003.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR-003_E37C7245.wem</Path>
+				</File>
+				<File Id="287277598" Language="SFX">
+					<ShortName>CASCADE-003.wav</ShortName>
+					<Path>SFX\CASCADE-003_0ABF3450.wem</Path>
+				</File>
+				<File Id="309309954" Language="SFX">
+					<ShortName>VILLE HAUTEUR-001.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR-001_5DE5154A.wem</Path>
+				</File>
+				<File Id="322857602" Language="SFX">
+					<ShortName>TAP ASCENSEUR-001.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-001_E37C7245.wem</Path>
+				</File>
+				<File Id="347552919" Language="SFX">
+					<ShortName>ArchitectMenu.wav</ShortName>
+					<Path>SFX\ArchitectMenu_592D8723.wem</Path>
+				</File>
+				<File Id="353331368" Language="SFX">
+					<ShortName>BASSIN.wav</ShortName>
+					<Path>SFX\BASSIN_C9D94636.wem</Path>
+				</File>
+				<File Id="358440743" Language="SFX">
+					<ShortName>PLANTE-008.wav</ShortName>
+					<Path>SFX\PLANTE-008_DD89E95E.wem</Path>
+				</File>
+				<File Id="378695272" Language="SFX">
+					<ShortName>LUMIERE GRESILLE.wav</ShortName>
+					<Path>SFX\LUMIERE GRESILLE_B0581396.wem</Path>
+				</File>
+				<File Id="392504115" Language="SFX">
+					<ShortName>PLANTE-007.wav</ShortName>
+					<Path>SFX\PLANTE-007_DBFE803D.wem</Path>
+				</File>
+				<File Id="478295504" Language="SFX">
+					<ShortName>PRENDRE MODULE.wav</ShortName>
+					<Path>SFX\PRENDRE MODULE_E37C7245.wem</Path>
+				</File>
+				<File Id="484737208" Language="SFX">
+					<ShortName>Pont2.wav</ShortName>
+					<Path>SFX\Pont2_592D8723.wem</Path>
+				</File>
+				<File Id="497783994" Language="SFX">
+					<ShortName>TAP ASCENSEUR-002.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-002_E37C7245.wem</Path>
+				</File>
+				<File Id="505030638" Language="SFX">
+					<ShortName>PLANTE-006.wav</ShortName>
+					<Path>SFX\PLANTE-006_16381BBD.wem</Path>
+				</File>
+				<File Id="599553525" Language="SFX">
+					<ShortName>CLOCHE ASCENSEUR.wav</ShortName>
+					<Path>SFX\CLOCHE ASCENSEUR_10DA3D60.wem</Path>
+				</File>
+				<File Id="604604208" Language="SFX">
+					<ShortName>VILLE HAUTEUR-002.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR-002_E37C7245.wem</Path>
+				</File>
+				<File Id="644075696" Language="SFX">
+					<ShortName>WRONG.wav</ShortName>
+					<Path>SFX\WRONG_E37C7245.wem</Path>
+				</File>
+				<File Id="644112283" Language="SFX">
+					<ShortName>PLUIE TOIT.wav</ShortName>
+					<Path>SFX\PLUIE TOIT_6C826669.wem</Path>
+				</File>
+				<File Id="759334917" Language="SFX">
+					<ShortName>PLANTE-004.wav</ShortName>
+					<Path>SFX\PLANTE-004_62CB1E30.wem</Path>
+				</File>
+				<File Id="803706115" Language="SFX">
+					<ShortName>LUMIERE ALLUME03.wav</ShortName>
+					<Path>SFX\LUMIERE ALLUME03_E37C7245.wem</Path>
+				</File>
+				<File Id="818451757" Language="SFX">
+					<ShortName>TAP ASCENSEUR-006.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-006_E37C7245.wem</Path>
+				</File>
+				<File Id="835025486" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-003.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-003_E37C7245.wem</Path>
+				</File>
+				<File Id="855398897" Language="SFX">
+					<ShortName>VILLE HAUTEUR-004.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR-004_E37C7245.wem</Path>
+				</File>
+				<File Id="869406376" Language="SFX">
+					<ShortName>PLANTE-001.wav</ShortName>
+					<Path>SFX\PLANTE-001_2FF34414.wem</Path>
+				</File>
+				<File Id="878087835" Language="SFX">
+					<ShortName>MusiqueInGame.wav</ShortName>
+					<Path>SFX\MusiqueInGame_592D8723.wem</Path>
+				</File>
+				<File Id="888454520" Language="SFX">
+					<ShortName>CASCADE-002.wav</ShortName>
+					<Path>SFX\CASCADE-002_592D8723.wem</Path>
+				</File>
+				<File Id="905312553" Language="SFX">
+					<ShortName>Pont1.wav</ShortName>
+					<Path>SFX\Pont1_592D8723.wem</Path>
+				</File>
+				<File Id="927569739" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-004.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-004_E37C7245.wem</Path>
+				</File>
+				<File Id="938468556" Language="SFX">
+					<ShortName>TAP ASCENSEUR-003.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-003_E37C7245.wem</Path>
+				</File>
+				<File Id="953000917" Language="SFX">
+					<ShortName>VILLE HAUTEUR GRAVE.wav</ShortName>
+					<Path>SFX\VILLE HAUTEUR GRAVE_E37C7245.wem</Path>
+				</File>
+				<File Id="956053814" Language="SFX">
+					<ShortName>PLANTE-005.wav</ShortName>
+					<Path>SFX\PLANTE-005_6F828DAA.wem</Path>
+				</File>
+				<File Id="961589483" Language="SFX">
+					<ShortName>TAP ASCENSEUR-004.wav</ShortName>
+					<Path>SFX\TAP ASCENSEUR-004_E37C7245.wem</Path>
+				</File>
+				<File Id="974358417" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-002.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-002_E37C7245.wem</Path>
+				</File>
+				<File Id="995128658" Language="SFX">
+					<ShortName>PLANTE-003.wav</ShortName>
+					<Path>SFX\PLANTE-003_64858E82.wem</Path>
+				</File>
+				<File Id="1022744147" Language="SFX">
+					<ShortName>PLUIE EXTERIEUR.wav</ShortName>
+					<Path>SFX\PLUIE EXTERIEUR_C168DF9D.wem</Path>
+				</File>
+				<File Id="1035093068" Language="SFX">
+					<ShortName>CRAN ASCENSEUR-001.wav</ShortName>
+					<Path>SFX\CRAN ASCENSEUR-001_E37C7245.wem</Path>
+				</File>
+				<File Id="1059478536" Language="SFX">
+					<ShortName>CASCADE-001.wav</ShortName>
+					<Path>SFX\CASCADE-001_BF025C2C.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

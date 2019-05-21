@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586434225294932648
+    m_lastTime: -8586431792765096966
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586435791690904199
+    m_lastTime: -8586431557484517012
     List:
     - name: MainSoundBank
       guid: 165842bf901544409a4dbb0848c74102
@@ -207,77 +207,17 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586435224982297705
+    m_lastTime: -8586431559767951161
     List:
-    - name: Play_Acsenseur00
-      guid: ffc5e8c708d2a74a8378fae5693223ac
-      id: 1950492197
+    - name: Play_Ascenseur
+      guid: 40c3755744ab4a42b19cfabe6ba71f90
+      id: 3806987005
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_Acsenseur00
+      - ElementName: Play_Ascenseur
         ObjectType: 3
-      Path: Default Work Unit\Play_Acsenseur00
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Play_Acsenseur01
-      guid: 81d02551b51ab442bf91774073c4d82c
-      id: 1950492196
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_Acsenseur01
-        ObjectType: 3
-      Path: Default Work Unit\Play_Acsenseur01
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Play_Acsenseur02
-      guid: a40370f483f24a47ac799b760e97d8cb
-      id: 1950492199
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_Acsenseur02
-        ObjectType: 3
-      Path: Default Work Unit\Play_Acsenseur02
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Play_Acsenseur03
-      guid: 136defbb286528488557d61abee94b0d
-      id: 1950492198
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_Acsenseur03
-        ObjectType: 3
-      Path: Default Work Unit\Play_Acsenseur03
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Play_Acsenseur04
-      guid: 9acc716939c362469e005d0ddf7ce6d5
-      id: 1950492193
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_Acsenseur04
-        ObjectType: 3
-      Path: Default Work Unit\Play_Acsenseur04
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: Play_AcsenseurTOP
-      guid: 311275306aeeff4b894dd7bc1d71e85b
-      id: 1589065314
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Play_AcsenseurTOP
-        ObjectType: 3
-      Path: Default Work Unit\Play_AcsenseurTOP
+      Path: Default Work Unit\Play_Ascenseur
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -294,7 +234,7 @@ MonoBehaviour:
       maxDuration: 0
       minDuration: 0
     - name: Play_Cascade
-      guid: d6cf9c6d54285b43b779800fe8637618
+      guid: 86871a4fc52d3b42aa1ae17bbcdbe716
       id: 33491128
       PathAndIcons:
       - ElementName: Default Work Unit
@@ -466,8 +406,26 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586434225294812962
+    m_lastTime: -8586431550665597144
     List:
+    - name: Elevator_RTPC
+      guid: 1bc716b72adeed4cb5792edd9f8dc4b4
+      id: 1282175739
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Elevator_RTPC
+        ObjectType: 13
+      Path: Default Work Unit\Elevator_RTPC
+    - name: New_Game_Parameter
+      guid: b891a3f28f4288459175a71fed5b8a6b
+      id: 3671138082
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: New_Game_Parameter
+        ObjectType: 13
+      Path: Default Work Unit\New_Game_Parameter
     - name: RTPC_Distance_Cascade
       guid: 3955beaf96fecf4085e3a3cd6177e70d
       id: 2173016469
@@ -649,8 +607,57 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 8ddc3acea0cfcb4190716a91774d077d
     GuidInternal: 
-    m_lastTime: -8586449736929754342
-    List: []
+    m_lastTime: -8586432407947316891
+    List:
+    - name: Elevator_Switch
+      guid: 4085c5a93769a443bd430b65f6973054
+      id: 346041850
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Elevator_Switch
+        ObjectType: 11
+      Path: Default Work Unit\Elevator_Switch
+      values:
+      - name: Step0_Bottom
+        guid: fbbb2efd65e154458a29817ef85b3a20
+        id: 624341273
+        PathAndIcons:
+        - ElementName: Step0_Bottom
+          ObjectType: 10
+      - name: Step1
+        guid: 18d37e524ce2d94d9e57ff59ccf42e86
+        id: 1718617340
+        PathAndIcons:
+        - ElementName: Step1
+          ObjectType: 10
+      - name: Step2
+        guid: 8daa6a8aa83cbd4d9eb992e4101d2510
+        id: 1718617343
+        PathAndIcons:
+        - ElementName: Step2
+          ObjectType: 10
+      - name: Step3
+        guid: 39c4b5119ef9e840a9aa154e9d3c267d
+        id: 1718617342
+        PathAndIcons:
+        - ElementName: Step3
+          ObjectType: 10
+      - name: Step4
+        guid: 257a170892811546b93e3153593eb0aa
+        id: 1718617337
+        PathAndIcons:
+        - ElementName: Step4
+          ObjectType: 10
+      - name: Step5_Top
+        guid: 71a27380b6c7e74680545972f0ff23a3
+        id: 551396004
+        PathAndIcons:
+        - ElementName: Step5_Top
+          ObjectType: 10
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 

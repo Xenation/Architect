@@ -13,12 +13,7 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID PLAY_ACSENSEUR00 = 1950492197U;
-        static const AkUniqueID PLAY_ACSENSEUR01 = 1950492196U;
-        static const AkUniqueID PLAY_ACSENSEUR02 = 1950492199U;
-        static const AkUniqueID PLAY_ACSENSEUR03 = 1950492198U;
-        static const AkUniqueID PLAY_ACSENSEUR04 = 1950492193U;
-        static const AkUniqueID PLAY_ACSENSEURTOP = 1589065314U;
+        static const AkUniqueID PLAY_ASCENSEUR = 3806987005U;
         static const AkUniqueID PLAY_BASSIN = 258901810U;
         static const AkUniqueID PLAY_CASCADE = 33491128U;
         static const AkUniqueID PLAY_CHEMIN_LUMIERE = 1544534530U;
@@ -51,8 +46,29 @@ namespace AK
 
     } // namespace STATES
 
+    namespace SWITCHES
+    {
+        namespace ELEVATOR_SWITCH
+        {
+            static const AkUniqueID GROUP = 346041850U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID STEP0_BOTTOM = 624341273U;
+                static const AkUniqueID STEP1 = 1718617340U;
+                static const AkUniqueID STEP2 = 1718617343U;
+                static const AkUniqueID STEP3 = 1718617342U;
+                static const AkUniqueID STEP4 = 1718617337U;
+                static const AkUniqueID STEP5_TOP = 551396004U;
+            } // namespace SWITCH
+        } // namespace ELEVATOR_SWITCH
+
+    } // namespace SWITCHES
+
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID ELEVATOR_RTPC = 1282175739U;
+        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
         static const AkUniqueID PLAYBACK_RATE = 1524500807U;
         static const AkUniqueID RPM = 796049864U;
         static const AkUniqueID RTPC_DISTANCE_CASCADE = 2173016469U;
