@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iddle_lookaround
+  m_Name: proto_idle_lookaround
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

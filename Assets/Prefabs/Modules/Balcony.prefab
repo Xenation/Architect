@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4506262467828459028}
   - component: {fileID: 4506262467828459029}
   - component: {fileID: 650758780978013383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Balcony
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4506262467997026245}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 4506262468175835209}
   - component: {fileID: 4506262468175835214}
   - component: {fileID: 4506262468175835215}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Balcony
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: balcon_VF
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f50ef127a77ed9c4aaa881c9ad74b93f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f50ef127a77ed9c4aaa881c9ad74b93f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.085400105
@@ -410,6 +414,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180.00002
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: f50ef127a77ed9c4aaa881c9ad74b93f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce5020a133ecc5c49850302cc802743f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50ef127a77ed9c4aaa881c9ad74b93f, type: 3}
 --- !u!4 &8919526940067785181 stripped

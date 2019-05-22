@@ -17,5 +17,11 @@ namespace Architect {
 		public GameObject doorPreview;
 		public GameObject balconyPreview;
 
+		[Header("Light Path")]
+		public Material pathMaterial;
+		public float pathWidth = 0.01f;
+		public GameObject normalNodePrefab;
+		public GameObject fallbackNodePrefab;
+
 	}
 }

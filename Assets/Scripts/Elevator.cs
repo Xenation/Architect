@@ -9,6 +9,7 @@ namespace Architect {
 
 		private RoomLink link;
 		private RoomNetwork roomnet;
+		private LinearMapping linearMapping;
 
 		private Transform entry1;
 		private Transform entry2;
@@ -16,6 +17,7 @@ namespace Architect {
 		private void Awake() {
 			roomnet = GetComponentInParent<RoomNetwork>();
 			link = GetComponent<RoomLink>();
+			linearMapping = GetComponent<LinearMapping>();
 			entry1 = transform.Find("Entry1");
 			entry2 = transform.Find("Entry2");
 			Vector3 entry1Pos = roomnet.WorldToRelativePos(entry1.position);
@@ -26,12 +28,18 @@ namespace Architect {
 			} else {
 				link.entry1 = entry2Pos;
 				link.entry2 = entry1Pos;
+				link.reversed = true;
 			}
 			link.isOpen = true; // Elevator Link Always open
 		}
 
 		private void Start() {
 			link.traverser = new ElevatorTraverser(link, this, GetComponent<LinearMapping>(), roomnet);
+		}
+
+		private void Update() {
+			// TODO send linear (0,1) elevator height to Wwise
+			// linearMapping.value
 		}
 
 	}

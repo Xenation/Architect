@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 227011399167397482}
   - component: {fileID: 7471351492480354015}
   - component: {fileID: 1790971921464246779}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4928313486553191404}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6755460752936858408}
   - component: {fileID: 6201266299451123316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,6 +295,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: b5d73e1bf0295824f859ce328efd7d1c, type: 3}
       propertyPath: m_Name
       value: porte_VF (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b5d73e1bf0295824f859ce328efd7d1c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b5d73e1bf0295824f859ce328efd7d1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -340,6 +344,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: b5d73e1bf0295824f859ce328efd7d1c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce5020a133ecc5c49850302cc802743f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5d73e1bf0295824f859ce328efd7d1c, type: 3}
 --- !u!4 &1742293489581249304 stripped
