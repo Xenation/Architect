@@ -15206,6 +15206,11 @@ PrefabInstance:
       propertyPath: hideHighlight.Array.data[0]
       value: 
       objectReference: {fileID: 618549286}
+    - target: {fileID: 8201470004726056084, guid: e2a012e439c202245974969009bb5768,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1365
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2a012e439c202245974969009bb5768, type: 3}
 --- !u!1001 &5804336950198397072

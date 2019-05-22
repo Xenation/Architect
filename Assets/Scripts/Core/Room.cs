@@ -69,9 +69,11 @@ namespace Architect {
 		private Transform centerTransf;
 		private Transform insideTransf;
 		private Collider[] insideColliders;
+		private RoomNetwork roomnet;
 
 		private void Awake() {
-			traverser = new RoomTraverser(this, GetComponentInParent<RoomNetwork>());
+			roomnet = GetComponentInParent<RoomNetwork>();
+			traverser = new RoomTraverser(this, roomnet);
 			grid = GetComponent<SnapGrid>();
 			togglable = transform.Find("Togglable")?.gameObject;
 			togglable?.SetActive(false);
@@ -96,20 +98,24 @@ namespace Architect {
 		}
 
 		public void RegisterLink(RoomLink link) {
-			if (lightNode == null) BuildLightNode();
 			links.Add(link);
-			LightLink lightLink = LightLine.BuildLine(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
-			linkLightLinks.Add(link, lightLink);
-			link.lightLinks.Add(lightLink);
+			if (roomnet.useLightPaths) {
+				if (lightNode == null) BuildLightNode();
+				LightLink lightLink = LightLine.BuildLine(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
+				linkLightLinks.Add(link, lightLink);
+				link.lightLinks.Add(lightLink);
+			}
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
-			LightLink lightLink;
-			if (linkLightLinks.TryGetValue(link, out lightLink)) {
-				linkLightLinks.Remove(link);
-				link.lightLinks.Remove(lightLink);
-				LightLine.Destroy(lightLink);
+			if (roomnet.useLightPaths) {
+				LightLink lightLink;
+				if (linkLightLinks.TryGetValue(link, out lightLink)) {
+					linkLightLinks.Remove(link);
+					link.lightLinks.Remove(lightLink);
+					LightLine.Destroy(lightLink);
+				}
 			}
 		}
 
