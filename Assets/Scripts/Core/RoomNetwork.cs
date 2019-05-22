@@ -80,6 +80,7 @@ namespace Architect {
 			startingRoom.isConnectedToStart = true;
 			startingRoom.isFallback = true;
 			fallbackRoom = startingRoom;
+			// Initialize Links and Rooms
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -133,6 +134,8 @@ namespace Architect {
 
 		private void Update() {
 			UpdateRoomConnections();
+			startingRoom.lightNode.UpdateSignal(null, Time.deltaTime);
+			startingRoom.lightNode.ClearUpdateFlag(null);
 		}
 
 		public Room GetRoom(Vector3 pos) {
@@ -209,6 +212,13 @@ namespace Architect {
 			}
 			startingRoom.linkCountToStart = 0;
 
+			// Settings all links to unlit
+			foreach (Room room in rooms) {
+				foreach (RoomLink link in room.links) {
+					link.MarkUnlit();
+				}
+			}
+
 			// Exploring rooms that are linked to start
 			List<Room> toExplore = new List<Room>();
 			HashSet<Room> explored = new HashSet<Room>();
@@ -221,6 +231,7 @@ namespace Architect {
 
 				foreach (RoomLink link in current.links) {
 					if (!link.isOpen) continue;
+					link.MarkLit();
 					Room neighbor = link.GetOther(current);
 					int potentialLinkCount = current.linkCountToStart + 1;
 					if (neighbor.linkCountToStart > potentialLinkCount) {

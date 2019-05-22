@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Architect {
+namespace Architect.Old {
 	public class ProgressingElement : MonoBehaviour {
 
 		public float targetProgress = 0f;

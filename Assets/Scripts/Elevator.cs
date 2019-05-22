@@ -28,6 +28,7 @@ namespace Architect {
 			} else {
 				link.entry1 = entry2Pos;
 				link.entry2 = entry1Pos;
+				link.reversed = true;
 			}
 			link.isOpen = true; // Elevator Link Always open
 		}

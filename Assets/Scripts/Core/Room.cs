@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Architect.LightPaths;
 
 namespace Architect {
 	[RequireComponent(typeof(SnapGrid))]
@@ -42,6 +43,9 @@ namespace Architect {
 
 		[System.NonSerialized] public List<RoomLink> links = new List<RoomLink>();
 		public RoomTraverser traverser;
+		[System.NonSerialized] public LightNode lightNode = null;
+		private Dictionary<RoomLink, LightLink> linkLightLinks = new Dictionary<RoomLink, LightLink>();
+		
 
 		public Vector3 center {
 			get {
@@ -77,13 +81,36 @@ namespace Architect {
 				collider.isTrigger = true;
 			}
 		}
+		
+		public void BuildLightNode() {
+			RoomSettings roomSettings = SettingsManager.I.roomSettings;
+			// Create Node
+			if (isFallback) {
+				lightNode = Instantiate(roomSettings.fallbackNodePrefab, transform).GetComponent<LightNode>();
+			} else {
+				lightNode = Instantiate(roomSettings.normalNodePrefab, transform).GetComponent<LightNode>();
+			}
+			lightNode.gameObject.name = "Node-" + gameObject.name;
+			lightNode.transform.position = center;
+			lightNode.activated = true;
+		}
 
 		public void RegisterLink(RoomLink link) {
+			if (lightNode == null) BuildLightNode();
 			links.Add(link);
+			LightLink lightLink = LightLine.BuildLine(transform, link.gameObject.name, lightNode, link.GetLightPoint(this));
+			linkLightLinks.Add(link, lightLink);
+			link.lightLinks.Add(lightLink);
 		}
 
 		public void UnregisterLink(RoomLink link) {
 			links.Remove(link);
+			LightLink lightLink;
+			if (linkLightLinks.TryGetValue(link, out lightLink)) {
+				linkLightLinks.Remove(link);
+				link.lightLinks.Remove(lightLink);
+				LightLine.Destroy(lightLink);
+			}
 		}
 
 		public void UpdateConnected() {
