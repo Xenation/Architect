@@ -67,6 +67,8 @@ namespace Architect {
 		public float moduleZoneFloor = 0.1f;
 		public float moduleZoneCeilling = 4f;
 
+		public bool useLightPaths = true;
+
 		[System.NonSerialized] public Room fallbackRoom = null;
 
 		private void Awake() {
@@ -134,8 +136,10 @@ namespace Architect {
 
 		private void Update() {
 			UpdateRoomConnections();
-			startingRoom.lightNode.UpdateSignal(null, Time.deltaTime);
-			startingRoom.lightNode.ClearUpdateFlag(null);
+			if (useLightPaths) {
+				startingRoom.lightNode.UpdateSignal(null, Time.deltaTime);
+				startingRoom.lightNode.ClearUpdateFlag(null);
+			}
 		}
 
 		public Room GetRoom(Vector3 pos) {
@@ -212,10 +216,12 @@ namespace Architect {
 			}
 			startingRoom.linkCountToStart = 0;
 
-			// Settings all links to unlit
-			foreach (Room room in rooms) {
-				foreach (RoomLink link in room.links) {
-					link.MarkUnlit();
+			if (useLightPaths) {
+				// Settings all links to unlit
+				foreach (Room room in rooms) {
+					foreach (RoomLink link in room.links) {
+						link.MarkUnlit();
+					}
 				}
 			}
 
@@ -231,7 +237,7 @@ namespace Architect {
 
 				foreach (RoomLink link in current.links) {
 					if (!link.isOpen) continue;
-					link.MarkLit();
+					if (useLightPaths) link.MarkLit();
 					Room neighbor = link.GetOther(current);
 					int potentialLinkCount = current.linkCountToStart + 1;
 					if (neighbor.linkCountToStart > potentialLinkCount) {
@@ -288,7 +294,7 @@ namespace Architect {
 			SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
 			HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
 			RoomNode startNode = roomGraph[start];
-			startNode.hCost = (target.transform.position - start.transform.position).magnitude;
+			startNode.hCost = (target.center - start.center).magnitude;
 			RoomNode targetNode = roomGraph[target];
 			openSet.Add(startNode);
 
@@ -309,10 +315,10 @@ namespace Architect {
 						continue;
 					}
 
-					float nCostToNeighbor = current.gCost + (neighbor.transform.position - current.room.transform.position).magnitude;
+					float nCostToNeighbor = current.gCost + (neighbor.center - current.room.center).magnitude;
 					if (nCostToNeighbor < neighborNode.gCost || !openSet.Contains(neighborNode)) {
 						neighborNode.gCost = nCostToNeighbor;
-						neighborNode.hCost = (target.transform.position - neighbor.transform.position).magnitude;
+						neighborNode.hCost = (target.center - neighbor.center).magnitude;
 						neighborNode.parentLinkIndex = neighbor.links.IndexOf(link);
 						neighborNode.parentNode = current;
 
