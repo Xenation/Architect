@@ -38,7 +38,8 @@ namespace Architect {
 		}
 
 		private void Update() {
-			// TODO send linear (0,1) elevator height to Wwise
+            // TODO send linear (0,1) elevator height to Wwise
+            AkSoundEngine.SetRTPCValue("Elevator_RTPC", linearMapping.value, gameObject);
 			// linearMapping.value
 		}
 

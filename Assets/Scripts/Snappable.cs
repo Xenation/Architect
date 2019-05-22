@@ -48,8 +48,9 @@ namespace Architect {
 			if (isSnapped) {
 				Unsnapped();
 			}
-			// TODO trigger Prise Module
-		}
+            // TODO trigger Prise Module
+            AkSoundEngine.PostEvent("Play_Prendre_Module", gameObject);
+        }
 
 		protected virtual void Detached() {
 			if (preview.activeInHierarchy) { // Has a valid snap point -> Snap
@@ -66,8 +67,9 @@ namespace Architect {
 
 		protected virtual void Snapped() {
 			isSnapped = true;
-			// TODO trigger Pose Module
-		}
+            // TODO trigger Pose Module
+            AkSoundEngine.PostEvent("Play_Poser_Module", gameObject);
+        }
 
 		protected virtual void Unsnapped() {
 			isSnapped = false;
