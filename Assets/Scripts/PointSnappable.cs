@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 namespace Architect {
 	public class PointSnappable : Snappable {
@@ -8,10 +9,16 @@ namespace Architect {
 		private SnapPoint parentPoint;
 		private SnapPoint hoveredPoint;
 		private SnapPoint prevPoint;
+		private Interactable interactable;
 
 		protected override GameObject CreatePreview() {
 			GameObject prev = new GameObject("SnapTransform");
 			return prev;
+		}
+
+		protected override void Awake() {
+			base.Awake();
+			interactable = GetComponent<Interactable>();
 		}
 
 		private void Start() {
@@ -29,6 +36,9 @@ namespace Architect {
 
 		private new void Update() {
 			base.Update();
+			if (parentPoint != null) {
+				interactable.enabled = !parentPoint.link.freezed;
+			}
 			if (showPreview) {
 				prevPoint = hoveredPoint;
 				hoveredPoint = roomnet.GetPointHover(transform.position);
