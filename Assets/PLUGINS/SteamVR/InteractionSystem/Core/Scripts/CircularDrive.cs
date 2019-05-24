@@ -75,12 +75,16 @@ namespace Valve.VR.InteractionSystem
 		[Tooltip( "The output angle value of the drive in degrees, unlimited will increase or decrease without bound, take the 360 modulus to find number of rotations" )]
 		public float outAngle;
 
+		public bool useInertia = false;
+		public float inertia = .8f;
+
 		private Quaternion start;
 
 		private Vector3 worldPlaneNormal = new Vector3( 1.0f, 0.0f, 0.0f );
 		private Vector3 localPlaneNormal = new Vector3( 1.0f, 0.0f, 0.0f );
 
 		private Vector3 lastHandProjected;
+		private float prevDeltaAngle = 0f;
 
 		private Color red = new Color( 1.0f, 0.0f, 0.0f );
 		private Color green = new Color( 0.0f, 1.0f, 0.0f );
@@ -92,6 +96,7 @@ namespace Valve.VR.InteractionSystem
 		private int dbgObjectIndex = 0;
 
 		private bool driving = false;
+		public bool isDriving { get { return driving; } }
 
 		// If the drive is limited as is at min/max, angles greater than this are ignored 
 		private float minMaxAngularThreshold = 1.0f;
@@ -182,6 +187,14 @@ namespace Valve.VR.InteractionSystem
 		}
 
 
+		private void Update() {
+			if (!driving) {
+				ComputeInertiaAngle();
+				UpdateAll();
+			}
+		}
+
+
 		//-------------------------------------------------
 		void OnDisable()
 		{
@@ -219,14 +232,15 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnHandHoverBegin( Hand hand )
 		{
-            hand.ShowGrabHint();
+
+			//hand.ShowGrabHint();
 		}
 
 
 		//-------------------------------------------------
 		private void OnHandHoverEnd( Hand hand )
 		{
-            hand.HideGrabHint();
+            //hand.HideGrabHint();
 
 			if ( driving && hand )
 			{
@@ -262,7 +276,7 @@ namespace Valve.VR.InteractionSystem
 				ComputeAngle( hand );
 				UpdateAll();
 
-                hand.HideGrabHint();
+                //hand.HideGrabHint();
 			}
             else if (grabbedWithType != GrabTypes.None && isGrabEnding)
 			{
@@ -489,6 +503,7 @@ namespace Valve.VR.InteractionSystem
 							signedAngleDelta = -signedAngleDelta;
 						}
 
+						
 						if ( limited )
 						{
 							float angleTmp = Mathf.Clamp( outAngle + signedAngleDelta, minAngle, maxAngle );
@@ -539,10 +554,16 @@ namespace Valve.VR.InteractionSystem
 						{
 							outAngle += signedAngleDelta;
 							lastHandProjected = toHandProjected;
+							prevDeltaAngle = signedAngleDelta;
 						}
 					}
 				}
 			}
+		}
+
+		private void ComputeInertiaAngle() {
+			outAngle += prevDeltaAngle;
+			prevDeltaAngle *= inertia;
 		}
 	}
 }

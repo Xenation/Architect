@@ -923,9 +923,13 @@ namespace Valve.VR.InteractionSystem
                 if (hoveringOverAttached)
                     continue;
 
-                // Occupied by another hand, so we can't touch it
-                if (otherHand && otherHand.hoveringInteractable == contacting)
-                    continue;
+				// Occupied by another hand, so we can't touch it
+				if (otherHand && otherHand.hoveringInteractable == contacting) {
+					CircularDrive drive = contacting.GetComponent<CircularDrive>(); // ADDED: if the interactable is a circular drive (not already in use) then allow interaction
+					if (drive == null || drive.isDriving) {
+						continue;
+					} 
+				}
 
                 // Best candidate so far...
                 float distance = Vector3.Distance(contacting.transform.position, hoverPosition);

@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791800995869225177}
-  m_LocalRotation: {x: -0.70710707, y: -0, z: -0, w: 0.70710653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.9899999, y: 0.975, z: -0.039999917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4812,6 +4812,7 @@ MonoBehaviour:
   moduleZoneRadius: 2
   moduleZoneFloor: 0.1
   moduleZoneCeilling: 4
+  useLightPaths: 1
 --- !u!1 &7733976473779201435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5018,6 +5019,8 @@ MonoBehaviour:
   dbgPathLimit: 50
   debugText: {fileID: 0}
   outAngle: 0
+  useInertia: 0
+  inertia: 0.8
 --- !u!114 &8587297982486795238
 MonoBehaviour:
   m_ObjectHideFlags: 0
