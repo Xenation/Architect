@@ -897,7 +897,7 @@ namespace Valve.VR.InteractionSystem
                 Interactable contacting = collider.GetComponentInParent<Interactable>();
 
                 // Yeah, it's null, skip
-                if (contacting == null)
+                if (contacting == null || !contacting.enabled)
                     continue;
 
                 // Ignore this collider for hovering
