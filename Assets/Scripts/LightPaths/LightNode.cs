@@ -3,6 +3,8 @@
 namespace Architect.LightPaths {
 	public class LightNode : LightPoint {
 
+		public float radius = 0.1f;
+
 		private float _progress = 0f;
 		private float progress {
 			get {
