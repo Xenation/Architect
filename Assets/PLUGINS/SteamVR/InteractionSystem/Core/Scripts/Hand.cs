@@ -902,12 +902,8 @@ namespace Valve.VR.InteractionSystem
 
                 // Ignore this collider for hovering
                 IgnoreHovering ignore = collider.GetComponent<IgnoreHovering>();
-                if (ignore != null)
-                {
-                    if (ignore.onlyIgnoreHand == null || ignore.onlyIgnoreHand == this)
-                    {
-                        continue;
-                    }
+                if (ignore != null && (ignore.onlyIgnoreHand == null || ignore.onlyIgnoreHand == this)) {
+					continue;
                 }
 
                 // Can't hover over the object if it's attached
@@ -926,9 +922,9 @@ namespace Valve.VR.InteractionSystem
 				// Occupied by another hand, so we can't touch it
 				if (otherHand && otherHand.hoveringInteractable == contacting) {
 					CircularDrive drive = contacting.GetComponent<CircularDrive>(); // ADDED: if the interactable is a circular drive (not already in use) then allow interaction
-					if (drive == null || drive.isDriving) {
+					if (drive == null) {
 						continue;
-					} 
+					}
 				}
 
                 // Best candidate so far...

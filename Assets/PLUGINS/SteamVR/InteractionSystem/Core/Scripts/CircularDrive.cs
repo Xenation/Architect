@@ -189,9 +189,11 @@ namespace Valve.VR.InteractionSystem
 
 		private void Update() {
 			if (!driving) {
+				//Debug.Log("Computing Inertia!");
 				ComputeInertiaAngle();
 				UpdateAll();
 			}
+			//Debug.Log("======== FRAME END ========");
 		}
 
 
@@ -252,48 +254,49 @@ namespace Valve.VR.InteractionSystem
 			handHoverLocked = null;
 		}
 
-        private GrabTypes grabbedWithType;
+        private GrabTypes grabbedWithType = GrabTypes.None;
+		private Hand grabbingHand = null;
 		//-------------------------------------------------
-		private void HandHoverUpdate( Hand hand )
-        {
-            GrabTypes startingGrabType = hand.GetGrabStarting();
-            bool isGrabEnding = hand.IsGrabbingWithType(grabbedWithType) == false;
+		private void HandHoverUpdate(Hand hand) {
+			//Debug.Log(hand.gameObject.name + " Hover Update");
 
-            if (grabbedWithType == GrabTypes.None && startingGrabType != GrabTypes.None)
-            {
-                grabbedWithType = startingGrabType;
-                // Trigger was just pressed
-                lastHandProjected = ComputeToTransformProjected( hand.hoverSphereTransform );
+			GrabTypes startingGrabType = hand.GetGrabStarting();
+			bool isGrabStarting = startingGrabType != GrabTypes.None;
+			bool isGrabEnding = hand.IsGrabbingWithType(grabbedWithType) == false;
+			
 
-				if ( hoverLock )
-				{
+			if (isGrabStarting) { // Grab Start
+				//Debug.Log("    Grab Start!");
+				//if (grabbingHand != null) { // Another hand has already grabbed -> switch hands
+				//	Debug.Log("    (switching hands)");
+				//}
+
+				lastHandProjected = ComputeToTransformProjected(hand.hoverSphereTransform);
+
+				if (hoverLock) {
 					hand.HoverLock(interactable);
 					handHoverLocked = hand;
 				}
 
 				driving = true;
-
-				ComputeAngle( hand );
-				UpdateAll();
-
-                //hand.HideGrabHint();
-			}
-            else if (grabbedWithType != GrabTypes.None && isGrabEnding)
-			{
-				// Trigger was just released
-				if ( hoverLock )
-				{
+				grabbedWithType = startingGrabType;
+				grabbingHand = hand;
+			} else if (isGrabEnding && grabbingHand == hand) { // Grab End
+				//Debug.Log("    Grab End!");
+				
+				if (hoverLock) {
 					hand.HoverUnlock(interactable);
 					handHoverLocked = null;
 				}
 
-                driving = false;
-                grabbedWithType = GrabTypes.None;
-            }
+				driving = false;
+				grabbedWithType = GrabTypes.None;
+				grabbingHand = null;
+			}
 
-            if ( driving && isGrabEnding == false && hand.hoveringInteractable == this.interactable )
-			{
-				ComputeAngle( hand );
+			if (grabbingHand == hand) {
+				//Debug.Log("    Grab Update!");
+				ComputeAngle(hand);
 				UpdateAll();
 			}
 		}
@@ -460,6 +463,8 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void ComputeAngle( Hand hand )
 		{
+			//Debug.Log("-[ComputeAngle]-");
+
 			Vector3 toHandProjected = ComputeToTransformProjected( hand.hoverSphereTransform );
 
 			if ( !toHandProjected.Equals( lastHandProjected ) )
@@ -562,6 +567,7 @@ namespace Valve.VR.InteractionSystem
 		}
 
 		private void ComputeInertiaAngle() {
+			//Debug.Log("-[ComputeInertiaAngle]-");
 			outAngle += prevDeltaAngle;
 			prevDeltaAngle *= inertia;
 		}

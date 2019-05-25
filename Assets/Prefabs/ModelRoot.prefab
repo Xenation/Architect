@@ -5034,8 +5034,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineColor: {r: 0, g: 1, b: 0, a: 1}
-  ignoredObjects:
-  - {fileID: 0}
+  listMode: 1
+  recursive: 1
+  objectList:
+  - {fileID: 7733976472388210753}
 --- !u!1001 &7733976473308182522
 PrefabInstance:
   m_ObjectHideFlags: 0
