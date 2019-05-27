@@ -107,7 +107,10 @@ namespace Architect {
 				if (!outlined.enabled) continue;
 				context.command.SetGlobalColor(outlineColorID, outlined.outlineColor);
 				foreach (Renderer renderer in outlined.renderers) {
-					context.command.DrawRenderer(renderer, outlineUnlitMaterial);
+					int subMeshCount = renderer.materials.Length; // Assumes 1 material = 1 submesh
+					for (int i = 0; i < subMeshCount; i++) {
+						context.command.DrawRenderer(renderer, outlineUnlitMaterial, i);
+					}
 				}
 			}
 
