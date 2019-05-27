@@ -37,7 +37,7 @@ namespace Architect {
 			}
 
 			Vector3 direction;
-			if (pathIndex >= path.Count - 1) {
+			if (pathIndex >= path.Count) {
 				Vector3 toTarget = target - controller.transform.localPosition;
 				if (toTarget.magnitude < 0.01f) { // Arrived at target link entry
 					//Debug.Log("Arrived at target");
