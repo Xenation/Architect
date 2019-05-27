@@ -16,7 +16,7 @@ MonoBehaviour:
   gridMaterial: {fileID: 2100000, guid: 8c0c1a6d88ba7434f8f924367b55580e, type: 2}
   gridSnapOverHeight: 0.1
   gridSnapUnderHeight: -0.05
-  linkSnapDistance: 0.05
+  linkSnapDistance: 0.07
   doorPreview: {fileID: 3335335554082484152, guid: 6c180582650b2b4418c7ecd294eed5f9,
     type: 3}
   balconyPreview: {fileID: 5860679387126116421, guid: 9ebd7e792ba709f4195a2dcbff02c46e,

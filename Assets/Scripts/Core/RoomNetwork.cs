@@ -162,7 +162,7 @@ namespace Architect {
 
 		public SnapPoint GetPointHover(Vector3 pos) {
 			foreach (SnapPoint point in points) {
-				if (Vector3.Distance(pos, point.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
+				if (Vector3.Distance(pos, point.center) < SettingsManager.I.roomSettings.linkSnapDistance) {
 					return point;
 				}
 			}

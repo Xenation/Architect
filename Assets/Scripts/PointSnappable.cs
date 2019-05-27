@@ -11,6 +11,8 @@ namespace Architect {
 		private SnapPoint prevPoint;
 		private Interactable interactable;
 
+		private Transform centerTransf;
+
 		protected override GameObject CreatePreview() {
 			GameObject prev = new GameObject("SnapTransform");
 			return prev;
@@ -19,11 +21,12 @@ namespace Architect {
 		protected override void Awake() {
 			base.Awake();
 			interactable = GetComponent<Interactable>();
+			centerTransf = transform.Find("Center");
 		}
 
 		private void Start() {
 			if (startSnapped) {
-				hoveredPoint = roomnet.GetPointHover(transform.position);
+				hoveredPoint = roomnet.GetPointHover(centerTransf.position);
 				if (hoveredPoint != null) {
 					hoveredPoint.Snap(preview.transform, transform);
 					transform.position = preview.transform.position;
@@ -41,7 +44,7 @@ namespace Architect {
 			}
 			if (showPreview) {
 				prevPoint = hoveredPoint;
-				hoveredPoint = roomnet.GetPointHover(transform.position);
+				hoveredPoint = roomnet.GetPointHover(centerTransf.position);
 				if (hoveredPoint != null && hoveredPoint.snapped == null && hoveredPoint.type == pointType) {
 					if (!preview.activeInHierarchy) {
 						EnablePreview();

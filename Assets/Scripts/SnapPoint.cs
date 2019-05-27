@@ -10,6 +10,12 @@ namespace Architect {
 
 		[System.NonSerialized] public RoomLink link;
 
+		public Vector3 center {
+			get {
+				return centerTransf.position;
+			}
+		}
+
 		private RoomNetwork roomnet;
 
 		private uint previewCounter = 0;
@@ -17,12 +23,14 @@ namespace Architect {
 
 		private Transform entry1;
 		private Transform entry2;
+		private Transform centerTransf;
 
 		private void Awake() {
 			roomnet = GetComponentInParent<RoomNetwork>();
 			link = GetComponentInParent<RoomLink>();
 			entry1 = transform.Find("Entry1");
 			entry2 = transform.Find("Entry2");
+			centerTransf = transform.Find("Center");
 			Vector3 entry1Pos = roomnet.WorldToRelativePos(entry1.position);
 			Vector3 entry2Pos = roomnet.WorldToRelativePos(entry2.position);
 			if (Vector3.Distance(entry1Pos, roomnet.WorldToRelativePos(link.room1.center)) < Vector3.Distance(entry2Pos, roomnet.WorldToRelativePos(link.room1.center))) {
