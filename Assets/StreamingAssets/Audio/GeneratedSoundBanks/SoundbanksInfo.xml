@@ -17,7 +17,7 @@
 			<Path>MainSoundBank.bnk</Path>
 			<IncludedEvents>
 				<Event Id="3806987005" Name="Play_Ascenseur" ObjectPath="\Events\Default Work Unit\Play_Ascenseur"/>
-				<Event Id="258901810" Name="Play_Bassin" ObjectPath="\Events\Default Work Unit\Play_Bassin" MaxAttenuation="1.000000"/>
+				<Event Id="258901810" Name="Play_Bassin" ObjectPath="\Events\Default Work Unit\Play_Bassin" MaxAttenuation="2.000000"/>
 				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="100.000000"/>
 				<Event Id="1544534530" Name="Play_Chemin_Lumiere" ObjectPath="\Events\Default Work Unit\Play_Chemin_Lumiere"/>
 				<Event Id="3548864740" Name="Play_Lumiere_Allume" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Allume"/>
@@ -58,9 +58,17 @@
 					<ShortName>PLANTE-002.wav</ShortName>
 					<Path>SFX\PLANTE-002_8E09B74F.wem</Path>
 				</File>
+				<File Id="175999245" Language="SFX">
+					<ShortName>NappeA2.wav</ShortName>
+					<Path>SFX\NappeA2_592D8723.wem</Path>
+				</File>
 				<File Id="185844298" Language="SFX">
 					<ShortName>CRAN ASCENSEUR-005.wav</ShortName>
 					<Path>SFX\CRAN ASCENSEUR-005_E37C7245.wem</Path>
+				</File>
+				<File Id="189967105" Language="SFX">
+					<ShortName>NappeB4.wav</ShortName>
+					<Path>SFX\NappeB4_592D8723.wem</Path>
 				</File>
 				<File Id="203234394" Language="SFX">
 					<ShortName>LUMIERE ALLUME04.wav</ShortName>
@@ -76,7 +84,7 @@
 				</File>
 				<File Id="238185697" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-006.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-006_43CDD7B7.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-006_18D5FEB6.wem</Path>
 				</File>
 				<File Id="241742901" Language="SFX">
 					<ShortName>CRAN ASCENSEUR-006.wav</ShortName>
@@ -101,10 +109,6 @@
 				<File Id="322857602" Language="SFX">
 					<ShortName>TAP ASCENSEUR-001.wav</ShortName>
 					<Path>SFX\TAP ASCENSEUR-001_E37C7245.wem</Path>
-				</File>
-				<File Id="347552919" Language="SFX">
-					<ShortName>ArchitectMenu.wav</ShortName>
-					<Path>SFX\ArchitectMenu_592D8723.wem</Path>
 				</File>
 				<File Id="353331368" Language="SFX">
 					<ShortName>BASSIN.wav</ShortName>
@@ -140,7 +144,11 @@
 				</File>
 				<File Id="536422686" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-005.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-005_9B0D979C.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-005_7AD7E371.wem</Path>
+				</File>
+				<File Id="575275645" Language="SFX">
+					<ShortName>NappeB1.wav</ShortName>
+					<Path>SFX\NappeB1_592D8723.wem</Path>
 				</File>
 				<File Id="599553525" Language="SFX">
 					<ShortName>CLOCHE ASCENSEUR.wav</ShortName>
@@ -150,6 +158,10 @@
 					<ShortName>VILLE HAUTEUR-002.wav</ShortName>
 					<Path>SFX\VILLE HAUTEUR-002_E37C7245.wem</Path>
 				</File>
+				<File Id="627032078" Language="SFX">
+					<ShortName>NappeA1.wav</ShortName>
+					<Path>SFX\NappeA1_592D8723.wem</Path>
+				</File>
 				<File Id="644075696" Language="SFX">
 					<ShortName>WRONG.wav</ShortName>
 					<Path>SFX\WRONG_E37C7245.wem</Path>
@@ -157,6 +169,14 @@
 				<File Id="644112283" Language="SFX">
 					<ShortName>PLUIE TOIT.wav</ShortName>
 					<Path>SFX\PLUIE TOIT_6C826669.wem</Path>
+				</File>
+				<File Id="680893573" Language="SFX">
+					<ShortName>NappeA4.wav</ShortName>
+					<Path>SFX\NappeA4_592D8723.wem</Path>
+				</File>
+				<File Id="741198233" Language="SFX">
+					<ShortName>NappeA3.wav</ShortName>
+					<Path>SFX\NappeA3_592D8723.wem</Path>
 				</File>
 				<File Id="759334917" Language="SFX">
 					<ShortName>PLANTE-004.wav</ShortName>
@@ -190,13 +210,21 @@
 					<ShortName>CASCADE-002.wav</ShortName>
 					<Path>SFX\CASCADE-002_592D8723.wem</Path>
 				</File>
+				<File Id="897419761" Language="SFX">
+					<ShortName>NappeB2.wav</ShortName>
+					<Path>SFX\NappeB2_592D8723.wem</Path>
+				</File>
 				<File Id="905312553" Language="SFX">
 					<ShortName>Pont1.wav</ShortName>
 					<Path>SFX\Pont1_592D8723.wem</Path>
 				</File>
+				<File Id="905758481" Language="SFX">
+					<ShortName>NappeB3.wav</ShortName>
+					<Path>SFX\NappeB3_592D8723.wem</Path>
+				</File>
 				<File Id="912711014" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-003.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-003_AFC0129C.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-003_4DD0C9CA.wem</Path>
 				</File>
 				<File Id="927569739" Language="SFX">
 					<ShortName>CRAN ASCENSEUR-004.wav</ShortName>
@@ -208,7 +236,7 @@
 				</File>
 				<File Id="948424303" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-002.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-002_35FD10E9.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-002_280B267C.wem</Path>
 				</File>
 				<File Id="953000917" Language="SFX">
 					<ShortName>VILLE HAUTEUR GRAVE.wav</ShortName>
@@ -228,7 +256,7 @@
 				</File>
 				<File Id="975568114" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-004.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-004_4309F08A.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-004_BD06D038.wem</Path>
 				</File>
 				<File Id="995128658" Language="SFX">
 					<ShortName>PLANTE-003.wav</ShortName>
@@ -236,7 +264,7 @@
 				</File>
 				<File Id="998703025" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-001.wav</ShortName>
-					<Path>SFX\CLIC ASCENSEUR-001_1C3B3061.wem</Path>
+					<Path>SFX\CLIC ASCENSEUR-001_CCD1B6B6.wem</Path>
 				</File>
 				<File Id="1022744147" Language="SFX">
 					<ShortName>PLUIE EXTERIEUR.wav</ShortName>
