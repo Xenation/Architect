@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791800995869225177}
-  m_LocalRotation: {x: -0.70710707, y: -0, z: -0, w: 0.70710653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.9899999, y: 0.975, z: -0.039999917}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.03, y: 1, z: 1.03}
   m_Children: []
   m_Father: {fileID: 7733976472388210753}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &6863132965971529495
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5021,6 +5021,8 @@ MonoBehaviour:
   dbgPathLimit: 50
   debugText: {fileID: 0}
   outAngle: 0
+  useInertia: 1
+  inertia: 0.96
 --- !u!114 &8587297982486795238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5034,8 +5036,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineColor: {r: 0, g: 1, b: 0, a: 1}
-  ignoredObjects:
-  - {fileID: 0}
+  listMode: 1
+  recursive: 1
+  objectList:
+  - {fileID: 9216855208908828353}
 --- !u!1001 &1536183880448701543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5043,10 +5047,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7733976472388210753}
     m_Modifications:
-    - target: {fileID: 100000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
-      propertyPath: m_Name
-      value: table_support 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.99
@@ -5090,6 +5090,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
+      propertyPath: m_Name
+      value: table_support 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5190,10 +5194,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7733976472388210753}
     m_Modifications:
-    - target: {fileID: 100000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
-      propertyPath: m_Name
-      value: TourTable (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.99
@@ -5237,6 +5237,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
+      propertyPath: m_Name
+      value: TourTable (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_Materials.Array.data[0]

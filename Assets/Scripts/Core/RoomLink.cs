@@ -37,6 +37,7 @@ namespace Architect {
 
 		[System.NonSerialized] public bool valid = false;
 		public LinkTraverser traverser;
+		[System.NonSerialized] public bool freezed = false;
 
 		private RoomNetwork roomnet;
 

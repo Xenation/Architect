@@ -61,7 +61,7 @@ namespace Valve.VR.InteractionSystem
         [Tooltip("Set whether or not you want this interactible to highlight when hovering over it")]
         public bool highlightOnHover = true;
 		[Tooltip("Set it if you want the highlight to be controlled by another script")]
-		public MonoBehaviour highlightScript = null;
+		public HighlightHandler highlightScript = null;
         protected MeshRenderer[] highlightRenderers;
         protected MeshRenderer[] existingRenderers;
         protected GameObject highlightHolder;
@@ -129,7 +129,7 @@ namespace Valve.VR.InteractionSystem
         protected virtual void CreateHighlightRenderers()
         {
 			if (highlightScript != null) {
-				highlightScript.enabled = true;
+				highlightScript.EnableHighlight();
 				return;
 			}
 
@@ -272,7 +272,7 @@ namespace Valve.VR.InteractionSystem
 
 			if (highlightOnHover) {
 				if (highlightScript != null) {
-					highlightScript.enabled = false;
+					highlightScript.DisableHighlight();
 					return;
 				}
 				if (highlightHolder != null) {

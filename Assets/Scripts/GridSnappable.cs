@@ -12,6 +12,7 @@ namespace Architect {
 		private Transform entryDown;
 		private Transform entryUp;
 		private RoomLink link;
+		private Interactable interactable;
 
 		private int matFocusIndex = -1;
 
@@ -28,6 +29,7 @@ namespace Architect {
 			entryUp = transform.Find("UpStairs");
 			entryDown = transform.Find("DownStairs");
 			link = gameObject.AddComponent<RoomLink>();
+			interactable = GetComponent<Interactable>();
 		}
 
 		private void Start() {
@@ -45,6 +47,8 @@ namespace Architect {
 
 		private new void Update() {
 			base.Update();
+			interactable.enabled = !link.freezed;
+
 			if (showPreview) {
 				currentRoom = roomnet.GetRoomGridHover(transform.position);
 				if (currentRoom != null) {

@@ -16,10 +16,10 @@ namespace Architect.LightPaths {
 			return lightLink;
 		}
 
-		public static void Destroy(LightLine line) {
-			line.point1.UnregisterConnected(line);
-			line.point2.UnregisterConnected(line);
-			Destroy(line.gameObject);
+		public static void DestroyLink(LightLink link) {
+			link.point1.UnregisterConnected(link);
+			link.point2.UnregisterConnected(link);
+			Destroy(link.gameObject);
 		}
 
 		public LightPoint point1;

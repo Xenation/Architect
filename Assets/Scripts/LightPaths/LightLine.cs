@@ -83,6 +83,12 @@ namespace Architect.LightPaths {
 		public void GenerateMesh() {
 			Vector3 local1 = transform.InverseTransformPoint(point1.transform.position);
 			Vector3 local2 = transform.InverseTransformPoint(point2.transform.position);
+			if (point1 is LightNode) {
+				local1 += (local2 - local1).normalized * (point1 as LightNode).radius;
+			}
+			if (point2 is LightNode) {
+				local2 += (local1 - local2).normalized * (point2 as LightNode).radius;
+			}
 			Vector3 startToEnd = local2 - local1;
 			Vector3 right = Vector3.Cross(startToEnd.normalized, Vector3.up);
 			float length = startToEnd.magnitude;
@@ -91,10 +97,10 @@ namespace Architect.LightPaths {
 			filter.mesh = mesh;
 
 			Vector3[] vertices = new Vector3[4];
-			vertices[0] = local1 - right * width;
-			vertices[1] = local2 - right * width;
-			vertices[2] = local2 + right * width;
-			vertices[3] = local1 + right * width;
+			vertices[0] = local1 - right * width / 2f;
+			vertices[1] = local2 - right * width / 2f;
+			vertices[2] = local2 + right * width / 2f;
+			vertices[3] = local1 + right * width / 2f;
 			Vector2[] uvs = new Vector2[4]; // UVs used by textures
 			uvs[0] = new Vector2(0, 0);
 			uvs[1] = new Vector2(0, length / width);

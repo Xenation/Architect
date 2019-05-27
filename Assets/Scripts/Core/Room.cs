@@ -114,7 +114,7 @@ namespace Architect {
 				if (linkLightLinks.TryGetValue(link, out lightLink)) {
 					linkLightLinks.Remove(link);
 					link.lightLinks.Remove(lightLink);
-					LightLine.Destroy(lightLink);
+					LightLink.DestroyLink(lightLink);
 				}
 			}
 		}

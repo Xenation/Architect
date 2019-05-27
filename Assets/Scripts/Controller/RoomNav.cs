@@ -113,13 +113,16 @@ namespace Architect {
 		}
 
 		private List<NavNode> Retrace(NavNode start, NavNode end, List<NavNode> path) {
+			VisualDebug.ClearLines();
+			VisualDebug.ClearSpheres();
 			path.Clear();
 			NavNode current = end;
-			path.Add(current.parent);
+			path.Add(current);
 
 			while (current != start) {
 				path.Add(current.parent);
-				Debug.DrawLine(current.transform.position, current.parent.transform.position, Color.blue);
+				VisualDebug.DrawLine(current.transform.position, current.parent.transform.position, Color.blue);
+				VisualDebug.DrawWireSphere(current.transform.position, 0.01f, Color.blue);
 				current = current.parent;
 			}
 
