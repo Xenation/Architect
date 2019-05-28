@@ -7,8 +7,10 @@ namespace Architect {
 		public Vector2Int size;
 		public Material previewMaterial;
 
+		private Outlined previewOutlined;
+
 		private Room currentRoom;
-		private Mesh previewMesh;
+		private Transform previewRoot;
 		private Transform entryDown;
 		private Transform entryUp;
 		private RoomLink link;
@@ -17,11 +19,20 @@ namespace Architect {
 		private int matFocusIndex = -1;
 
 		protected override GameObject CreatePreview() {
-			MeshRenderer previewRenderer;
-			GameObject prev = Utils.CreateMeshObject("SnapPreview", transform.parent, out previewRenderer, out previewMesh);
-			previewRenderer.material = previewMaterial;
-			previewMesh.CreateQuad(size.Float() * SettingsManager.I.roomSettings.gridSnapStep, Vector3.forward, Vector3.right);
-			return prev;
+			previewRoot = transform.Find("Preview");
+			GameObject modelGO = transform.Find("Model").gameObject;
+			GameObject prev = Instantiate(modelGO, previewRoot);
+			prev.name = "PreviewModel";
+			prev.transform.localPosition = Vector3.zero;
+			Renderer[] renderers = prev.GetComponentsInChildren<Renderer>();
+			foreach (Renderer renderer in renderers) {
+				renderer.renderingLayerMask = 0;
+				renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			}
+			previewOutlined = previewRoot.GetComponent<Outlined>();
+			previewOutlined.listMode = Outlined.Mode.Whitelist;
+			previewOutlined.objectList.Add(prev.transform);
+			return previewRoot.gameObject;
 		}
 
 		private new void Awake() {
@@ -73,12 +84,14 @@ namespace Architect {
 			GridManager.I.ActivateFocus(matFocusIndex);
 			float focusRadius = size.magnitude / 2f * SettingsManager.I.roomSettings.gridSnapStep;
 			GridManager.I.SetFocusRadius(matFocusIndex, focusRadius, focusRadius * .75f);
+			previewOutlined.EnableHighlight();
 		}
 
 		protected override void DisablePreview() {
 			base.DisablePreview();
 			GridManager.I.DeactivateFocus(matFocusIndex);
 			matFocusIndex = -1;
+			previewOutlined.EnableHighlight();
 		}
 
 		protected override void Snapped() {
