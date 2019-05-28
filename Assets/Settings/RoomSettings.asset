@@ -27,3 +27,5 @@ MonoBehaviour:
     type: 3}
   fallbackNodePrefab: {fileID: 5045742734468754778, guid: 239da38da2c25d94997e42dc02893b44,
     type: 3}
+  respawnEffect: {fileID: 3349419707257947156, guid: 5c42b6b67a1e7e244a9dba34a756abfb,
+    type: 3}

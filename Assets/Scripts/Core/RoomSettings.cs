@@ -23,5 +23,8 @@ namespace Architect {
 		public GameObject normalNodePrefab;
 		public GameObject fallbackNodePrefab;
 
+		[Header("Effects")]
+		public GameObject respawnEffect;
+
 	}
 }
