@@ -24,7 +24,9 @@ namespace Architect {
 		public GameObject fallbackNodePrefab;
 
 		[Header("Effects")]
-		public GameObject respawnEffect;
+		public GameObject respawnFadeOutEffect;
+		public GameObject respawnFadeInEffect;
+		public GameObject lightPathEffect;
 
 	}
 }

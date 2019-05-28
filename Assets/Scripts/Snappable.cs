@@ -28,9 +28,9 @@ namespace Architect {
 
 		protected virtual void Update() {
 			if (!roomnet.IsInModuleZone(transform.position)) {
-				Instantiate(SettingsManager.I.roomSettings.respawnEffect, transform.position, Quaternion.identity);
+				Instantiate(SettingsManager.I.roomSettings.respawnFadeOutEffect, transform.position, Quaternion.identity);
 				transform.position = roomnet.moduleRespawnPosition;
-				Instantiate(SettingsManager.I.roomSettings.respawnEffect, transform.position, Quaternion.identity);
+				Instantiate(SettingsManager.I.roomSettings.respawnFadeInEffect, transform.position, Quaternion.identity);
 				rigidbody.velocity = Vector3.zero;
 				rigidbody.angularVelocity = Vector3.zero;
 				// TODO trigger Teleportation Module

@@ -13,6 +13,10 @@ namespace Architect.LightPaths {
 			lightLine.point2 = p2;
 			p1.RegisterConnected(lightLine);
 			p2.RegisterConnected(lightLine);
+			GameObject effectGO = new GameObject("Effect");
+			effectGO.transform.SetParent(pathObj.transform, false);
+			LightLineEffect effect = effectGO.AddComponent<LightLineEffect>();
+			effect.Init(lightLine);
 			return lightLine;
 		}
 		
