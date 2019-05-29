@@ -40,7 +40,10 @@ namespace AK
             namespace STATE
             {
                 static const AkUniqueID INGAME = 984691642U;
+                static const AkUniqueID LEVEL00 = 3152323981U;
+                static const AkUniqueID LEVEL01 = 3152323980U;
                 static const AkUniqueID MENU = 2607556080U;
+                static const AkUniqueID MENU2 = 2604644578U;
             } // namespace STATE
         } // namespace STATE_MUSIC
 
@@ -68,11 +71,12 @@ namespace AK
     namespace GAME_PARAMETERS
     {
         static const AkUniqueID ELEVATOR_RTPC = 1282175739U;
-        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
         static const AkUniqueID PLAYBACK_RATE = 1524500807U;
         static const AkUniqueID RPM = 796049864U;
         static const AkUniqueID RTPC_DISTANCE_CASCADE = 2173016469U;
+        static const AkUniqueID RTPCMUSIC_RAIN = 2950812614U;
         static const AkUniqueID SIDECHAINAMBIANCERTPC = 3027670798U;
+        static const AkUniqueID SIDECHAINRTPCCASCADE = 2153218424U;
         static const AkUniqueID SS_AIR_FEAR = 1351367891U;
         static const AkUniqueID SS_AIR_FREEFALL = 3002758120U;
         static const AkUniqueID SS_AIR_FURY = 1029930033U;
@@ -94,8 +98,10 @@ namespace AK
     namespace BUSSES
     {
         static const AkUniqueID AMBIANCE = 2981377429U;
+        static const AkUniqueID CASCADE = 4130013293U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSIC = 3991942870U;
+        static const AkUniqueID MUSIC2 = 1730564816U;
         static const AkUniqueID PLUIE = 101146708U;
     } // namespace BUSSES
 
