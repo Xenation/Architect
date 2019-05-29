@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586424746620001064
+    m_lastTime: -8586424705298654077
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586430017526124952
+    m_lastTime: -8586424667928561365
     List:
     - name: MainSoundBank
       guid: 165842bf901544409a4dbb0848c74102
@@ -207,8 +207,32 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586424746658626602
+    m_lastTime: -8586424679074362671
     List:
+    - name: MakeRainLight
+      guid: 9b84b0ac5fc8274a9a11454aeb509fe9
+      id: 289173991
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: MakeRainLight
+        ObjectType: 3
+      Path: Default Work Unit\MakeRainLight
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: MakeRainStrong
+      guid: aefbbc445dfd044192bdf46a51e3a6c2
+      id: 1002971580
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: MakeRainStrong
+        ObjectType: 3
+      Path: Default Work Unit\MakeRainStrong
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - name: Play_Ascenseur
       guid: 40c3755744ab4a42b19cfabe6ba71f90
       id: 3806987005
@@ -230,7 +254,7 @@ MonoBehaviour:
       - ElementName: Play_Bassin
         ObjectType: 3
       Path: Default Work Unit\Play_Bassin
-      maxAttenuation: 2
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Cascade
@@ -242,7 +266,7 @@ MonoBehaviour:
       - ElementName: Play_Cascade
         ObjectType: 3
       Path: Default Work Unit\Play_Cascade
-      maxAttenuation: 50
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Chemin_Lumiere
@@ -338,7 +362,7 @@ MonoBehaviour:
       - ElementName: Play_Pluie_Toit
         ObjectType: 3
       Path: Default Work Unit\Play_Pluie_Toit
-      maxAttenuation: 100
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Poser_Module
@@ -587,7 +611,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: a5d1e652a268d9468c9fa01a243b9884
     GuidInternal: 
-    m_lastTime: -8586424746618225944
+    m_lastTime: -8586424679074252938
     List:
     - name: State_Music
       guid: d4e0aa17bf7f8942a585860c987a2264
@@ -599,41 +623,60 @@ MonoBehaviour:
         ObjectType: 9
       Path: Default Work Unit\State_Music
       values:
-      - name: Ingame
-        guid: f3fec6da8b00404abdd42d90c3be4b30
-        id: 984691642
-        PathAndIcons:
-        - ElementName: Ingame
-          ObjectType: 8
-      - name: Level00
-        guid: 369b1ae18748164f8e521937a6ee9ae4
-        id: 3152323981
-        PathAndIcons:
-        - ElementName: Level00
-          ObjectType: 8
-      - name: Level01
+      - name: Level1
         guid: 89ef5de71df4ef40842b46913642669b
-        id: 3152323980
+        id: 2678230382
         PathAndIcons:
-        - ElementName: Level01
+        - ElementName: Level1
           ObjectType: 8
       - name: Menu
-        guid: 07ebb1b1d8764d4580c36060be441633
+        guid: 5093ff4e5a61ff448f5af25376f47269
         id: 2607556080
         PathAndIcons:
         - ElementName: Menu
-          ObjectType: 8
-      - name: Menu2
-        guid: 5093ff4e5a61ff448f5af25376f47269
-        id: 2604644578
-        PathAndIcons:
-        - ElementName: Menu2
           ObjectType: 8
       - name: None
         guid: b8f659e2865bb043b84f9f16f8a881c8
         id: 748895195
         PathAndIcons:
         - ElementName: None
+          ObjectType: 8
+      - name: Tuto
+        guid: 369b1ae18748164f8e521937a6ee9ae4
+        id: 3037000007
+        PathAndIcons:
+        - ElementName: Tuto
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+    - name: State_Pluie
+      guid: 8a7b1cd175c2c94b9a9dc9d8d3791513
+      id: 1031434634
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: State_Pluie
+        ObjectType: 9
+      Path: Default Work Unit\State_Pluie
+      values:
+      - name: Light
+        guid: 027909253c36dc49a7040621a6c3d237
+        id: 1935470627
+        PathAndIcons:
+        - ElementName: Light
+          ObjectType: 8
+      - name: None
+        guid: 9ee0ba6c433c914381afbafb3e3af200
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: Strong
+        guid: cb1c4a9e1097e64bb64c6cfe08a5019e
+        id: 3522403288
+        PathAndIcons:
+        - ElementName: Strong
           ObjectType: 8
       ValueGuids: []
       ValueIcons: []
@@ -703,7 +746,8 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ArchitectWwise
-  - /ArchitectWwise/Events
-  - /ArchitectWwise/Events/Default Work Unit
+  - /ArchitectWwise/States
+  - /ArchitectWwise/States/Default Work Unit
+  - /ArchitectWwise/States/Default Work Unit/State_Music
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

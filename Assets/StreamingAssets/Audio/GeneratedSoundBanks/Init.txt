@@ -10,15 +10,17 @@ Switch	ID	Name	Switch Group			Notes
 	1718617343	Step2	Elevator_Switch			
 
 State Group	ID	Name			Wwise Object Path	Notes
+	1031434634	State_Pluie			\Default Work Unit\State_Pluie	
 	1992488372	State_Music			\Default Work Unit\State_Music	
 
 State	ID	Name	State Group			Notes
+	0	None	State_Pluie			
+	1935470627	Light	State_Pluie			
+	3522403288	Strong	State_Pluie			
 	0	None	State_Music			
-	984691642	Ingame	State_Music			
-	2604644578	Menu2	State_Music			
 	2607556080	Menu	State_Music			
-	3152323980	Level01	State_Music			
-	3152323981	Level00	State_Music			
+	2678230382	Level1	State_Music			
+	3037000007	Tuto	State_Music			
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	504532776	Brick			\Factory Reflect Acoustic Textures\Textures\Brick	

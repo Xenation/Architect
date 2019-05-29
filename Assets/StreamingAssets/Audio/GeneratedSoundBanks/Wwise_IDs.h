@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID MAKERAINLIGHT = 289173991U;
+        static const AkUniqueID MAKERAINSTRONG = 1002971580U;
         static const AkUniqueID PLAY_ASCENSEUR = 3806987005U;
         static const AkUniqueID PLAY_BASSIN = 258901810U;
         static const AkUniqueID PLAY_CASCADE = 33491128U;
@@ -39,13 +41,22 @@ namespace AK
 
             namespace STATE
             {
-                static const AkUniqueID INGAME = 984691642U;
-                static const AkUniqueID LEVEL00 = 3152323981U;
-                static const AkUniqueID LEVEL01 = 3152323980U;
+                static const AkUniqueID LEVEL1 = 2678230382U;
                 static const AkUniqueID MENU = 2607556080U;
-                static const AkUniqueID MENU2 = 2604644578U;
+                static const AkUniqueID TUTO = 3037000007U;
             } // namespace STATE
         } // namespace STATE_MUSIC
+
+        namespace STATE_PLUIE
+        {
+            static const AkUniqueID GROUP = 1031434634U;
+
+            namespace STATE
+            {
+                static const AkUniqueID LIGHT = 1935470627U;
+                static const AkUniqueID STRONG = 3522403288U;
+            } // namespace STATE
+        } // namespace STATE_PLUIE
 
     } // namespace STATES
 
