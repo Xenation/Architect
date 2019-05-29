@@ -15,6 +15,8 @@ namespace Architect {
 		private Transform entryUp;
 		private RoomLink link;
 		private Interactable interactable;
+		private Transform wallCheck1;
+		private Transform wallCheck2;
 
 		private int matFocusIndex = -1;
 
@@ -41,6 +43,8 @@ namespace Architect {
 			entryDown = transform.Find("DownStairs");
 			link = gameObject.AddComponent<RoomLink>();
 			interactable = GetComponent<Interactable>();
+			wallCheck1 = transform.Find("WallCheck1");
+			wallCheck2 = transform.Find("WallCheck2");
 		}
 
 		private void Start() {
@@ -97,15 +101,19 @@ namespace Architect {
 		protected override void Snapped() {
 			base.Snapped();
 			transform.SetParent(roomnet.transform);
-			Room linkedRoom = roomnet.GetRoomGridHover(entryUp.position);
-			if (linkedRoom != null) {
-				link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
-				link.room1 = currentRoom;
-				link.entry1 = roomnet.WorldToRelativePos(entryDown.position);
-				link.room2 = linkedRoom;
-				link.entry2 = roomnet.WorldToRelativePos(entryUp.position);
-				link.ApplyLink();
-				link.isOpen = true;
+			Vector3 wallVec = wallCheck2.position - wallCheck1.position;
+			bool wallBlocked = Physics.Raycast(new Ray(wallCheck1.position, wallVec.normalized), wallVec.magnitude, LayerMask.GetMask("Decor"));
+			if (!wallBlocked) {
+				Room linkedRoom = roomnet.GetRoomGridHover(entryUp.position);
+				if (linkedRoom != null) {
+					link.traverser = new DefaultLinkTraverser(link, linkedRoom.GetComponentInParent<RoomNetwork>());
+					link.room1 = currentRoom;
+					link.entry1 = roomnet.WorldToRelativePos(entryDown.position);
+					link.room2 = linkedRoom;
+					link.entry2 = roomnet.WorldToRelativePos(entryUp.position);
+					link.ApplyLink();
+					link.isOpen = true;
+				}
 			}
 		}
 
