@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3420daee04862a94391e7a16f76c5eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vrCamera: {fileID: 0}
+  vrCamera: {fileID: 7016875830006873648}
   positionLerpFactor: 0.15
   rotationLerpFactor: 0.05
 --- !u!1001 &7016875830006772722
