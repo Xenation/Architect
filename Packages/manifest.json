@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.cinemachine": "2.2.9",
     "com.unity.package-manager-ui": "2.0.7",
     "com.unity.postprocessing": "2.1.6",
     "com.unity.probuilder": "4.0.4",
