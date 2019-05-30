@@ -44,7 +44,7 @@ namespace Architect {
 			Vector3 direction;
 			if (characterInside) {
 				if (characterTowardsTargetLevel && elevatorAtTargetLevel) {
-					toWaypoint = target - roomnet.WorldToRelativePos(controller.transform.position);
+					toWaypoint = elevator.transform.InverseTransformPoint(roomnet.RelativeToWorldPos(target)) - controller.transform.localPosition;
 				} else {
 					toWaypoint = elevatorCenter.localPosition - controller.transform.localPosition;
 				}
@@ -61,7 +61,7 @@ namespace Architect {
 				direction = toWaypoint.normalized;
 				if (toWaypoint.magnitude > 0.01f) {
 					controller.transform.localPosition += direction * controller.speed * Time.deltaTime;
-					controller.transform.rotation = Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, direction, Vector3.up), 0f);
+					controller.transform.localRotation = Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, direction.Flat3().normalized, Vector3.up), 0f);
 				}
 			}
 

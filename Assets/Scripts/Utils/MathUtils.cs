@@ -46,6 +46,10 @@ namespace Architect {
 			return new Vector2(v.x, v.z);
 		}
 
+		public static Vector3 Flat3(this Vector3 v) {
+			return new Vector3(v.x, 0, v.z);
+		}
+
 		// VECTOR2INT
 		public static Vector2Int Clamp(this Vector2Int v, int min, int max) {
 			return new Vector2Int((v.x < min) ? min : ((v.x > max) ? max : v.x), (v.y < min) ? min : ((v.y > max) ? max : v.y));
