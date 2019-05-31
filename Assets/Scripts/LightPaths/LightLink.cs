@@ -7,7 +7,7 @@ namespace Architect.LightPaths {
 			GameObject pathObj = new GameObject("Line-" + name, typeof(MeshFilter), typeof(MeshRenderer));
 			pathObj.transform.SetParent(parent, false);
 			MeshRenderer renderer = pathObj.GetComponent<MeshRenderer>();
-			renderer.sharedMaterial = SettingsManager.I.roomSettings.pathMaterial;
+			renderer.sharedMaterial = SettingsManager.I.activeRoomnet.pathMaterial;
 			LightLink lightLink = pathObj.AddComponent<LightLink>();
 			lightLink.point1 = p1;
 			lightLink.point2 = p2;

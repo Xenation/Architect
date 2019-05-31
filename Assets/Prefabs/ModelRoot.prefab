@@ -4815,6 +4815,12 @@ MonoBehaviour:
   moduleZoneFloor: 0.1
   moduleZoneCeilling: 4
   useLightPaths: 1
+  pathMaterial: {fileID: 2100000, guid: 2005585f0964c474ba6056aa84e74687, type: 2}
+  pathWidth: 0.08
+  normalNodePrefab: {fileID: 2482176028114090158, guid: 79b6d222f68a5b845a0265cdd1610f5a,
+    type: 3}
+  fallbackNodePrefab: {fileID: 5045742734468754778, guid: 239da38da2c25d94997e42dc02893b44,
+    type: 3}
 --- !u!1 &7733976473779201435
 GameObject:
   m_ObjectHideFlags: 0
@@ -5047,6 +5053,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7733976472388210753}
     m_Modifications:
+    - target: {fileID: 100000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
+      propertyPath: m_Name
+      value: table_support 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.99
@@ -5090,10 +5100,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
-      propertyPath: m_Name
-      value: table_support 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 404e435b9d21a194793121bc21e2c184, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5194,6 +5200,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7733976472388210753}
     m_Modifications:
+    - target: {fileID: 100000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
+      propertyPath: m_Name
+      value: TourTable (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.99
@@ -5237,10 +5247,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
-      propertyPath: m_Name
-      value: TourTable (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 013949fd2e065174ba0fcd264696030a, type: 3}
       propertyPath: m_Materials.Array.data[0]

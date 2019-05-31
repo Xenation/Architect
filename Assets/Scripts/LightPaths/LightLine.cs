@@ -7,7 +7,7 @@ namespace Architect.LightPaths {
 			GameObject pathObj = new GameObject("Line-" + name, typeof(MeshFilter), typeof(MeshRenderer));
 			pathObj.transform.SetParent(parent, false);
 			MeshRenderer renderer = pathObj.GetComponent<MeshRenderer>();
-			renderer.sharedMaterial = SettingsManager.I.roomSettings.pathMaterial;
+			renderer.sharedMaterial = SettingsManager.I.activeRoomnet.pathMaterial;
 			LightLine lightLine = pathObj.AddComponent<LightLine>();
 			lightLine.point1 = p1;
 			lightLine.point2 = p2;
@@ -96,7 +96,7 @@ namespace Architect.LightPaths {
 			Vector3 startToEnd = local2 - local1;
 			Vector3 right = Vector3.Cross(startToEnd.normalized, Vector3.up);
 			float length = startToEnd.magnitude;
-			float width = SettingsManager.I.roomSettings.pathWidth;
+			float width = SettingsManager.I.activeRoomnet.pathWidth;
 			Mesh mesh = new Mesh();
 			filter.mesh = mesh;
 

@@ -67,11 +67,18 @@ namespace Architect {
 		public float moduleZoneFloor = 0.1f;
 		public float moduleZoneCeilling = 4f;
 
-		public bool useLightPaths = true;
-
 		[System.NonSerialized] public Room fallbackRoom = null;
 
+		[Header("Light Path")]
+		public bool useLightPaths = true;
+		public Material pathMaterial;
+		public float pathWidth = 0.01f;
+		public GameObject normalNodePrefab;
+		public GameObject fallbackNodePrefab;
+
 		private void Awake() {
+			SettingsManager.I.activeRoomnet = this;
+
 			BuildNetwork();
 			BuildGraph();
 

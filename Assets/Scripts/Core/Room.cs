@@ -85,12 +85,12 @@ namespace Architect {
 		}
 		
 		public void BuildLightNode() {
-			RoomSettings roomSettings = SettingsManager.I.roomSettings;
+			RoomNetwork roomnet = SettingsManager.I.activeRoomnet;
 			// Create Node
 			if (isFallback) {
-				lightNode = Instantiate(roomSettings.fallbackNodePrefab, transform).GetComponent<LightNode>();
+				lightNode = Instantiate(roomnet.fallbackNodePrefab, transform).GetComponent<LightNode>();
 			} else {
-				lightNode = Instantiate(roomSettings.normalNodePrefab, transform).GetComponent<LightNode>();
+				lightNode = Instantiate(roomnet.normalNodePrefab, transform).GetComponent<LightNode>();
 			}
 			lightNode.gameObject.name = "Node-" + gameObject.name;
 			lightNode.transform.position = center;
