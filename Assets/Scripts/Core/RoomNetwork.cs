@@ -78,7 +78,7 @@ namespace Architect {
 
 		private void Awake() {
 			SettingsManager.I.activeRoomnet = this;
-
+			
 			BuildNetwork();
 			BuildGraph();
 
