@@ -15,6 +15,9 @@ namespace Architect {
 		protected Throwable throwable;
 		protected new Rigidbody rigidbody;
 
+		public delegate void NotifyCallback();
+		public event NotifyCallback OnPickedUp;
+
 		protected virtual void Awake() {
 			preview = CreatePreview();
 			preview?.SetActive(false);
@@ -52,6 +55,8 @@ namespace Architect {
 			}
             // TODO trigger Prise Module
             AkSoundEngine.PostEvent("Play_Prendre_Module", gameObject);
+
+			OnPickedUp?.Invoke();
         }
 
 		protected virtual void Detached() {
