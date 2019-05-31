@@ -28,9 +28,12 @@ namespace Architect {
 
 		protected virtual void Update() {
 			if (!roomnet.IsInModuleZone(transform.position)) {
+				Instantiate(SettingsManager.I.roomSettings.respawnFadeOutEffect, transform.position, Quaternion.identity);
 				transform.position = roomnet.moduleRespawnPosition;
+				Instantiate(SettingsManager.I.roomSettings.respawnFadeInEffect, transform.position, Quaternion.identity);
 				rigidbody.velocity = Vector3.zero;
 				rigidbody.angularVelocity = Vector3.zero;
+				// TODO trigger Teleportation Module
 				Debug.Log("Respawning Module ...");
 			}
 		}
@@ -47,7 +50,9 @@ namespace Architect {
 			if (isSnapped) {
 				Unsnapped();
 			}
-		}
+            // TODO trigger Prise Module
+            AkSoundEngine.PostEvent("Play_Prendre_Module", gameObject);
+        }
 
 		protected virtual void Detached() {
 			if (preview.activeInHierarchy) { // Has a valid snap point -> Snap
@@ -64,7 +69,9 @@ namespace Architect {
 
 		protected virtual void Snapped() {
 			isSnapped = true;
-		}
+            // TODO trigger Pose Module
+            AkSoundEngine.PostEvent("Play_Poser_Module", gameObject);
+        }
 
 		protected virtual void Unsnapped() {
 			isSnapped = false;

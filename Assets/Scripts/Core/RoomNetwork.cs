@@ -69,7 +69,16 @@ namespace Architect {
 
 		[System.NonSerialized] public Room fallbackRoom = null;
 
+		[Header("Light Path")]
+		public bool useLightPaths = true;
+		public Material pathMaterial;
+		public float pathWidth = 0.01f;
+		public GameObject normalNodePrefab;
+		public GameObject fallbackNodePrefab;
+
 		private void Awake() {
+			SettingsManager.I.activeRoomnet = this;
+			
 			BuildNetwork();
 			BuildGraph();
 
@@ -80,7 +89,7 @@ namespace Architect {
 			startingRoom.isConnectedToStart = true;
 			startingRoom.isFallback = true;
 			fallbackRoom = startingRoom;
-			startingRoom.UpdateConnected();
+			// Initialize Links and Rooms
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
@@ -93,6 +102,7 @@ namespace Architect {
 				}
 			}
 			GetComponentsInChildren(points);
+			startingRoom.UpdateConnected();
 		}
 
 		private void BuildGraph() {
@@ -133,6 +143,10 @@ namespace Architect {
 
 		private void Update() {
 			UpdateRoomConnections();
+			if (useLightPaths) {
+				startingRoom.lightNode.UpdateSignal(null, Time.deltaTime);
+				startingRoom.lightNode.ClearUpdateFlag(null);
+			}
 		}
 
 		public Room GetRoom(Vector3 pos) {
@@ -155,7 +169,7 @@ namespace Architect {
 
 		public SnapPoint GetPointHover(Vector3 pos) {
 			foreach (SnapPoint point in points) {
-				if (Vector3.Distance(pos, point.transform.position) < SettingsManager.I.roomSettings.linkSnapDistance) {
+				if (Vector3.Distance(pos, point.center) < SettingsManager.I.roomSettings.linkSnapDistance) {
 					return point;
 				}
 			}
@@ -190,6 +204,14 @@ namespace Architect {
 			//UpdateRoomConnections();
 		}
 
+		public void OnLinkOpenned(RoomLink link) {
+			
+		}
+
+		public void OnLinkClosed(RoomLink link) {
+
+		}
+
 		public void UpdateRoomConnections() {
 			// Finding previously lit rooms
 			HashSet<Room> previouslyLit = new HashSet<Room>();
@@ -200,6 +222,15 @@ namespace Architect {
 				}
 			}
 			startingRoom.linkCountToStart = 0;
+
+			if (useLightPaths) {
+				// Settings all links to unlit
+				foreach (Room room in rooms) {
+					foreach (RoomLink link in room.links) {
+						link.MarkUnlit();
+					}
+				}
+			}
 
 			// Exploring rooms that are linked to start
 			List<Room> toExplore = new List<Room>();
@@ -213,6 +244,7 @@ namespace Architect {
 
 				foreach (RoomLink link in current.links) {
 					if (!link.isOpen) continue;
+					if (useLightPaths) link.MarkLit();
 					Room neighbor = link.GetOther(current);
 					int potentialLinkCount = current.linkCountToStart + 1;
 					if (neighbor.linkCountToStart > potentialLinkCount) {
@@ -269,7 +301,7 @@ namespace Architect {
 			SortedSet<RoomNode> openSet = new SortedSet<RoomNode>(new NodeFCost());
 			HashSet<RoomNode> closedSet = new HashSet<RoomNode>();
 			RoomNode startNode = roomGraph[start];
-			startNode.hCost = (target.transform.position - start.transform.position).magnitude;
+			startNode.hCost = (target.center - start.center).magnitude;
 			RoomNode targetNode = roomGraph[target];
 			openSet.Add(startNode);
 
@@ -290,10 +322,10 @@ namespace Architect {
 						continue;
 					}
 
-					float nCostToNeighbor = current.gCost + (neighbor.transform.position - current.room.transform.position).magnitude;
+					float nCostToNeighbor = current.gCost + (neighbor.center - current.room.center).magnitude;
 					if (nCostToNeighbor < neighborNode.gCost || !openSet.Contains(neighborNode)) {
 						neighborNode.gCost = nCostToNeighbor;
-						neighborNode.hCost = (target.transform.position - neighbor.transform.position).magnitude;
+						neighborNode.hCost = (target.center - neighbor.center).magnitude;
 						neighborNode.parentLinkIndex = neighbor.links.IndexOf(link);
 						neighborNode.parentNode = current;
 

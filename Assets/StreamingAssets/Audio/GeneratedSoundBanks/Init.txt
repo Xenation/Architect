@@ -1,0 +1,57 @@
+Switch Group	ID	Name			Wwise Object Path	Notes
+	346041850	Elevator_Switch			\Default Work Unit\Elevator_Switch	
+
+Switch	ID	Name	Switch Group			Notes
+	551396004	Step5_Top	Elevator_Switch			
+	624341273	Step0_Bottom	Elevator_Switch			
+	1718617337	Step4	Elevator_Switch			
+	1718617340	Step1	Elevator_Switch			
+	1718617342	Step3	Elevator_Switch			
+	1718617343	Step2	Elevator_Switch			
+
+State Group	ID	Name			Wwise Object Path	Notes
+	1992488372	State_Music			\Default Work Unit\State_Music	
+
+State	ID	Name	State Group			Notes
+	0	None	State_Music			
+	984691642	Ingame	State_Music			
+	2604644578	Menu2	State_Music			
+	2607556080	Menu	State_Music			
+	3152323980	Level01	State_Music			
+	3152323981	Level00	State_Music			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	504532776	Brick			\Factory Reflect Acoustic Textures\Textures\Brick	
+	513139656	Mountain			\Factory Reflect Acoustic Textures\Textures\Mountain	
+	841620460	Concrete			\Factory Reflect Acoustic Textures\Textures\Concrete	
+	1755085759	Wood_Deep			\Factory Reflect Acoustic Textures\Textures\Wood_Deep	
+	1873957695	Anechoic			\Factory Reflect Acoustic Textures\Textures\Anechoic	
+	1970351858	Fabric			\Factory Reflect Acoustic Textures\Textures\Fabric	
+	2058049674	Wood			\Factory Reflect Acoustic Textures\Textures\Wood	
+	2153218424	SideChainRTPCCascade			\Default Work Unit\SideChainRTPCCascade	
+	2412606308	Carpet			\Factory Reflect Acoustic Textures\Textures\Carpet	
+	2637588553	Tile			\Factory Reflect Acoustic Textures\Textures\Tile	
+	2928161104	Curtains			\Factory Reflect Acoustic Textures\Textures\Curtains	
+	2950812614	RTPCMusic_Rain			\Default Work Unit\RTPCMusic_Rain	
+	3195498748	Cork_Tiles			\Factory Reflect Acoustic Textures\Textures\Cork_Tiles	
+	3670307564	Drywall			\Factory Reflect Acoustic Textures\Textures\Drywall	
+	4168643977	Acoustic_Banner			\Factory Reflect Acoustic Textures\Textures\Acoustic_Banner	
+	4262522749	Wood_Bright			\Factory Reflect Acoustic Textures\Textures\Wood_Bright	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	101146708	Pluie			\Default Work Unit\Master Audio Bus\Ambiance\Pluie	
+	1730564816	Music2			\Default Work Unit\Master Audio Bus\Music2	
+	2981377429	Ambiance			\Default Work Unit\Master Audio Bus\Ambiance	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
+	4130013293	Cascade			\Default Work Unit\Master Audio Bus\Cascade	
+
+Effect plug-ins	ID	Name	Type				Notes
+	107902949	SideChainMusic_Rain	Wwise Meter			
+	419691232	New_Wwise_Recorder	Wwise Recorder			
+	2548538847	SideChainCascade_Music	Wwise Meter			
+
+Audio Devices	ID	Name	Type				Notes
+	2317455096	No_Output	No Output			
+	3859886410	System	System			
+

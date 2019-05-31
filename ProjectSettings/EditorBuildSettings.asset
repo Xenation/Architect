@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/Alfred/ProtoMenu.unity
-    guid: 95235f7a569c47343b4b49c6d86db830
+    path: Assets/Scenes/Test/Ronan/Menu3.unity
+    guid: 84ddb52bc32963d418193a49bd9256c6
   - enabled: 1
-    path: Assets/Scenes/Test/Alfred/ProtoLight.unity
-    guid: 6dc4899af6ccc42408e8734e989a272d
+    path: Assets/Scenes/Test/Ronan/Tutorial.unity
+    guid: 22d6e76aaf7eaff44848dcf01102d1a1
+  - enabled: 1
+    path: Assets/Scenes/Test/Ronan/Level_1.unity
+    guid: f6879b395d1b283438aa3197fd563096
   m_configObjects: {}

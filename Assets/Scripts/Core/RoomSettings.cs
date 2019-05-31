@@ -17,5 +17,10 @@ namespace Architect {
 		public GameObject doorPreview;
 		public GameObject balconyPreview;
 
+		[Header("Effects")]
+		public GameObject respawnFadeOutEffect;
+		public GameObject respawnFadeInEffect;
+		public GameObject lightPathEffect;
+
 	}
 }

@@ -897,17 +897,13 @@ namespace Valve.VR.InteractionSystem
                 Interactable contacting = collider.GetComponentInParent<Interactable>();
 
                 // Yeah, it's null, skip
-                if (contacting == null)
+                if (contacting == null || !contacting.enabled)
                     continue;
 
                 // Ignore this collider for hovering
                 IgnoreHovering ignore = collider.GetComponent<IgnoreHovering>();
-                if (ignore != null)
-                {
-                    if (ignore.onlyIgnoreHand == null || ignore.onlyIgnoreHand == this)
-                    {
-                        continue;
-                    }
+                if (ignore != null && (ignore.onlyIgnoreHand == null || ignore.onlyIgnoreHand == this)) {
+					continue;
                 }
 
                 // Can't hover over the object if it's attached
@@ -923,9 +919,13 @@ namespace Valve.VR.InteractionSystem
                 if (hoveringOverAttached)
                     continue;
 
-                // Occupied by another hand, so we can't touch it
-                if (otherHand && otherHand.hoveringInteractable == contacting)
-                    continue;
+				// Occupied by another hand, so we can't touch it
+				if (otherHand && otherHand.hoveringInteractable == contacting) {
+					CircularDrive drive = contacting.GetComponent<CircularDrive>(); // ADDED: if the interactable is a circular drive (not already in use) then allow interaction
+					if (drive == null) {
+						continue;
+					}
+				}
 
                 // Best candidate so far...
                 float distance = Vector3.Distance(contacting.transform.position, hoverPosition);
@@ -979,7 +979,7 @@ namespace Valve.VR.InteractionSystem
                     transform.position = noSteamVRFallbackCamera.transform.forward * (-1000.0f);
 
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(ray, out raycastHit, noSteamVRFallbackMaxDistanceNoItem, hoverLayerMask))
+                    if (Physics.Raycast(ray, out raycastHit, noSteamVRFallbackMaxDistanceNoItem, hoverLayerMask.value))
                     {
                         transform.position = raycastHit.point;
 
