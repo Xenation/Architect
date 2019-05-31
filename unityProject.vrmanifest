@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.architect.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\charles.chantriaux\\Documents\\Architect\\actions.json",
+      "action_manifest_path": "C:\\Users\\alfred.brisac\\_\\Dev\\git\\Architect\\actions.json",
       "strings": {
         "en_us": {
           "name": "Architect [Testing]"

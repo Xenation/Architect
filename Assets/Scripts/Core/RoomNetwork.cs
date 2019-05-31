@@ -93,7 +93,12 @@ namespace Architect {
 			foreach (Transform child in transform) {
 				RoomLink link = child.GetComponent<RoomLink>();
 				if (link != null) {
-					link.traverser = new DefaultLinkTraverser(link, this);
+					SnapPoint snapPoint = link.transform.GetComponentInChildren<SnapPoint>();
+					if (snapPoint != null && snapPoint.type == SnapPointType.Door) {
+						link.traverser = new DoorTraverser(link, this, snapPoint);
+					} else {
+						link.traverser = new DefaultLinkTraverser(link, this);
+					}
 					link.ApplyLink();
 				}
 				Room room = child.GetComponent<Room>();
