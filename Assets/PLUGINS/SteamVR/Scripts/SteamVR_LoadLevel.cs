@@ -327,7 +327,10 @@ namespace Valve.VR
 
             // Keep us from getting destroyed when loading the new level, otherwise this coroutine will get stopped prematurely.
             transform.parent = null;
-            DontDestroyOnLoad(gameObject);
+			bool isAlreadyDontDestroyOnLoad = gameObject.scene.buildIndex == -1;
+			if (!isAlreadyDontDestroyOnLoad) {
+				DontDestroyOnLoad(gameObject);
+			}
 
             if (!string.IsNullOrEmpty(internalProcessPath))
             {
@@ -439,7 +442,9 @@ namespace Valve.VR
                     overlay.HideOverlay(loadingScreenOverlayHandle);
             }
 
-            Destroy(gameObject);
+			if (!isAlreadyDontDestroyOnLoad) {
+				Destroy(gameObject);
+			}
 
             _active = null;
 

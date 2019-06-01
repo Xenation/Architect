@@ -9,8 +9,6 @@ namespace Architect {
 
 		public RoomLink linkPlay;
 		public string playLevel;
-		public RoomLink linkSettings;
-		public string settingsLevel;
 		public RoomLink linkCredits;
 		public string creditsLevel;
 
@@ -30,24 +28,19 @@ namespace Architect {
 			if (linkPlay != null) {
 				linkPlay.traverser = new TriggerTraverser(linkPlay, roomnet, PlayTriggered);
 			}
-			if (linkSettings != null) {
-				linkSettings.traverser = new TriggerTraverser(linkSettings, roomnet, SettingsTriggered);
-			}
 			if (linkCredits != null) {
 				linkCredits.traverser = new TriggerTraverser(linkCredits, roomnet, CreditsTriggered);
 			}
 		}
 
-		private void Update() {
+		//private void Update() {
 			// Debug Keys
-			if (Input.GetKeyDown(KeyCode.Alpha1)) { // Credits
-				CreditsTriggered();
-			} else if (Input.GetKeyDown(KeyCode.Alpha2)) { // Play
-				PlayTriggered();
-			} else if (Input.GetKeyDown(KeyCode.Alpha3)) { // Settings
-				SettingsTriggered();
-			}
-		}
+			//if (Input.GetKeyDown(KeyCode.Alpha1)) { // Play
+			//	PlayTriggered();
+			//} else if (Input.GetKeyDown(KeyCode.Alpha2)) { // Credits
+			//	CreditsTriggered();
+			//}
+		//}
 
 		private void PlayTriggered() {
 			if (!Application.CanStreamedLevelBeLoaded(playLevel)) {
@@ -55,15 +48,6 @@ namespace Architect {
 				return;
 			}
 			levelLoader.levelName = playLevel;
-			levelLoader.Trigger();
-		}
-
-		private void SettingsTriggered() {
-			if (!Application.CanStreamedLevelBeLoaded(settingsLevel)) {
-				Debug.LogWarning("Settings Scene Not Found!");
-				return;
-			}
-			levelLoader.levelName = settingsLevel;
 			levelLoader.Trigger();
 		}
 

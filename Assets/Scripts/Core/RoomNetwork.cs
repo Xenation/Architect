@@ -78,7 +78,9 @@ namespace Architect {
 
 		private void Awake() {
 			SettingsManager.I.activeRoomnet = this;
-			
+
+			DevKeys.CreateInstance(); // Make sure an instance of devkeys exists
+
 			BuildNetwork();
 			BuildGraph();
 

@@ -31,14 +31,14 @@ namespace Architect {
 			link.traverser = new TriggerTraverser(link, roomnet, OnLevelEndReached);
 		}
 
-		private void Update() {
+		//private void Update() {
 			// Debug Keys
-			if (Input.GetKeyDown(KeyCode.Tab)) { // Restart
-				OnLevelEndReached();
-			} else if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Tilde) || Input.GetKeyDown(KeyCode.Home)) { // Back To Menu
-				BackToMenu();
-			}
-		}
+			//if (Input.GetKeyDown(KeyCode.Tab)) { // Restart
+			//	OnLevelEndReached();
+			//} else if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Tilde) || Input.GetKeyDown(KeyCode.Home)) { // Back To Menu
+			//	BackToMenu();
+			//}
+		//}
 
 		private void OnLevelEndReached() {
 			levelLoader.Trigger();
