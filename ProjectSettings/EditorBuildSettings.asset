@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/Ronan/Level_1.unity
     guid: f6879b395d1b283438aa3197fd563096
+  - enabled: 1
+    path: Assets/Scenes/Test/Charles/Credits.unity
+    guid: b55068f760e3a6c43aec09a56548ef13
   m_configObjects: {}
