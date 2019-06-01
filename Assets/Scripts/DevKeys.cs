@@ -33,9 +33,5 @@ namespace Architect {
 			levelLoader.Trigger();
 		}
 
-		private void OnDestroy() {
-			Debug.Log("Destroyed!");
-		}
-
 	}
 }
