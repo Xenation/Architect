@@ -49,6 +49,7 @@ namespace Architect.LightPaths {
 		private Material material;
 		private int progressID;
 		private int reverseID;
+		private float actualProgressSpeed = 1f;
 
 		private MeshFilter filter;
 		private MeshRenderer meshRenderer;
@@ -57,7 +58,7 @@ namespace Architect.LightPaths {
 			if (origin != point1) {
 				reverse = true;
 			}
-			progress += dt;
+			progress += actualProgressSpeed * dt;
 			if (progress >= 1f) {
 				progress = 1f;
 				base.OnSignalUpdate(origin, dt);
@@ -96,6 +97,7 @@ namespace Architect.LightPaths {
 			Vector3 startToEnd = local2 - local1;
 			Vector3 right = Vector3.Cross(startToEnd.normalized, Vector3.up);
 			float length = startToEnd.magnitude;
+			actualProgressSpeed = SettingsManager.I.roomSettings.progressSpeed / length;
 			float width = SettingsManager.I.activeRoomnet.pathWidth;
 			Mesh mesh = new Mesh();
 			filter.mesh = mesh;

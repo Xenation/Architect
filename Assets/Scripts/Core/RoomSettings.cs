@@ -22,5 +22,8 @@ namespace Architect {
 		public GameObject respawnFadeInEffect;
 		public GameObject lightPathEffect;
 
+		[Header("LightPath")]
+		public float progressSpeed = 0.01f;
+
 	}
 }
