@@ -29,7 +29,8 @@ namespace Architect {
 			modelRoot.rotation = transform.rotation;
 
             // TODO send deltaRotation to Wwise
-		}
+            AkSoundEngine.SetRTPCValue("RTPC_Table", deltaRotation, gameObject);
+        }
 
 		private void FixedUpdate() {
 			Quaternion rotation = rigidbody.rotation;

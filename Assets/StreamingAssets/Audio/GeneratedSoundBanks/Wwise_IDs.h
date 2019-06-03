@@ -28,6 +28,7 @@ namespace AK
         static const AkUniqueID PLAY_PLUIE_TOIT = 4269863952U;
         static const AkUniqueID PLAY_POSER_MODULE = 1614550972U;
         static const AkUniqueID PLAY_PRENDRE_MODULE = 922352807U;
+        static const AkUniqueID PLAY_TABLE = 2054361038U;
         static const AkUniqueID PLAY_TP_MODULE = 2211386577U;
         static const AkUniqueID PLAY_VILLE = 2800623694U;
         static const AkUniqueID PLAY_WRONG = 92581801U;
