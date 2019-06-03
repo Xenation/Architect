@@ -85,6 +85,7 @@ namespace AK
         static const AkUniqueID PLAYBACK_RATE = 1524500807U;
         static const AkUniqueID RPM = 796049864U;
         static const AkUniqueID RTPC_DISTANCE_CASCADE = 2173016469U;
+        static const AkUniqueID RTPC_TABLE = 405912741U;
         static const AkUniqueID RTPCMUSIC_RAIN = 2950812614U;
         static const AkUniqueID SIDECHAINAMBIANCERTPC = 3027670798U;
         static const AkUniqueID SIDECHAINRTPCCASCADE = 2153218424U;

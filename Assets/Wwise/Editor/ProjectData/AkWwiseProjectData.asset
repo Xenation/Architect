@@ -430,7 +430,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586424746658616639
+    m_lastTime: -8586420351393321498
     List:
     - name: Elevator_RTPC
       guid: 1bc716b72adeed4cb5792edd9f8dc4b4
@@ -451,7 +451,7 @@ MonoBehaviour:
         ObjectType: 13
       Path: Default Work Unit\RTPC_Distance_Cascade
     - name: RTPC_Table
-      guid: a9c840af123af442a355a3cfe204d263
+      guid: e526328be271a34dbc85dbd7fbca96ae
       id: 405912741
       PathAndIcons:
       - ElementName: Default Work Unit
@@ -746,8 +746,5 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ArchitectWwise
-  - /ArchitectWwise/States
-  - /ArchitectWwise/States/Default Work Unit
-  - /ArchitectWwise/States/Default Work Unit/State_Music
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
