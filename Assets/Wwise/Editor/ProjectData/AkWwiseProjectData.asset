@@ -17,13 +17,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: e70e47061fe25c458f3369fd36190de1
     GuidInternal: 
-    m_lastTime: -8586430017526075094
+    m_lastTime: -8586420337526049716
     List: []
   - PhysicalPath: Virtual Acoustics\Factory Reflect Acoustic Textures.wwu
     ParentPhysicalPath: 
     guid: 6b663d46a83ca54f8b4a5fef12b883f6
     GuidInternal: 
-    m_lastTime: -8586430017526065121
+    m_lastTime: -8586420337526049716
     List:
     - name: Acoustic_Banner
       guid: f2532d2fccda8e408b8898b1b52a26d6
@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586424705298654077
+    m_lastTime: -8586420337536735729
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586424667928561365
+    m_lastTime: -8586420337526079638
     List:
     - name: MainSoundBank
       guid: 165842bf901544409a4dbb0848c74102
@@ -207,7 +207,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586424679074362671
+    m_lastTime: -8586420337681742856
     List:
     - name: MakeRainLight
       guid: 9b84b0ac5fc8274a9a11454aeb509fe9
@@ -430,7 +430,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586420351393321498
+    m_lastTime: -8586420337681742856
     List:
     - name: Elevator_RTPC
       guid: 1bc716b72adeed4cb5792edd9f8dc4b4
@@ -490,7 +490,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 225213d7dbd1d042adc0930743567776
     GuidInternal: 
-    m_lastTime: -8586430017569705627
+    m_lastTime: -8586420337681732871
     List:
     - name: Playback_Rate
       guid: e37e38283ac11643b9c3db5c521624af
@@ -514,7 +514,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
     GuidInternal: 
-    m_lastTime: -8586430017569695666
+    m_lastTime: -8586420337681732871
     List:
     - name: SS_Air_Fear
       guid: 59062ef746431c4ea1b1dab46a05101e
@@ -611,7 +611,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: a5d1e652a268d9468c9fa01a243b9884
     GuidInternal: 
-    m_lastTime: -8586424679074252938
+    m_lastTime: -8586420337526069658
     List:
     - name: State_Music
       guid: d4e0aa17bf7f8942a585860c987a2264
@@ -686,7 +686,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 8ddc3acea0cfcb4190716a91774d077d
     GuidInternal: 
-    m_lastTime: -8586430017526085062
+    m_lastTime: -8586420337526059688
     List:
     - name: Elevator_Switch
       guid: 4085c5a93769a443bd430b65f6973054
@@ -742,9 +742,11 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: d051c08353bec04980f91ee3a215d4a9
     GuidInternal: 
-    m_lastTime: -8586430017526075094
+    m_lastTime: -8586420337526059688
     List: []
   ExpandedItems:
   - /ArchitectWwise
+  - /ArchitectWwise/Events
+  - /ArchitectWwise/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
