@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 234cac71e2be8d4aa6b37b48275e3251
     GuidInternal: 
-    m_lastTime: -8586423029453302196
+    m_lastTime: -8586424705298654077
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2fe474f04dfa514ba6112d72239a1017
     GuidInternal: 
-    m_lastTime: -8586423029453292223
+    m_lastTime: -8586424667928561365
     List:
     - name: MainSoundBank
       guid: 165842bf901544409a4dbb0848c74102
@@ -207,7 +207,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 53bab6116beb334b93afd0f4a7c10cb6
     GuidInternal: 
-    m_lastTime: -8586423029494754251
+    m_lastTime: -8586424679074362671
     List:
     - name: MakeRainLight
       guid: 9b84b0ac5fc8274a9a11454aeb509fe9
@@ -254,7 +254,7 @@ MonoBehaviour:
       - ElementName: Play_Bassin
         ObjectType: 3
       Path: Default Work Unit\Play_Bassin
-      maxAttenuation: 2
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Cascade
@@ -266,7 +266,7 @@ MonoBehaviour:
       - ElementName: Play_Cascade
         ObjectType: 3
       Path: Default Work Unit\Play_Cascade
-      maxAttenuation: 50
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Chemin_Lumiere
@@ -350,7 +350,7 @@ MonoBehaviour:
       - ElementName: Play_Pluie_Ext
         ObjectType: 3
       Path: Default Work Unit\Play_Pluie_Ext
-      maxAttenuation: 100
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Pluie_Toit
@@ -362,7 +362,7 @@ MonoBehaviour:
       - ElementName: Play_Pluie_Toit
         ObjectType: 3
       Path: Default Work Unit\Play_Pluie_Toit
-      maxAttenuation: 100
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Poser_Module
@@ -410,7 +410,7 @@ MonoBehaviour:
       - ElementName: Play_Ville
         ObjectType: 3
       Path: Default Work Unit\Play_Ville
-      maxAttenuation: 100
+      maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
     - name: Play_Wrong
@@ -430,7 +430,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 9af72e22d7ffd94998f357db066464f6
     GuidInternal: 
-    m_lastTime: -8586423698877471316
+    m_lastTime: -8586420351393321498
     List:
     - name: Elevator_RTPC
       guid: 1bc716b72adeed4cb5792edd9f8dc4b4
@@ -450,6 +450,15 @@ MonoBehaviour:
       - ElementName: RTPC_Distance_Cascade
         ObjectType: 13
       Path: Default Work Unit\RTPC_Distance_Cascade
+    - name: RTPC_Table
+      guid: e526328be271a34dbc85dbd7fbca96ae
+      id: 405912741
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: RTPC_Table
+        ObjectType: 13
+      Path: Default Work Unit\RTPC_Table
     - name: RTPCMusic_Rain
       guid: 679ea169a0162b499bd107b3c7900b92
       id: 2950812614
@@ -602,7 +611,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: a5d1e652a268d9468c9fa01a243b9884
     GuidInternal: 
-    m_lastTime: -8586423029453282245
+    m_lastTime: -8586424679074252938
     List:
     - name: State_Music
       guid: d4e0aa17bf7f8942a585860c987a2264
@@ -737,7 +746,5 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /ArchitectWwise
-  - /ArchitectWwise/Events
-  - /ArchitectWwise/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

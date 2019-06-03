@@ -28,7 +28,7 @@ namespace Architect {
 
 			modelRoot.rotation = transform.rotation;
 
-			// TODO send deltaRotation to Wwise
+            // TODO send deltaRotation to Wwise
 		}
 
 		private void FixedUpdate() {

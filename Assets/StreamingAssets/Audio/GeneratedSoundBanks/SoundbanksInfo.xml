@@ -16,21 +16,23 @@
 			<ShortName>MainSoundBank</ShortName>
 			<Path>MainSoundBank.bnk</Path>
 			<IncludedEvents>
+				<Event Id="289173991" Name="MakeRainLight" ObjectPath="\Events\Default Work Unit\MakeRainLight" MaxAttenuation="0.000000"/>
+				<Event Id="1002971580" Name="MakeRainStrong" ObjectPath="\Events\Default Work Unit\MakeRainStrong" MaxAttenuation="0.000000"/>
 				<Event Id="3806987005" Name="Play_Ascenseur" ObjectPath="\Events\Default Work Unit\Play_Ascenseur"/>
 				<Event Id="258901810" Name="Play_Bassin" ObjectPath="\Events\Default Work Unit\Play_Bassin" MaxAttenuation="2.000000"/>
-				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="100.000000"/>
+				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="50.000000"/>
 				<Event Id="1544534530" Name="Play_Chemin_Lumiere" ObjectPath="\Events\Default Work Unit\Play_Chemin_Lumiere"/>
 				<Event Id="3548864740" Name="Play_Lumiere_Allume" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Allume"/>
 				<Event Id="1015332243" Name="Play_Lumiere_Eteint" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Eteint"/>
 				<Event Id="4120605449" Name="Play_Lumiere_Gresille" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Gresille"/>
 				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Play_Music"/>
 				<Event Id="3892494798" Name="Play_Plante" ObjectPath="\Events\Default Work Unit\Play_Plante"/>
-				<Event Id="147443677" Name="Play_Pluie_Ext" ObjectPath="\Events\Default Work Unit\Play_Pluie_Ext"/>
+				<Event Id="147443677" Name="Play_Pluie_Ext" ObjectPath="\Events\Default Work Unit\Play_Pluie_Ext" MaxAttenuation="100.000000"/>
 				<Event Id="4269863952" Name="Play_Pluie_Toit" ObjectPath="\Events\Default Work Unit\Play_Pluie_Toit" MaxAttenuation="100.000000"/>
 				<Event Id="1614550972" Name="Play_Poser_Module" ObjectPath="\Events\Default Work Unit\Play_Poser_Module"/>
 				<Event Id="922352807" Name="Play_Prendre_Module" ObjectPath="\Events\Default Work Unit\Play_Prendre_Module"/>
 				<Event Id="2211386577" Name="Play_Tp_Module" ObjectPath="\Events\Default Work Unit\Play_Tp_Module"/>
-				<Event Id="2800623694" Name="Play_Ville" ObjectPath="\Events\Default Work Unit\Play_Ville"/>
+				<Event Id="2800623694" Name="Play_Ville" ObjectPath="\Events\Default Work Unit\Play_Ville" MaxAttenuation="100.000000"/>
 				<Event Id="92581801" Name="Play_Wrong" ObjectPath="\Events\Default Work Unit\Play_Wrong"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
@@ -150,6 +152,10 @@
 					<ShortName>NappeB1.wav</ShortName>
 					<Path>SFX\NappeB1_592D8723.wem</Path>
 				</File>
+				<File Id="591462874" Language="SFX">
+					<ShortName>Pont1.wav</ShortName>
+					<Path>SFX\Pont1_592D8723.wem</Path>
+				</File>
 				<File Id="599553525" Language="SFX">
 					<ShortName>CLOCHE ASCENSEUR.wav</ShortName>
 					<Path>SFX\CLOCHE ASCENSEUR_10DA3D60.wem</Path>
@@ -213,10 +219,6 @@
 				<File Id="897419761" Language="SFX">
 					<ShortName>NappeB2.wav</ShortName>
 					<Path>SFX\NappeB2_592D8723.wem</Path>
-				</File>
-				<File Id="905312553" Language="SFX">
-					<ShortName>Pont1.wav</ShortName>
-					<Path>SFX\Pont1_592D8723.wem</Path>
 				</File>
 				<File Id="905758481" Language="SFX">
 					<ShortName>NappeB3.wav</ShortName>
