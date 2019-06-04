@@ -18,7 +18,6 @@ namespace AK
         static const AkUniqueID PLAY_ASCENSEUR = 3806987005U;
         static const AkUniqueID PLAY_BASSIN = 258901810U;
         static const AkUniqueID PLAY_CASCADE = 33491128U;
-        static const AkUniqueID PLAY_CHEMIN_LUMIERE = 1544534530U;
         static const AkUniqueID PLAY_LUMIERE_ALLUME = 3548864740U;
         static const AkUniqueID PLAY_LUMIERE_ETEINT = 1015332243U;
         static const AkUniqueID PLAY_LUMIERE_GRESILLE = 4120605449U;
