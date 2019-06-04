@@ -23,7 +23,6 @@
 				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="50.000000"/>
 				<Event Id="3548864740" Name="Play_Lumiere_Allume" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Allume"/>
 				<Event Id="1015332243" Name="Play_Lumiere_Eteint" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Eteint"/>
-				<Event Id="4120605449" Name="Play_Lumiere_Gresille" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Gresille"/>
 				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Play_Music"/>
 				<Event Id="3892494798" Name="Play_Plante" ObjectPath="\Events\Default Work Unit\Play_Plante" MaxAttenuation="2.000000"/>
 				<Event Id="147443677" Name="Play_Pluie_Ext" ObjectPath="\Events\Default Work Unit\Play_Pluie_Ext" MaxAttenuation="100.000000"/>
@@ -115,10 +114,6 @@
 				<File Id="358440743" Language="SFX">
 					<ShortName>PLANTE-008.wav</ShortName>
 					<Path>SFX\PLANTE-008_DD89E95E.wem</Path>
-				</File>
-				<File Id="378695272" Language="SFX">
-					<ShortName>LUMIERE GRESILLE.wav</ShortName>
-					<Path>SFX\LUMIERE GRESILLE_B0581396.wem</Path>
 				</File>
 				<File Id="392504115" Language="SFX">
 					<ShortName>PLANTE-007.wav</ShortName>

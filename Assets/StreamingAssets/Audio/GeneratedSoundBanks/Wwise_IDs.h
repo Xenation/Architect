@@ -20,7 +20,6 @@ namespace AK
         static const AkUniqueID PLAY_CASCADE = 33491128U;
         static const AkUniqueID PLAY_LUMIERE_ALLUME = 3548864740U;
         static const AkUniqueID PLAY_LUMIERE_ETEINT = 1015332243U;
-        static const AkUniqueID PLAY_LUMIERE_GRESILLE = 4120605449U;
         static const AkUniqueID PLAY_MUSIC = 2932040671U;
         static const AkUniqueID PLAY_PLANTE = 3892494798U;
         static const AkUniqueID PLAY_PLUIE_EXT = 147443677U;
