@@ -18,10 +18,13 @@ namespace Architect {
 		}
 
 		public void SetTarget(RoomLink link) {
-			target = link.GetEntry(room);
+			SetTarget(link.GetEntry(room));
 		}
 
 		public void SetTarget(Vector3 relPos) {
+			if (target != relPos) {
+				path.Clear();
+			}
 			target = relPos;
 		}
 

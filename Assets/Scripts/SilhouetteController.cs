@@ -110,7 +110,6 @@ namespace Architect {
 						} else {
 							currentRoom.traverser.SetTarget(path[0]);
 							if (currentTraverser.Traverse(this)) {
-
 								travellingState = TravellingState.InLink;
 							}
 						}
