@@ -31,6 +31,7 @@
 				<Event Id="4269863952" Name="Play_Pluie_Toit" ObjectPath="\Events\Default Work Unit\Play_Pluie_Toit" MaxAttenuation="100.000000"/>
 				<Event Id="1614550972" Name="Play_Poser_Module" ObjectPath="\Events\Default Work Unit\Play_Poser_Module"/>
 				<Event Id="922352807" Name="Play_Prendre_Module" ObjectPath="\Events\Default Work Unit\Play_Prendre_Module"/>
+				<Event Id="2054361038" Name="Play_Table" ObjectPath="\Events\Default Work Unit\Play_Table"/>
 				<Event Id="2211386577" Name="Play_Tp_Module" ObjectPath="\Events\Default Work Unit\Play_Tp_Module"/>
 				<Event Id="2800623694" Name="Play_Ville" ObjectPath="\Events\Default Work Unit\Play_Ville" MaxAttenuation="100.000000"/>
 				<Event Id="92581801" Name="Play_Wrong" ObjectPath="\Events\Default Work Unit\Play_Wrong"/>
@@ -191,6 +192,10 @@
 				<File Id="803706115" Language="SFX">
 					<ShortName>LUMIERE ALLUME03.wav</ShortName>
 					<Path>SFX\LUMIERE ALLUME03_E37C7245.wem</Path>
+				</File>
+				<File Id="812766375" Language="SFX">
+					<ShortName>TABLE_TOURNE.wav</ShortName>
+					<Path>SFX\TABLE_TOURNE_FB6F78FB.wem</Path>
 				</File>
 				<File Id="818451757" Language="SFX">
 					<ShortName>TAP ASCENSEUR-006.wav</ShortName>
