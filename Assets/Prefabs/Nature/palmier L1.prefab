@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6941280598563402499, guid: d2054f6efc6a53146883565539987a99,
         type: 3}
       propertyPath: m_Name
-      value: palmier (1)
+      value: palmier L1
       objectReference: {fileID: 0}
     - target: {fileID: 1710571884538137664, guid: d2054f6efc6a53146883565539987a99,
         type: 3}
@@ -86,6 +86,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a97c1edcb7edf5141ae16d5b60d25836, type: 2}
+      objectReference: {fileID: 2100000, guid: 2e85f9a427de77a4d811773f57567eef, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2054f6efc6a53146883565539987a99, type: 3}

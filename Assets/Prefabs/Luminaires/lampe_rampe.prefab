@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6028993450398046688}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: lampe_rampe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9114679526393765962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,6 +114,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9114679526393765962}
     m_Modifications:
+    - target: {fileID: 100000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
+      propertyPath: m_Name
+      value: lampe_rampe
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -157,10 +165,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
-      propertyPath: m_Name
-      value: lampe_rampe
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 508f7aa05ef288641a03a7703362e788, type: 3}
       propertyPath: m_Materials.Array.data[1]
