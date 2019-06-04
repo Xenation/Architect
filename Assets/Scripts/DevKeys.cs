@@ -25,6 +25,8 @@ namespace Architect {
 				LoadLevel("Level_1");
 			} else if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad3)) { // Credits Scene
 				LoadLevel("Credits");
+			} else if (Input.GetKeyDown(KeyCode.Tab)) {
+				FindObjectOfType<SilhouetteController>()?.Recenter();
 			}
 		}
 

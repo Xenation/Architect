@@ -128,5 +128,16 @@ namespace Architect {
 			}
 		}
 
+		public void Recenter() {
+			if (currentRoom == null) return;
+			transform.position = currentRoom.center;
+			if (state == State.Travelling && travellingState == TravellingState.InLink) {
+				travellingState = TravellingState.InRoom;
+			}
+			if (transform.parent != roomnet.transform.parent) {
+				transform.SetParent(roomnet.transform.parent, true);
+			}
+		}
+
 	}
 }

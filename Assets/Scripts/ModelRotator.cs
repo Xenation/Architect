@@ -31,7 +31,7 @@ namespace Architect {
 
             // TODO send rotationFloatSound to Wwise
             AkSoundEngine.SetRTPCValue("RTPC_Table", rotationFloatSound);
-            print(rotationFloatSound);
+            //print(rotationFloatSound);
             rotationFloatSound = deltaRotation * 1000;
         }
 
