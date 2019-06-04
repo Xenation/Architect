@@ -10,6 +10,7 @@ namespace Architect {
 		private new Rigidbody rigidbody;
 		private float prevRotation;
 		private float deltaRotation;
+        private float rotationFloatSound;
 
 		private Transform modelRoot;
 
@@ -28,8 +29,10 @@ namespace Architect {
 
 			modelRoot.rotation = transform.rotation;
 
-            // TODO send deltaRotation to Wwise
-            AkSoundEngine.SetRTPCValue("RTPC_Table", deltaRotation, gameObject);
+            // TODO send rotationFloatSound to Wwise
+            AkSoundEngine.SetRTPCValue("RTPC_Table", rotationFloatSound);
+            print(rotationFloatSound);
+            rotationFloatSound = deltaRotation * 1000;
         }
 
 		private void FixedUpdate() {
