@@ -44,16 +44,21 @@ namespace Architect {
 			Vector3 direction;
 			if (characterInside) {
 				if (characterTowardsTargetLevel && elevatorAtTargetLevel) {
-					toWaypoint = elevator.transform.InverseTransformPoint(roomnet.RelativeToWorldPos(target)) - controller.transform.localPosition;
+					//Debug.Log("Inside - To Target");
+					toWaypoint = elevator.movingRoot.InverseTransformPoint(roomnet.RelativeToWorldPos(target)) - controller.transform.localPosition;
 				} else {
+					//Debug.Log("Inside - To Elevator Center");
 					toWaypoint = elevatorCenter.localPosition - controller.transform.localPosition;
 				}
 			} else {
 				if (characterTowardsTargetLevel) {
+					//Debug.Log("Outside - To Target");
 					toWaypoint = target - roomnet.WorldToRelativePos(controller.transform.position);
 				} else if (elevatorAtTargetOppositeLevel) {
+					//Debug.Log("Outside - To Elevator Center");
 					toWaypoint = roomnet.WorldToRelativePos(elevatorCenter.position) - roomnet.WorldToRelativePos(controller.transform.position);
 				} else { // Wait for elevator
+					//Debug.Log("Outside - Waiting");
 					toWaypoint = Vector3.zero;
 				}
 			}
