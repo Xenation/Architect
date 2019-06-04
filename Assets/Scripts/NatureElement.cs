@@ -61,6 +61,7 @@ namespace Architect {
 		}
 
 		private void EnableEffect() {
+			AkSoundEngine.PostEvent("Play_Plante", gameObject);
 			foreach (KeyValuePair<Material, float> materialPair in materialInstances) {
 				materialPair.Key.SetFloat(waveAmplitudeID, materialPair.Value);
 			}
