@@ -21,12 +21,10 @@
 				<Event Id="3806987005" Name="Play_Ascenseur" ObjectPath="\Events\Default Work Unit\Play_Ascenseur"/>
 				<Event Id="258901810" Name="Play_Bassin" ObjectPath="\Events\Default Work Unit\Play_Bassin" MaxAttenuation="2.000000"/>
 				<Event Id="33491128" Name="Play_Cascade" ObjectPath="\Events\Default Work Unit\Play_Cascade" MaxAttenuation="50.000000"/>
-				<Event Id="1544534530" Name="Play_Chemin_Lumiere" ObjectPath="\Events\Default Work Unit\Play_Chemin_Lumiere"/>
 				<Event Id="3548864740" Name="Play_Lumiere_Allume" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Allume"/>
 				<Event Id="1015332243" Name="Play_Lumiere_Eteint" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Eteint"/>
-				<Event Id="4120605449" Name="Play_Lumiere_Gresille" ObjectPath="\Events\Default Work Unit\Play_Lumiere_Gresille"/>
 				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Play_Music"/>
-				<Event Id="3892494798" Name="Play_Plante" ObjectPath="\Events\Default Work Unit\Play_Plante"/>
+				<Event Id="3892494798" Name="Play_Plante" ObjectPath="\Events\Default Work Unit\Play_Plante" MaxAttenuation="2.000000"/>
 				<Event Id="147443677" Name="Play_Pluie_Ext" ObjectPath="\Events\Default Work Unit\Play_Pluie_Ext" MaxAttenuation="100.000000"/>
 				<Event Id="4269863952" Name="Play_Pluie_Toit" ObjectPath="\Events\Default Work Unit\Play_Pluie_Toit" MaxAttenuation="100.000000"/>
 				<Event Id="1614550972" Name="Play_Poser_Module" ObjectPath="\Events\Default Work Unit\Play_Poser_Module"/>
@@ -81,10 +79,6 @@
 					<ShortName>POSER MODULE.wav</ShortName>
 					<Path>SFX\POSER MODULE_E37C7245.wem</Path>
 				</File>
-				<File Id="226267322" Language="SFX">
-					<ShortName>CHEMIN LUMIERE .wav</ShortName>
-					<Path>SFX\CHEMIN LUMIERE _05EFD9D7.wem</Path>
-				</File>
 				<File Id="238185697" Language="SFX">
 					<ShortName>CLIC ASCENSEUR-006.wav</ShortName>
 					<Path>SFX\CLIC ASCENSEUR-006_18D5FEB6.wem</Path>
@@ -120,10 +114,6 @@
 				<File Id="358440743" Language="SFX">
 					<ShortName>PLANTE-008.wav</ShortName>
 					<Path>SFX\PLANTE-008_DD89E95E.wem</Path>
-				</File>
-				<File Id="378695272" Language="SFX">
-					<ShortName>LUMIERE GRESILLE.wav</ShortName>
-					<Path>SFX\LUMIERE GRESILLE_B0581396.wem</Path>
 				</File>
 				<File Id="392504115" Language="SFX">
 					<ShortName>PLANTE-007.wav</ShortName>

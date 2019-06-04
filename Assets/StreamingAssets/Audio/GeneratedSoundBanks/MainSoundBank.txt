@@ -7,7 +7,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	922352807	Play_Prendre_Module			\Default Work Unit\Play_Prendre_Module	
 	1002971580	MakeRainStrong			\Default Work Unit\MakeRainStrong	
 	1015332243	Play_Lumiere_Eteint			\Default Work Unit\Play_Lumiere_Eteint	
-	1544534530	Play_Chemin_Lumiere			\Default Work Unit\Play_Chemin_Lumiere	
 	1614550972	Play_Poser_Module			\Default Work Unit\Play_Poser_Module	
 	2054361038	Play_Table			\Default Work Unit\Play_Table	
 	2211386577	Play_Tp_Module			\Default Work Unit\Play_Tp_Module	
@@ -16,7 +15,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	3548864740	Play_Lumiere_Allume			\Default Work Unit\Play_Lumiere_Allume	
 	3806987005	Play_Ascenseur			\Default Work Unit\Play_Ascenseur	
 	3892494798	Play_Plante			\Default Work Unit\Play_Plante	
-	4120605449	Play_Lumiere_Gresille			\Default Work Unit\Play_Lumiere_Gresille	
 	4269863952	Play_Pluie_Toit			\Default Work Unit\Play_Pluie_Toit	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
@@ -44,8 +42,10 @@ State	ID	Name	State Group			Notes
 	3037000007	Tuto	State_Music			
 
 Custom State	ID	Name	State Group	Owner		Notes
+	457902415	Strong	State_Pluie	\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambient\Pluie\Pluie Ext		
 	682535423	Light	State_Pluie	\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambient\Pluie\Pluie Toit		
 	763558913	Light	State_Pluie	\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambient\Pluie\Pluie Ext		
+	873953601	Strong	State_Pluie	\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Ambient\Pluie\Pluie Toit		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	405912741	RTPC_Table			\Default Work Unit\RTPC_Table	
@@ -72,7 +72,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	189967105	NappeB4	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\NappeB4_592D8723.wem		\Interactive Music Hierarchy\MusicWorkUnit\Navigation\Menu\NappeB4\NappeB4		713725
 	203234394	LUMIERE ALLUME04	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\LUMIERE ALLUME04_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lumière\LUMIERE ALLUME04		44644
 	214254575	POSER MODULE	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\POSER MODULE_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Props\Modules\POSER MODULE		4423
-	226267322	CHEMIN LUMIERE	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\CHEMIN LUMIERE _05EFD9D7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Chemin\CHEMIN LUMIERE		370499
 	238185697	CLIC ASCENSEUR-006	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\CLIC ASCENSEUR-006_18D5FEB6.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ascenseur\Switch_Ascenseur\AscenseurTop\CLIC ASCENSEUR-006		1904
 	241742901	CRAN ASCENSEUR-006	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\CRAN ASCENSEUR-006_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ascenseur\Switch_Ascenseur\AscenseurTop\CRAN ASCENSEUR-006		5899
 	250424197	LUMIERE ALLUME01	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\LUMIERE ALLUME01_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Lumière\LUMIERE ALLUME01		47140
@@ -82,7 +81,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	322857602	TAP ASCENSEUR-001	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\TAP ASCENSEUR-001_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ascenseur\Switch_Ascenseur\AscenseurEtage0\TAP ASCENSEUR-001		7625
 	353331368	BASSIN	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\BASSIN_C9D94636.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\EAU\BASSIN		1148291
 	358440743	PLANTE-008	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\PLANTE-008_DD89E95E.wem		\Actor-Mixer Hierarchy\Default Work Unit\Props\Plante\PLANTE-008		52244
-	378695272	LUMIERE GRESILLE	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\LUMIERE GRESILLE_B0581396.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance\Lumière présence\LUMIERE GRESILLE		299357
 	392504115	PLANTE-007	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\PLANTE-007_DBFE803D.wem		\Actor-Mixer Hierarchy\Default Work Unit\Props\Plante\PLANTE-007		36151
 	478295504	PRENDRE MODULE	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\PRENDRE MODULE_E37C7245.wem		\Actor-Mixer Hierarchy\Default Work Unit\Props\Modules\PRENDRE MODULE		6587
 	484737208	Pont2	C:\Users\corentin.lavergne\Documents\ProjetsM1\Architect\git\ArchitectWwiseLFS\.cache\Windows\SFX\Pont2_592D8723.wem		\Interactive Music Hierarchy\MusicWorkUnit\Navigation\Tuto\Pont2\Pont2		2737039
