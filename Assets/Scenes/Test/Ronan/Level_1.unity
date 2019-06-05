@@ -26402,12 +26402,12 @@ PrefabInstance:
     - target: {fileID: 6189341866679623558, guid: 8ec349f1436243c4aa724d5bd3a82604,
         type: 3}
       propertyPath: menuName
-      value: Menu3
+      value: Credits
       objectReference: {fileID: 0}
     - target: {fileID: 6189341866679623556, guid: 8ec349f1436243c4aa724d5bd3a82604,
         type: 3}
       propertyPath: levelName
-      value: Menu3
+      value: Credits
       objectReference: {fileID: 0}
     - target: {fileID: 6189341867682169556, guid: 8ec349f1436243c4aa724d5bd3a82604,
         type: 3}
@@ -27085,7 +27085,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh682480
+  m_Name: pb_Mesh17012
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
