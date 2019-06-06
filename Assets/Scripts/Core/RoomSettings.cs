@@ -12,6 +12,8 @@ namespace Architect {
 
 		[Header("Links")]
 		public float linkSnapDistance = 0.05f;
+		public Color defaultOutlineColor = Color.green;
+		public Color breakingOutlineColor = Color.red;
 
 		[Header("Prefabs")]
 		public GameObject doorPreview;

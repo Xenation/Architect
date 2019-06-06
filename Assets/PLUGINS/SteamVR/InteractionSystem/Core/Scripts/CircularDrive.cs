@@ -236,14 +236,14 @@ namespace Valve.VR.InteractionSystem
 		{
 
 			//hand.ShowGrabHint();
-			Debug.Log("Hand Hover Begin");
+			//Debug.Log("Hand Hover Begin");
 		}
 
 
 		//-------------------------------------------------
 		private void OnHandHoverEnd( Hand hand )
 		{
-			Debug.Log("Hand Hover End");
+			//Debug.Log("Hand Hover End");
 			//hand.HideGrabHint();
 
 			if ( driving && hand == grabbingHand )
@@ -253,7 +253,7 @@ namespace Valve.VR.InteractionSystem
 			}
 
 			if (hand == grabbingHand) {
-				Debug.Log("Ungrabbing");
+				//Debug.Log("Ungrabbing");
 				driving = false;
 				grabbedWithType = GrabTypes.None;
 				grabbingHand = null;
@@ -274,7 +274,7 @@ namespace Valve.VR.InteractionSystem
 			
 
 			if (isGrabStarting || (grabbingHand == null && isGrabbing)) { // Grab Start
-				Debug.Log("    Grab Start! (" + Time.frameCount + ")");
+				//Debug.Log("    Grab Start! (" + Time.frameCount + ")");
 				//if (grabbingHand != null) { // Another hand has already grabbed -> switch hands
 				//	Debug.Log("    (switching hands)");
 				//}
@@ -291,7 +291,7 @@ namespace Valve.VR.InteractionSystem
 				grabbingHand = hand;
 				isGrabEnding = false;
 			} else if (isGrabEnding && grabbingHand == hand) { // Grab End
-				Debug.Log("    Grab End! (" + Time.frameCount + ")");
+				//Debug.Log("    Grab End! (" + Time.frameCount + ")");
 				
 				if (hoverLock) {
 					hand.HoverUnlock(interactable);

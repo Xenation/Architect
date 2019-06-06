@@ -12,6 +12,7 @@ namespace Architect {
 		private Interactable interactable;
 
 		private Transform centerTransf;
+		private Outlined outlined;
 
 		protected override GameObject CreatePreview() {
 			GameObject prev = new GameObject("SnapTransform");
@@ -22,6 +23,7 @@ namespace Architect {
 			base.Awake();
 			interactable = GetComponent<Interactable>();
 			centerTransf = transform.Find("Center");
+			outlined = GetComponent<Outlined>();
 		}
 
 		private void Start() {
@@ -55,6 +57,14 @@ namespace Architect {
 						DisablePreview();
 					}
 				}
+			}
+		}
+
+		private void OnHandHoverBegin(Hand hand) {
+			if (parentPoint != null && parentPoint.link.room1.isConnectedToStart) {
+				outlined.outlineColor = SettingsManager.I.roomSettings.breakingOutlineColor;
+			} else {
+				outlined.outlineColor = SettingsManager.I.roomSettings.defaultOutlineColor;
 			}
 		}
 
