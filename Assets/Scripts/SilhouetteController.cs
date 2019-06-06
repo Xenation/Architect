@@ -19,6 +19,8 @@ namespace Architect {
 		public float speed = 0.1f;
 
 		private Animator animator;
+		private ParticleSystem sleepParticleSystem;
+		private ParticleSystem.EmissionModule sleepEmitter;
 
 		[SerializeField] private State state = State.Idle;
 		[SerializeField] private TravellingState travellingState = TravellingState.InRoom;
@@ -27,11 +29,16 @@ namespace Architect {
 		private Room targetRoom = null;
 		private Vector3 targetPosition;
 		private Traverser currentTraverser;
-
+		
 		private void Start() {
 			currentRoom = roomnet.GetRoom(transform.position);
 			roomnet.LastLitChangedEvent += LastLitRoomChanged;
 			animator = GetComponentInChildren<Animator>();
+			sleepParticleSystem = transform.Find("SleepEffect")?.GetComponent<ParticleSystem>();
+			if (sleepParticleSystem != null) {
+				sleepEmitter = sleepParticleSystem.emission;
+				sleepEmitter.enabled = false;
+			}
 		}
 
 		private void Update() {
@@ -61,6 +68,7 @@ namespace Architect {
 					if (!currentRoom.isConnectedToStart) {
 						state = State.Sleeping;
 						animator.SetBool("isSleeping", true);
+						sleepEmitter.enabled = true;
 					} else if (targetRoom != null && targetRoom != currentRoom) {
 						state = State.Travelling;
 					}
@@ -78,6 +86,7 @@ namespace Architect {
 						}
 						state = State.Travelling;
 						animator.SetBool("isSleeping", false);
+						sleepEmitter.enabled = false;
 					}
 					break;
 			}
@@ -94,6 +103,7 @@ namespace Architect {
 						if (!currentRoom.isConnectedToStart) {
 							state = State.Sleeping;
 							animator.SetBool("isSleeping", true);
+							sleepEmitter.enabled = true;
 							return;
 						}
 						path = roomnet.FindPath(currentRoom, targetRoom);
