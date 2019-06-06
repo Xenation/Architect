@@ -236,22 +236,29 @@ namespace Valve.VR.InteractionSystem
 		{
 
 			//hand.ShowGrabHint();
+			Debug.Log("Hand Hover Begin");
 		}
 
 
 		//-------------------------------------------------
 		private void OnHandHoverEnd( Hand hand )
 		{
-            //hand.HideGrabHint();
+			Debug.Log("Hand Hover End");
+			//hand.HideGrabHint();
 
-			if ( driving && hand )
+			if ( driving && hand == grabbingHand )
 			{
                 //hand.TriggerHapticPulse() //todo: fix
 				StartCoroutine( HapticPulses( hand, 1.0f, 10 ) );
 			}
 
-			driving = false;
-			handHoverLocked = null;
+			if (hand == grabbingHand) {
+				Debug.Log("Ungrabbing");
+				driving = false;
+				grabbedWithType = GrabTypes.None;
+				grabbingHand = null;
+				handHoverLocked = null;
+			}
 		}
 
         private GrabTypes grabbedWithType = GrabTypes.None;
@@ -262,11 +269,12 @@ namespace Valve.VR.InteractionSystem
 
 			GrabTypes startingGrabType = hand.GetGrabStarting();
 			bool isGrabStarting = startingGrabType != GrabTypes.None;
+			bool isGrabbing = hand.IsGrabbing();
 			bool isGrabEnding = hand.IsGrabbingWithType(grabbedWithType) == false;
 			
 
-			if (isGrabStarting) { // Grab Start
-				//Debug.Log("    Grab Start!");
+			if (isGrabStarting || (grabbingHand == null && isGrabbing)) { // Grab Start
+				Debug.Log("    Grab Start! (" + Time.frameCount + ")");
 				//if (grabbingHand != null) { // Another hand has already grabbed -> switch hands
 				//	Debug.Log("    (switching hands)");
 				//}
@@ -279,10 +287,11 @@ namespace Valve.VR.InteractionSystem
 				}
 
 				driving = true;
-				grabbedWithType = startingGrabType;
+				grabbedWithType = hand.GetBestGrabbingType(GrabTypes.Grip);
 				grabbingHand = hand;
+				isGrabEnding = false;
 			} else if (isGrabEnding && grabbingHand == hand) { // Grab End
-				//Debug.Log("    Grab End!");
+				Debug.Log("    Grab End! (" + Time.frameCount + ")");
 				
 				if (hoverLock) {
 					hand.HoverUnlock(interactable);

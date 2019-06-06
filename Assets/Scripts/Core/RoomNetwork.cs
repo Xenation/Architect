@@ -77,7 +77,7 @@ namespace Architect {
 		public GameObject fallbackNodePrefab;
 
 		[Header("Debug")]
-		public float tableMoveSpeed = .01f;
+		public float tableMoveSpeed = .02f;
 
 		private void Awake() {
 			SettingsManager.I.activeRoomnet = this;

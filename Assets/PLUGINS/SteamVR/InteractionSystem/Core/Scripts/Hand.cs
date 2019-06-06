@@ -1491,11 +1491,19 @@ namespace Valve.VR.InteractionSystem
             return false;
         }
 
+		public bool IsGrabbing() {
+			if (noSteamVRFallbackCamera) {
+				return Input.GetMouseButton(0);
+			} else {
+				return grabPinchAction.GetState(handType) || grabGripAction.GetState(handType);
+			}
+		}
+
         public bool IsGrabbingWithType(GrabTypes type)
         {
             if (noSteamVRFallbackCamera)
             {
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) && type == GrabTypes.Grip)
                     return true;
             }
 
