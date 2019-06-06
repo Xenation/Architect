@@ -7,7 +7,7 @@ namespace Architect {
 		
 		public LinearMapping rotationMapping;
 
-		private new Rigidbody rigidbody;
+		internal new Rigidbody rigidbody;
 		private float prevRotation;
 		private float deltaRotation;
         private float rotationFloatSound;

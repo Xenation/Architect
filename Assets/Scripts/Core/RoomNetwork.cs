@@ -76,6 +76,9 @@ namespace Architect {
 		public GameObject normalNodePrefab;
 		public GameObject fallbackNodePrefab;
 
+		[Header("Debug")]
+		public float tableMoveSpeed = .01f;
+
 		private void Awake() {
 			SettingsManager.I.activeRoomnet = this;
 
@@ -375,6 +378,23 @@ namespace Architect {
 				}
 			}
 			return null;
+		}
+
+		// DEBUG
+		public void RaiseTable() {
+			transform.parent.position += Vector3.up * tableMoveSpeed * Time.deltaTime;
+			ModelRotator rotator = FindObjectOfType<ModelRotator>();
+			if (rotator != null && rotator.rigidbody != null) {
+				rotator.rigidbody.MovePosition(transform.parent.position);
+			}
+		}
+
+		public void LowerTable() {
+			transform.parent.position += Vector3.down * tableMoveSpeed * Time.deltaTime;
+			ModelRotator rotator = FindObjectOfType<ModelRotator>();
+			if (rotator != null && rotator.rigidbody != null) {
+				rotator.rigidbody.MovePosition(transform.parent.position);
+			}
 		}
 
 	}
