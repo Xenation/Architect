@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700986805266383457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0.05}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7881652092667137188}
@@ -725,7 +725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9199680239435838088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0.17}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7881652092667137188}
@@ -769,6 +769,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8534181118279602996}
     m_Modifications:
+    - target: {fileID: 100000, guid: ea2b48d66b9b7cb46b482652a33dac07, type: 3}
+      propertyPath: m_Name
+      value: escalier
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ea2b48d66b9b7cb46b482652a33dac07, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -812,10 +816,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: ea2b48d66b9b7cb46b482652a33dac07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: ea2b48d66b9b7cb46b482652a33dac07, type: 3}
-      propertyPath: m_Name
-      value: escalier
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: ea2b48d66b9b7cb46b482652a33dac07, type: 3}
       propertyPath: m_Materials.Array.data[1]

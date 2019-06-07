@@ -6,16 +6,19 @@ namespace Architect.LightPaths {
 		public bool activated = false;
 		protected bool wasUpdated = false;
 		private bool updated = false;
+		private bool cleared = false;
 
 		public void UpdateSignal(LightElement origin, float dt) {
 			if (updated) return;
-			OnSignalUpdate(origin, dt);
 			updated = true;
+			OnSignalUpdate(origin, dt);
+			cleared = false;
 			wasUpdated = true;
 		}
 
 		public void ClearUpdateFlag(LightElement origin) {
-			if (!updated) return;
+			if (cleared) return;
+			cleared = true;
 			OnClearUpdateFlag(origin);
 			updated = false;
 		}
