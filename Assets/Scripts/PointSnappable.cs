@@ -84,6 +84,7 @@ namespace Architect {
 			parentPoint = hoveredPoint;
 			parentPoint.snapped = this;
 			parentPoint.link.isOpen = true;
+			parentPoint.gameObject.SendMessage("OnHintInteraction");
 		}
 
 		protected override void Unsnapped() {

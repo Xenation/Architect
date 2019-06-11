@@ -29,9 +29,15 @@ namespace Architect {
 			}
 		}
 
-		private uint stack = 0;
+		[System.NonSerialized]
+		public Color currentColor;
+		private Dictionary<int, Color> priorityEnables = new Dictionary<int, Color>();
+		private int currentPriority = 0;
 
 		private void OnEnable() {
+			if (priorityEnables.Count == 0) { // Allows in edit on/off
+				EnableHighlight(0, outlineColor);
+			}
 			Init();
 		}
 
@@ -98,17 +104,51 @@ namespace Architect {
 		}
 
 		public override void EnableHighlight() {
-			if (stack == 0) {
-				enabled = true;
-			}
-			stack++;
+			EnableHighlight(0, outlineColor);
 		}
 
 		public override void DisableHighlight() {
-			stack--;
-			if (stack == 0) {
-				enabled = false;
+			DisableHighlight(0);
+		}
+
+		public void EnableHighlight(int priority, Color color) {
+			priorityEnables.Add(priority, color);
+			if (priorityEnables.Count == 1) {
+				enabled = true;
 			}
+			currentPriority = FindHighestPriority();
+			if (priority == currentPriority) {
+				currentColor = priorityEnables[currentPriority];
+			}
+		}
+
+		public void UpdateHighlight(int priority, Color color) {
+			if (priorityEnables.ContainsKey(priority)) {
+				priorityEnables[priority] = color;
+				if (priority == currentPriority) {
+					currentColor = priorityEnables[currentPriority];
+				}
+			}
+		}
+
+		public void DisableHighlight(int priority) {
+			priorityEnables.Remove(priority);
+			if (priorityEnables.Count == 0) {
+				enabled = false;
+			} else {
+				currentPriority = FindHighestPriority();
+				currentColor = priorityEnables[currentPriority];
+			}
+		}
+
+		private int FindHighestPriority() {
+			int maxPriority = int.MinValue;
+			foreach (int priority in priorityEnables.Keys) {
+				if (priority > maxPriority) {
+					maxPriority = priority;
+				}
+			}
+			return maxPriority;
 		}
 	}
 }

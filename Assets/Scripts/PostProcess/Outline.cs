@@ -105,7 +105,7 @@ namespace Architect {
 			context.command.ClearRenderTarget(true, true, Color.clear);
 			foreach (Outlined outlined in OutlinedManager.I.outlinedObjects) {
 				if (!outlined.enabled) continue;
-				context.command.SetGlobalColor(outlineColorID, outlined.outlineColor);
+				context.command.SetGlobalColor(outlineColorID, outlined.currentColor);
 				foreach (Renderer renderer in outlined.renderers) {
 					int subMeshCount = renderer.sharedMaterials.Length; // Assumes 1 material = 1 submesh
 					for (int i = 0; i < subMeshCount; i++) {

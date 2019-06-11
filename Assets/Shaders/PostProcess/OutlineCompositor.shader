@@ -43,7 +43,7 @@
                 fixed4 outlineColor = tex2D(_OutlineTex, i.uv);
 				fixed4 col = tex2D(_MainTex, i.uv);
 
-				blurColor.a = clamp(clamp(blurColor.a * 2, 0, 1) - outlineColor.a, 0, 1) * _OutlineBlend;
+				blurColor.a = clamp((blurColor.a - outlineColor.a) * 2, 0, 1) * _OutlineBlend;
                 return fixed4(blurColor.rgb * blurColor.a + col.rgb * (1 - blurColor.a), 1);
             }
             ENDCG
