@@ -102,7 +102,6 @@ namespace Architect {
 			switch (interactBehaviour) {
 				case InteractBehaviour.Cancel:
 					Cancel();
-					Debug.Log("Cancelled");
 					break;
 				case InteractBehaviour.Next:
 					Finish();

@@ -4812,7 +4812,7 @@ MonoBehaviour:
   startingRoom: {fileID: 0}
   endingRooms: []
   moduleZoneRadius: 2
-  moduleZoneFloor: 0.1
+  moduleZoneFloor: 0.15
   moduleZoneCeilling: 4
   useLightPaths: 1
   pathMaterial: {fileID: 2100000, guid: 2005585f0964c474ba6056aa84e74687, type: 2}

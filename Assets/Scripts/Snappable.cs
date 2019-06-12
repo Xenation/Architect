@@ -57,7 +57,7 @@ namespace Architect {
             AkSoundEngine.PostEvent("Play_Prendre_Module", gameObject);
 
 			OnPickedUp?.Invoke();
-			SendMessage("OnHintInteraction");
+			SendMessage("OnHintInteraction", SendMessageOptions.DontRequireReceiver);
         }
 
 		protected virtual void Detached() {

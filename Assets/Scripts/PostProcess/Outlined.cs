@@ -112,6 +112,7 @@ namespace Architect {
 		}
 
 		public void EnableHighlight(int priority, Color color) {
+			if (priorityEnables.ContainsKey(priority)) return;
 			priorityEnables.Add(priority, color);
 			if (priorityEnables.Count == 1) {
 				enabled = true;
