@@ -10,13 +10,13 @@ namespace Architect {
 	public sealed class Outline : PostProcessEffectSettings {
 
 		[Range(0f, 1f), Tooltip("Outline Effect Intensity")]
-		public FloatParameter blend = new FloatParameter { value = 1f };
+		public UnityEngine.Rendering.PostProcessing.FloatParameter blend = new UnityEngine.Rendering.PostProcessing.FloatParameter { value = 1f };
 
 		[Range(0, 4), Tooltip("The number of times the resolution is halved for the blur")]
-		public IntParameter blurDownscale = new IntParameter { value = 1 };
+		public UnityEngine.Rendering.PostProcessing.IntParameter blurDownscale = new UnityEngine.Rendering.PostProcessing.IntParameter { value = 1 };
 
 		[Range(1, 8), Tooltip("The number of blur passes executed (higher = more blurry)")]
-		public IntParameter blurPasses = new IntParameter { value = 4 };
+		public UnityEngine.Rendering.PostProcessing.IntParameter blurPasses = new UnityEngine.Rendering.PostProcessing.IntParameter { value = 4 };
 
 		public override bool IsEnabledAndSupported(PostProcessRenderContext context) {
 			return enabled.value && blend.value > 0f;
