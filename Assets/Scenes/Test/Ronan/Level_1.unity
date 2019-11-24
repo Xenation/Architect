@@ -28102,7 +28102,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh40052
+  m_Name: pb_Mesh146710
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34156,6 +34156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790350881720071439, guid: 1c92203d71d10684cb257cda74658f53,
+        type: 3}
+      propertyPath: TrailModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c92203d71d10684cb257cda74658f53, type: 3}

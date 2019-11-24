@@ -67,6 +67,7 @@ namespace Architect {
 			outlineCompositorMaterial = new Material(outlineCompositor);
 		}
 
+		private static Camera previousCamera = null;
 		public override void Render(PostProcessRenderContext context) {
 			if (!isValid) { // Avoid applying anything if some shaders are missing
 				context.command.Blit(context.source, context.destination);
@@ -84,6 +85,12 @@ namespace Architect {
 				outlineCompositorMaterial = new Material(outlineCompositor);
 			}
 
+			// Fix for context.xrActiveEye or context.camera.stereoActiveEye giving incorrect values
+			// Will not work if there is not another camera than the VR camera
+			bool isStereoSecondEye = (previousCamera != null && previousCamera.stereoEnabled && context.camera.stereoEnabled && context.camera == previousCamera);
+			//if (previousCamera != null) Debug.Log((previousCamera.stereoEnabled) + " && " + (context.camera.stereoEnabled) + " && " + (context.camera == previousCamera));
+			previousCamera = context.camera;
+
 			// Prepare blur RT descriptor
 			RenderTextureDescriptor blurDescriptor;
 			//if (context.camera.stereoEnabled) {
@@ -100,9 +107,19 @@ namespace Architect {
 
 			// Render the outlined objects in the outline RT
 			//context.GetScreenSpaceTemporaryRT(context.command, outlineTexID);
+			//Debug.Log(context.camera.name);
 			context.command.GetTemporaryRT(outlineTexID, new RenderTextureDescriptor(context.camera.pixelWidth * ((context.camera.stereoEnabled) ? 2 : 1), context.camera.pixelHeight));
 			context.command.SetRenderTarget(outlineTexID);
 			context.command.ClearRenderTarget(true, true, Color.clear);
+			context.command.SetGlobalInt("_FIX_IsSecondEye", (isStereoSecondEye) ? 1 : 0);
+			if (isStereoSecondEye) {
+				context.command.SetGlobalMatrix("_FIX_SecondEyeP", Matrix4x4.Scale(new Vector3(1, -1, 1)) * context.camera.GetStereoProjectionMatrix(Camera.StereoscopicEye.Right));
+				context.command.SetGlobalMatrix("_FIX_SecondEyeV", context.camera.GetStereoViewMatrix(Camera.StereoscopicEye.Right));
+				//Debug.Log("FIX Right");
+			} else {
+				//Debug.Log("FIX Left");
+			}
+
 			foreach (Outlined outlined in OutlinedManager.I.outlinedObjects) {
 				if (!outlined.enabled) continue;
 				context.command.SetGlobalColor(outlineColorID, outlined.currentColor);

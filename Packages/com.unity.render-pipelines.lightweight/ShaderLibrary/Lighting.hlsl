@@ -527,6 +527,7 @@ half3 ComputeVolumeLights(BRDFData brdfData, float3 worldPos, half3 normalWS, ha
 
 	for (int i = 0; i < _VolumeLightCount; i++) {
 		float dist = BoxSDF(_VolumeLightTransformBuffer[i], _VolumeLightExtentsBuffer[i].xyz, worldPos);
+		if (dist > _VolumeLightExtentsBuffer[i].w) continue;
 		half attenuation = saturate(remap(dist, _VolumeLightExtentsBuffer[i].w, 0, 0, 1));
 		litColor += LightingPhysicallyBased(brdfData, _VolumeLightColorBuffer[i].rgb * _VolumeLightColorBuffer[i].w, normalize(_VolumeLightOriginBuffer[i].xyz - worldPos), attenuation, normalWS, viewDirectionWS);
 	}
